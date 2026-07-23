@@ -82,10 +82,13 @@
 </head>
 <body>
 
+<div class="orbs"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
+
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
   <div class="nav-links">
     <a href="index.html">首頁</a>
+    <a href="index.html#gallery">作品集</a>
     <a href="index.html#terms">委託須知</a>
     <a href="index.html#schedule">改模排程</a>
     <a href="estimate.html" class="cta">委託試算</a>
@@ -151,6 +154,11 @@
 
 <footer class="footer">
   <div class="brand">RimoStudio</div>
+  <div class="social">
+    <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener">Discord</a>
+    <a href="https://x.com/Rimooo_vrc" target="_blank" rel="noopener">Twitter / X</a>
+    <a href="index.html">回首頁</a>
+  </div>
   <div>Rimo © 2025 RimoStudio</div>
 </footer>
 
@@ -326,7 +334,8 @@ render();
 recalc();
 $('#cta').onclick = ()=>{
   const t = $('#total').textContent;
-  alert('預估總額：'+t+'\n\n請截圖此明細並聯繫店主完成委託確認 🙌\n（此處未來可改為連結至 Discord / 表單）');
+  alert('預估總額：'+t+'\n\n請截圖此明細，點確定後將前往 RimoStudio Discord 聯繫店主完成委託 🙌');
+  window.open('https://discord.gg/tzbvaHy9Kx','_blank','noopener');
 };
 </script>
 </body>

@@ -7,18 +7,18 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
   /* 首頁專用 */
-  .hero{text-align:center;padding:80px 0 40px}
+  .hero{text-align:center;padding:96px 0 48px;position:relative}
   .hero .tag{display:inline-block;font-size:13px;color:var(--accent);
     background:var(--accent-soft);border:1px solid var(--line);
-    border-radius:999px;padding:6px 16px;margin-bottom:20px}
-  .hero h1{font-size:clamp(34px,6vw,60px);line-height:1.15;letter-spacing:1px;
+    border-radius:999px;padding:6px 16px;margin-bottom:22px}
+  .hero h1{font-size:clamp(36px,6.5vw,64px);line-height:1.12;letter-spacing:1px;
     background:linear-gradient(90deg,var(--accent),var(--accent-2));
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero p{color:var(--muted);max-width:620px;margin:18px auto 0;font-size:16px}
-  .hero-btns{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
-  .btn{padding:12px 24px;border-radius:12px;font-weight:700;font-size:15px;transition:.15s;cursor:pointer;border:none}
+  .hero p{color:var(--muted);max-width:620px;margin:20px auto 0;font-size:16px}
+  .hero-btns{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+  .btn{padding:12px 26px;border-radius:12px;font-weight:700;font-size:15px;transition:.15s;cursor:pointer;border:none}
   .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1a1726}
-  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px)}
   .btn-ghost{background:var(--panel);border:1px solid var(--line);color:var(--text)}
   .btn-ghost:hover{border-color:var(--accent)}
 
@@ -32,20 +32,17 @@
   .terms .hl{color:var(--accent-2);font-weight:600}
   .terms .warn{color:#fca5a5}
   .agree{margin-top:24px;text-align:center}
-
-  .cal-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-    padding:20px;text-align:center}
-  .cal-box iframe{width:100%;height:520px;border:0;border-radius:12px}
-  .cal-placeholder{border:2px dashed var(--line);border-radius:12px;padding:48px 20px;color:var(--muted)}
-  .cal-placeholder code{background:var(--panel-2);padding:2px 8px;border-radius:6px;color:var(--accent-2)}
 </style>
 </head>
 <body>
+
+<div class="orbs"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
 
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
   <div class="nav-links">
     <a href="index.html">首頁</a>
+    <a href="#gallery">作品集</a>
     <a href="#terms">委託須知</a>
     <a href="#schedule">改模排程</a>
     <a href="estimate.html" class="cta">委託試算</a>
@@ -59,14 +56,33 @@
     <p>RimoStudio 提供 VRChat 角色模型的客製化服務 —— 服裝、髮型、功能安裝、改色改臉，從通靈到自訂人物，讓你的角色獨一無二。</p>
     <div class="hero-btns">
       <a href="estimate.html" class="btn btn-primary">開始委託試算 →</a>
-      <a href="#terms" class="btn btn-ghost">閱讀委託須知</a>
+      <a href="#gallery" class="btn btn-ghost">看看作品集</a>
     </div>
   </div>
 </header>
 
 <main class="wrap">
+  <!-- 服務項目 -->
+  <section class="section reveal">
+    <h2><span class="dot"></span>服務項目</h2>
+    <p class="lead">從基礎到進階，一站式完成你的角色客製。</p>
+    <div class="features">
+      <div class="feature"><div class="ico">👗</div><h3>服裝與髮型</h3><p>套換服裝、髮型、道具，打造理想造型。</p></div>
+      <div class="feature"><div class="ico">🎨</div><h3>改色與改臉</h3><p>簡易／進階改色、臉型與身形修改。</p></div>
+      <div class="feature"><div class="ico">⚙️</div><h3>功能安裝</h3><p>手部快捷選單、便利工具與各式功能。</p></div>
+      <div class="feature"><div class="ico">✨</div><h3>通靈 / OC</h3><p>依你的設計或全權交給店主打造原創角色。</p></div>
+    </div>
+  </section>
+
+  <!-- 作品集 -->
+  <section class="section reveal" id="gallery">
+    <h2><span class="dot"></span>作品集</h2>
+    <p class="lead">部分客製化角色成果展示（點擊放大）。</p>
+    <div class="gallery" id="galleryGrid"></div>
+  </section>
+
   <!-- 委託須知 -->
-  <section class="section" id="terms">
+  <section class="section reveal" id="terms">
     <h2><span class="dot"></span>委託須知條款</h2>
     <p class="lead">委託前請詳細閱讀以下條款，確認同意後即可進行試算與下單。</p>
     <div class="terms">
@@ -91,28 +107,62 @@
   </section>
 
   <!-- 改模排程 -->
-  <section class="section" id="schedule">
+  <section class="section reveal" id="schedule">
     <h2><span class="dot"></span>改模排程</h2>
     <p class="lead">目前的製作與檔期安排。</p>
     <div class="cal-box">
-      <!--
-        將你的 Google 日曆嵌入碼貼在下方（取代這段 placeholder）：
-        Google 日曆 → 設定 → 你的日曆 → 整合日曆 → 複製「嵌入程式碼」的 <iframe>
-        例如：
-        <iframe src="https://calendar.google.com/calendar/embed?src=你的日曆ID&ctz=Asia/Taipei"></iframe>
-      -->
-      <div class="cal-placeholder">
-        📅 改模排程日曆將顯示於此<br>
-        <small>請將 Google 日曆的 <code>&lt;iframe&gt;</code> 嵌入碼貼入 <code>index.html</code> 的此區塊</small>
-      </div>
+      <iframe src="https://calendar.google.com/calendar/embed?src=1cbd4bf29bf8e6618d2e45f01a871a949950ca574e1ee829e12ca2b120aea6bd%40group.calendar.google.com&ctz=Asia%2FTaipei" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+      <!-- ▲▲▲ -->
     </div>
   </section>
 </main>
 
 <footer class="footer">
   <div class="brand">RimoStudio</div>
+  <div class="social">
+    <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener">Discord</a>
+    <a href="https://x.com/Rimooo_vrc" target="_blank" rel="noopener">Twitter / X</a>
+    <a href="estimate.html">委託試算</a>
+  </div>
   <div>Rimo © 2025 RimoStudio</div>
 </footer>
 
+<!-- 燈箱 -->
+<div class="lightbox" id="lightbox"><span class="x" id="lbClose">×</span><img id="lbImg" alt=""></div>
+
+<script>
+/* ===== 作品集 =====
+   把照片放進 assets/gallery/ 資料夾，然後在下面陣列加入檔名與標題即可。
+   （沒有對應圖片時會自動顯示佔位圖，不會破版） */
+const GALLERY = [
+  {src:'assets/gallery/1.jpg', title:'作品範例 1'},
+  {src:'assets/gallery/2.jpg', title:'作品範例 2'},
+  {src:'assets/gallery/3.jpg', title:'作品範例 3'},
+  {src:'assets/gallery/4.jpg', title:'作品範例 4'},
+  {src:'assets/gallery/5.jpg', title:'作品範例 5'},
+  {src:'assets/gallery/6.jpg', title:'作品範例 6'},
+];
+const grid = document.getElementById('galleryGrid');
+grid.innerHTML = GALLERY.map((g,i)=>`
+  <div class="gcard" data-i="${i}">
+    <img src="${g.src}" alt="${g.title}" loading="lazy"
+      onload="this.parentNode.dataset.ok='1'"
+      onerror="this.remove();this.parentNode.insertAdjacentHTML('afterbegin','<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span><span>放上你的作品照片</span></div>')">
+    <div class="cap">${g.title}</div>
+  </div>`).join('');
+
+// 燈箱
+const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
+grid.addEventListener('click',e=>{
+  const card=e.target.closest('.gcard'); if(!card||card.dataset.ok!=='1')return;
+  lbImg.src=GALLERY[card.dataset.i].src; lb.classList.add('open');
+});
+document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
+
+/* ===== 進場動畫 ===== */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>委託試算｜RimoStudio</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .wrap{padding-bottom:120px}
+  .page-head{text-align:center;padding:40px 0 8px}
+  .page-head h1{font-size:clamp(26px,4vw,38px);letter-spacing:1px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .page-head p{color:var(--muted);margin-top:6px}
+  .steps{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .steps span{font-size:13px;color:var(--muted);background:var(--panel);
+    border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+  .steps b{color:var(--accent)}
+
+  .layout{display:grid;grid-template-columns:1fr 340px;gap:24px;margin-top:24px;align-items:start}
+  @media(max-width:860px){.layout{grid-template-columns:1fr}}
+
+  section.card{background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;margin-bottom:20px}
+  section.card > h2{font-size:18px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  section.card > .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+  h2 .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);display:inline-block}
+
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:520px){.plans{grid-template-columns:1fr}}
+  .plan{position:relative;border:1.5px solid var(--line);border-radius:14px;
+    padding:14px 16px;cursor:pointer;transition:.15s;background:var(--panel-2)}
+  .plan:hover{border-color:var(--accent)}
+  .plan.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .plan input{position:absolute;opacity:0;pointer-events:none}
+  .plan .pname{font-weight:600;font-size:15px}
+  .plan .pprice{color:var(--accent-2);font-weight:700;margin:4px 0}
+  .plan .pnote{color:var(--muted);font-size:12px;line-height:1.5}
+
+  .row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+  .row:first-of-type{border-top:none}
+  .row .info{flex:1;min-width:0}
+  .row .rname{font-size:14.5px;font-weight:500}
+  .row .rnote{color:var(--muted);font-size:12px}
+  .row .price{color:var(--accent-2);font-weight:600;white-space:nowrap;font-size:14px}
+  .badge{display:inline-block;font-size:10px;background:var(--accent-soft);color:var(--accent);
+    border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+
+  .stepper{display:flex;align-items:center;background:var(--panel-2);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .stepper button{width:32px;height:32px;border:none;background:transparent;color:var(--text);
+    font-size:18px;cursor:pointer;transition:.1s}
+  .stepper button:hover{background:var(--accent-soft);color:var(--accent)}
+  .stepper .val{width:34px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+  .stepper.zero .val{color:var(--muted)}
+
+  .alt-toggle{font-size:11px;color:var(--muted);cursor:pointer;user-select:none;
+    display:inline-flex;align-items:center;gap:4px;margin-top:3px}
+  .alt-toggle input{accent-color:var(--accent)}
+  .chk{display:flex;align-items:center;gap:8px;cursor:pointer}
+  .chk input{width:18px;height:18px;accent-color:var(--accent);cursor:pointer}
+
+  aside{position:sticky;top:80px}
+  .summary{background:linear-gradient(180deg,var(--panel-2),var(--panel));
+    border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .summary h3{font-size:16px;margin-bottom:14px}
+  #items{font-size:13px;max-height:44vh;overflow:auto}
+  #items .li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;
+    border-bottom:1px dashed var(--line);color:var(--muted)}
+  #items .li .n{color:var(--text)}
+  #items .empty{color:var(--muted);text-align:center;padding:20px 0}
+  .total{margin-top:16px;padding-top:16px;border-top:2px solid var(--line);
+    display:flex;justify-content:space-between;align-items:baseline}
+  .total .lbl{font-size:14px;color:var(--muted)}
+  .total .amt{font-size:30px;font-weight:800;color:var(--accent-2)}
+  .from-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
+  .cta-btn{display:block;width:100%;text-align:center;margin-top:16px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1a1726;
+    font-weight:700;padding:13px;border-radius:12px;border:none;cursor:pointer;font-size:15px}
+  .cta-btn:hover{filter:brightness(1.08)}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <span class="brand">RimoStudio</span>
+  <div class="nav-links">
+    <a href="index.html">首頁</a>
+    <a href="index.html#terms">委託須知</a>
+    <a href="index.html#schedule">改模排程</a>
+    <a href="estimate.html" class="cta">委託試算</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <header class="page-head">
+    <h1>委託試算</h1>
+    <p>選擇方案與加購項目，即時估算你的委託費用（新台幣 TWD）</p>
+    <div class="steps"><span><b>1.</b> 選擇方案</span><span><b>2.</b> 選擇加購商品</span><span><b>3.</b> 聯繫店主</span></div>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section class="card">
+        <h2><span class="dot"></span>選擇方案</h2>
+        <div class="sub">優惠方案已含基礎 $900；價格為方案總價</div>
+        <div class="plans" id="plans"></div>
+      </section>
+
+      <section class="card">
+        <h2><span class="dot"></span>加購區</h2>
+        <div class="sub">可依需求自由追加，數量即時計入總價</div>
+        <div id="grp-main"></div>
+      </section>
+
+      <section class="card">
+        <h2><span class="dot"></span>便利功能</h2>
+        <div id="grp-util"></div>
+      </section>
+
+      <section class="card">
+        <h2><span class="dot"></span>NSFW 系統</h2>
+        <div class="sub">預設位置：嘴、胸、穴、屁股、左右手；每多一個位置 +$100</div>
+        <div id="grp-nsfw"></div>
+      </section>
+
+      <section class="card">
+        <h2><span class="dot"></span>Booth 商品代購</h2>
+        <div class="sub">依商品日幣金額分級，每件商品額外收取</div>
+        <div id="grp-booth"></div>
+      </section>
+
+      <section class="card">
+        <h2><span class="dot"></span>加購保固</h2>
+        <div class="sub">每 1 個月 $700，每個方案最多可加購至 6 個月（部分方案已含保固）</div>
+        <div id="grp-warranty"></div>
+      </section>
+    </main>
+
+    <aside>
+      <div class="summary">
+        <h3>試算明細</h3>
+        <div id="items"><div class="empty">尚未選擇任何項目</div></div>
+        <div class="total"><span class="lbl">預估總額</span><span class="amt" id="total">$0</span></div>
+        <div class="from-note" id="fromNote"></div>
+        <button class="cta-btn" id="cta">聯繫店主確認委託 →</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="brand">RimoStudio</div>
+  <div>Rimo © 2025 RimoStudio</div>
+</footer>
+
+<script>
+const PLANS = [
+  {id:'none',    name:'不選方案（只加購）', price:0,    note:'僅計算下方加購項目'},
+  {id:'upload',  name:'代客上傳',           price:250,  note:'僅上傳模型，不含任何修改及保固'},
+  {id:'oc',      name:'通靈 / 風格 / OC 人物', price:4500, from:true, note:'店主風格／自訂人物，含保固 1 個月'},
+  {id:'friendly',name:'友好方案',           price:1200, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×2 / 無保固'},
+  {id:'value',   name:'超值方案',           price:2100, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×5 / 簡易改色×1 / 保固1個月'},
+  {id:'discount',name:'優惠方案',           price:2700, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×8 / 簡易改色×1 / 臉型×1 / 保固2個月'},
+  {id:'peace',   name:'安心方案',           price:1500, note:'模型×1 / 自由選配 / 保固1個月'},
+];
+const MAIN = [
+  {id:'cloth', name:'套衣服',      price:150, note:'對應角色', alt:{name:'非對應角色', price:350, from:true}},
+  {id:'hair',  name:'套頭髮',      price:150, note:'對應角色', alt:{name:'非對應角色', price:350, from:true}},
+  {id:'prop',  name:'套道具',      price:150, note:'對應角色', alt:{name:'非對應角色', price:250, from:true}},
+  {id:'makeup',name:'妝容 / 紋身', price:150, from:true, alt:{name:'非對應角色', price:500, from:true}},
+  {id:'func',  name:'功能安裝',    price:350, from:true, alt:{name:'非對應角色', price:600, from:true}},
+  {id:'funcmod',name:'功能修改',   price:600, from:true, note:'提取部分功能等'},
+  {id:'btnTrad',name:'傳統按鈕',   price:250},
+  {id:'btnMod', name:'現代按鈕',   price:100, note:'所有方案預設現代按鈕'},
+  {id:'recolor',name:'簡易改圖 / 色', price:250, note:'無精修'},
+  {id:'recolorAdv',name:'進階改圖 / 色', price:500, from:true, note:'精修'},
+  {id:'face',  name:'臉型修改',    price:450, from:true, note:'姐系 / 妹系等'},
+  {id:'anim',  name:'角色動畫',    price:350, from:true, note:'手勢、表情、動作'},
+  {id:'body',  name:'身形修改',    price:600, from:true},
+  {id:'material',name:'材質修改',  price:350, from:true},
+  {id:'mesh',  name:'網格修改',    price:300, from:true, note:'$300～2000 起，依複雜度'},
+];
+const UTIL = [
+  {id:'handmenu', type:'baseCounter', name:'手部虛擬快捷選單', base:300, per:100,
+    baseLabel:'安裝', perLabel:'額外虛擬按鈕', note:'僅限 VR 玩家；每顆按鈕 +$100'},
+  {id:'utility', name:'簡易便利工具安裝', price:350, note:'睡姿 / 坐蹲姿 / 畫筆 / 小地圖 / 飛行 等'},
+];
+const NSFW = [
+  {id:'sps',  type:'baseCounter', name:'SPS 系統',   base:250, per:100, baseLabel:'安裝', perLabel:'額外位置', note:'可吸附柱狀體'},
+  {id:'spsd', type:'baseCounter', name:'SPS-D 系統', base:350, per:100, baseLabel:'安裝', perLabel:'額外位置', note:'插入物體'},
+  {id:'pcs',  type:'baseCounter', name:'PCS 系統',   base:150, per:100, baseLabel:'安裝', perLabel:'額外位置', note:'吸附時有聲音'},
+];
+const BOOTH = [
+  {id:'b1', name:'Booth 代購 ¥50～2999',   price:50},
+  {id:'b2', name:'Booth 代購 ¥3000～4999', price:80},
+  {id:'b3', name:'Booth 代購 ¥5000 以上',  price:150},
+];
+
+const state = { plan:'none', qty:{}, alt:{}, warranty:0 };
+const $ = s => document.querySelector(s);
+
+function buildPlans(){
+  $('#plans').innerHTML = PLANS.map(p=>`
+    <label class="plan ${p.id==='none'?'sel':''}" data-plan="${p.id}">
+      <input type="radio" name="plan" value="${p.id}" ${p.id==='none'?'checked':''}>
+      <div class="pname">${p.name}</div>
+      <div class="pprice">${p.price?('$'+p.price.toLocaleString()+(p.from?' 起':'')):'—'}</div>
+      <div class="pnote">${p.note}</div>
+    </label>`).join('');
+  document.querySelectorAll('.plan').forEach(el=>{
+    el.addEventListener('click',()=>{
+      state.plan = el.dataset.plan;
+      document.querySelectorAll('.plan').forEach(x=>x.classList.remove('sel'));
+      el.classList.add('sel');
+      el.querySelector('input').checked = true;
+      recalc();
+    });
+  });
+}
+function stepper(id, val){
+  return `<div class="stepper ${val?'':'zero'}" data-step="${id}">
+      <button data-d="-1">−</button><span class="val" id="v-${id}">${val}</span><button data-d="1">+</button>
+    </div>`;
+}
+function counterRow(it){
+  const q = state.qty[it.id]||0;
+  const useAlt = state.alt[it.id];
+  const cur = (useAlt && it.alt) ? it.alt : it;
+  const priceTxt = '$'+cur.price.toLocaleString()+(cur.from?'<span class="badge">起</span>':'');
+  let noteTxt = useAlt&&it.alt ? it.alt.name : (it.note||'');
+  const altHtml = it.alt ? `<label class="alt-toggle">
+      <input type="checkbox" data-alt="${it.id}" ${useAlt?'checked':''}> 改為${it.alt.name}（$${it.alt.price}${it.alt.from?' 起':''}）
+    </label>` : '';
+  return `<div class="row">
+      <div class="info"><div class="rname">${it.name}</div>
+        <div class="rnote">${noteTxt}</div>${altHtml}</div>
+      <div class="price">${priceTxt}</div>
+      ${stepper(it.id, q)}
+    </div>`;
+}
+function baseCounterRow(it){
+  const q = state.qty[it.id]||0;
+  const on = state.qty[it.id+'_on']?1:0;
+  return `<div class="row">
+      <div class="info">
+        <label class="chk"><input type="checkbox" data-base="${it.id}" ${on?'checked':''}>
+          <span class="rname">${it.name}</span></label>
+        <div class="rnote">${it.note||''}（${it.baseLabel} $${it.base}／${it.perLabel} 每個 +$${it.per}）</div>
+      </div>
+      <div class="price">$${it.base}</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+        <span class="rnote">${it.perLabel}</span>${stepper(it.id, q)}
+      </div>
+    </div>`;
+}
+function render(){
+  $('#grp-main').innerHTML  = MAIN.map(counterRow).join('');
+  $('#grp-util').innerHTML  = UTIL.map(it=>it.type==='baseCounter'?baseCounterRow(it):counterRow(it)).join('');
+  $('#grp-nsfw').innerHTML  = NSFW.map(baseCounterRow).join('');
+  $('#grp-booth').innerHTML = BOOTH.map(counterRow).join('');
+  $('#grp-warranty').innerHTML = `<div class="row">
+      <div class="info"><div class="rname">加購保固</div><div class="rnote">每 1 個月 $700，上限 6 個月</div></div>
+      <div class="price">$700 / 月</div>${stepper('warranty', state.warranty)}
+    </div>`;
+  bindSteppers(); bindAlts(); bindBases();
+}
+function bindSteppers(){
+  document.querySelectorAll('[data-step]').forEach(el=>{
+    const id = el.dataset.step;
+    el.querySelectorAll('button').forEach(b=>{
+      b.onclick = ()=>{
+        const d = +b.dataset.d;
+        if(id==='warranty'){ state.warranty = Math.max(0,Math.min(6,state.warranty+d)); }
+        else { state.qty[id] = Math.max(0,(state.qty[id]||0)+d); }
+        recalc(); render();
+      };
+    });
+  });
+}
+function bindAlts(){
+  document.querySelectorAll('[data-alt]').forEach(el=>{
+    el.onchange = ()=>{ state.alt[el.dataset.alt]=el.checked; recalc(); render(); };
+  });
+}
+function bindBases(){
+  document.querySelectorAll('[data-base]').forEach(el=>{
+    el.onchange = ()=>{ state.qty[el.dataset.base+'_on']=el.checked; recalc(); render(); };
+  });
+}
+function recalc(){
+  let total=0, hasFrom=false;
+  const lines=[];
+  const add=(name,amt,from)=>{ lines.push({name,amt,from}); total+=amt; if(from)hasFrom=true; };
+
+  const plan = PLANS.find(p=>p.id===state.plan);
+  if(plan && plan.price>0) add(plan.name, plan.price, plan.from);
+
+  const allCounters = [...MAIN, ...BOOTH, ...UTIL.filter(x=>x.type!=='baseCounter')];
+  allCounters.forEach(it=>{
+    const q = state.qty[it.id]||0; if(!q) return;
+    const useAlt = state.alt[it.id] && it.alt;
+    const cur = useAlt ? it.alt : it;
+    add(`${it.name}${useAlt?'（'+it.alt.name+'）':''} ×${q}`, cur.price*q, cur.from);
+  });
+
+  [...UTIL, ...NSFW].filter(x=>x.type==='baseCounter').forEach(it=>{
+    if(!state.qty[it.id+'_on']) return;
+    const extra = state.qty[it.id]||0;
+    add(`${it.name}`, it.base, false);
+    if(extra) add(`　└ ${it.perLabel} ×${extra}`, it.per*extra, false);
+  });
+
+  if(state.warranty>0) add(`加購保固 ×${state.warranty} 個月`, 700*state.warranty, false);
+
+  $('#items').innerHTML = lines.length
+    ? lines.map(l=>`<div class="li"><span class="n">${l.name}${l.from?'<span class="badge">起</span>':''}</span><span>$${l.amt.toLocaleString()}</span></div>`).join('')
+    : '<div class="empty">尚未選擇任何項目</div>';
+  $('#total').textContent = '$'+total.toLocaleString()+(hasFrom?' 起':'');
+  $('#fromNote').textContent = hasFrom
+    ? '※ 含「起」價項目，實際費用依需求複雜度由店主確認為準。'
+    : '';
+}
+buildPlans();
+render();
+recalc();
+$('#cta').onclick = ()=>{
+  const t = $('#total').textContent;
+  alert('預估總額：'+t+'\n\n請截圖此明細並聯繫店主完成委託確認 🙌\n（此處未來可改為連結至 Discord / 表單）');
+};
+</script>
+</body>
+</html>

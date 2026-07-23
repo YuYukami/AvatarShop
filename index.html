@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RimoStudio｜客製化 VRChat 角色模型</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  /* 首頁專用 */
+  .hero{text-align:center;padding:80px 0 40px}
+  .hero .tag{display:inline-block;font-size:13px;color:var(--accent);
+    background:var(--accent-soft);border:1px solid var(--line);
+    border-radius:999px;padding:6px 16px;margin-bottom:20px}
+  .hero h1{font-size:clamp(34px,6vw,60px);line-height:1.15;letter-spacing:1px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--muted);max-width:620px;margin:18px auto 0;font-size:16px}
+  .hero-btns{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+  .btn{padding:12px 24px;border-radius:12px;font-weight:700;font-size:15px;transition:.15s;cursor:pointer;border:none}
+  .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1a1726}
+  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{background:var(--panel);border:1px solid var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--accent)}
+
+  .terms{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px}
+  .terms ol{list-style:none;counter-reset:t}
+  .terms li{counter-increment:t;position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line)}
+  .terms li:first-child{border-top:none}
+  .terms li::before{content:counter(t);position:absolute;left:0;top:12px;
+    width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .terms .hl{color:var(--accent-2);font-weight:600}
+  .terms .warn{color:#fca5a5}
+  .agree{margin-top:24px;text-align:center}
+
+  .cal-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px;text-align:center}
+  .cal-box iframe{width:100%;height:520px;border:0;border-radius:12px}
+  .cal-placeholder{border:2px dashed var(--line);border-radius:12px;padding:48px 20px;color:var(--muted)}
+  .cal-placeholder code{background:var(--panel-2);padding:2px 8px;border-radius:6px;color:var(--accent-2)}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <span class="brand">RimoStudio</span>
+  <div class="nav-links">
+    <a href="index.html">首頁</a>
+    <a href="#terms">委託須知</a>
+    <a href="#schedule">改模排程</a>
+    <a href="estimate.html" class="cta">委託試算</a>
+  </div>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">✦ 客製化 VRChat 角色模型</span>
+    <h1>打造專屬於你的<br>虛擬分身</h1>
+    <p>RimoStudio 提供 VRChat 角色模型的客製化服務 —— 服裝、髮型、功能安裝、改色改臉，從通靈到自訂人物，讓你的角色獨一無二。</p>
+    <div class="hero-btns">
+      <a href="estimate.html" class="btn btn-primary">開始委託試算 →</a>
+      <a href="#terms" class="btn btn-ghost">閱讀委託須知</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- 委託須知 -->
+  <section class="section" id="terms">
+    <h2><span class="dot"></span>委託須知條款</h2>
+    <p class="lead">委託前請詳細閱讀以下條款，確認同意後即可進行試算與下單。</p>
+    <div class="terms">
+      <ol>
+        <li>暫不接受<span class="hl">歐美 / Furry 模型</span>委託、<span class="hl">男性模型</span>（未來考慮開放）。</li>
+        <li>假日為休息日不會製作，製作時間為平日 <span class="hl">20:00～22:00</span>。</li>
+        <li>本工作室可幫顧客代購，製作完畢後確認沒問題會刪除本工作室未付費之檔案。</li>
+        <li>客製化商品從做完當日開始計算 <span class="hl">7 天</span>後將刪除工程檔案。</li>
+        <li>確定 <span class="hl">1 個月</span>內會〔再製、修改、本體分支〕等皆可保留，超過時間則需支付保管費，單隻角色 <span class="hl">NTD 150</span>。</li>
+        <li>在製作前先支付〔<span class="hl">訂金（總金額 50%）／全額</span>〕才會開始製作。</li>
+        <li>訂單在未開始前都可取消，一旦開始將會收取違約金（訂金）！<br>
+          <span class="warn">（製作開始第一天訂金 50%、第二天 75%、第三天 100%）</span></li>
+        <li>需要您提供 <span class="hl">VRC 帳號密碼</span>，將由我們為您代上傳。</li>
+        <li>不提供〔製作好 / 未完成〕工程檔！</li>
+        <li><span class="warn">禁止分享由本工作室出品的任何模型。</span></li>
+        <li>本工作室擁有以上條款最終解釋權。</li>
+      </ol>
+      <div class="agree">
+        <a href="estimate.html" class="btn btn-primary">我已詳閱並同意條款，前往試算 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 改模排程 -->
+  <section class="section" id="schedule">
+    <h2><span class="dot"></span>改模排程</h2>
+    <p class="lead">目前的製作與檔期安排。</p>
+    <div class="cal-box">
+      <!--
+        將你的 Google 日曆嵌入碼貼在下方（取代這段 placeholder）：
+        Google 日曆 → 設定 → 你的日曆 → 整合日曆 → 複製「嵌入程式碼」的 <iframe>
+        例如：
+        <iframe src="https://calendar.google.com/calendar/embed?src=你的日曆ID&ctz=Asia/Taipei"></iframe>
+      -->
+      <div class="cal-placeholder">
+        📅 改模排程日曆將顯示於此<br>
+        <small>請將 Google 日曆的 <code>&lt;iframe&gt;</code> 嵌入碼貼入 <code>index.html</code> 的此區塊</small>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="brand">RimoStudio</div>
+  <div>Rimo © 2025 RimoStudio</div>
+</footer>
+
+</body>
+</html>

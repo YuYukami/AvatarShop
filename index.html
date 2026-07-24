@@ -6,7 +6,7 @@
 <title>RimoStudio｜客製化 VRChat 角色模型</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/style.css?v=10">
+<link rel="stylesheet" href="assets/style.css?v=11">
 <style>
   /* 首頁專用 */
   .hero{text-align:center;padding:96px 0 48px;position:relative}
@@ -67,8 +67,8 @@
   <!-- 作品集 -->
   <section class="section" id="gallery">
     <h2 class="reveal"><span class="dot"></span>作品集</h2>
-    <p class="lead reveal">部分客製化角色成果展示（點擊放大）。</p>
-    <div class="accordion reveal" id="galleryGrid"></div>
+    <p class="lead reveal">部分客製化角色成果展示 —— 可左右滑動瀏覽，點擊放大。</p>
+    <div class="carousel reveal" id="galleryGrid"></div>
   </section>
 
   <!-- 委託須知（導向獨立頁面） -->
@@ -122,19 +122,69 @@ const GALLERY = [
   {src:'assets/gallery/8.jpg', title:' '},
 ];
 const grid = document.getElementById('galleryGrid');
-grid.innerHTML = GALLERY.map((g,i)=>`
-  <div class="acc-item" data-i="${i}">
-    <img src="${g.src}" alt="${g.title.trim()}" loading="lazy"
+const COPIES = 3;  // 複製多份以達成無縫無限循環
+const cardHTML = (g,i)=>`
+  <div class="slide" data-i="${i}">
+    <img src="${g.src}" alt="${g.title.trim()}" loading="lazy" draggable="false"
       onload="this.parentNode.dataset.ok='1'"
       onerror="this.remove();this.parentNode.insertAdjacentHTML('afterbegin','<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span><span>放上你的作品照片</span></div>')">
     ${g.title.trim() ? `<div class="cap">${g.title}</div>` : ''}
-  </div>`).join('');
+  </div>`;
+let out=''; for(let c=0;c<COPIES;c++){ out += GALLERY.map(cardHTML).join(''); }
+grid.innerHTML = out;
 
-// 燈箱（點擊放大）
+// 量測「一組」的寬度，並把捲動定位到中間那組
+let setW = 0;
+function measure(){
+  const s = grid.children;
+  setW = (s.length > GALLERY.length) ? (s[GALLERY.length].offsetLeft - s[0].offsetLeft)
+                                      : grid.scrollWidth / COPIES;
+  if(setW) grid.scrollLeft = setW;
+}
+requestAnimationFrame(measure);
+window.addEventListener('load', measure);
+window.addEventListener('resize', measure);
+
+// 無限循環：超出中間組就跳回，肉眼無縫
+grid.addEventListener('scroll', ()=>{
+  if(!setW) return;
+  if(grid.scrollLeft < setW) grid.scrollLeft += setW;
+  else if(grid.scrollLeft >= setW*2) grid.scrollLeft -= setW;
+});
+
+// 緩慢自動飄移（尊重「減少動態」；hover / 拖曳時暫停）
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let auto = !reduce, down = false;
+function tick(){ if(auto && setW) grid.scrollLeft += 0.5; requestAnimationFrame(tick); }
+if(!reduce) requestAnimationFrame(tick);
+grid.addEventListener('mouseenter', ()=>{ auto = false; });
+grid.addEventListener('mouseleave', ()=>{ if(!down && !reduce) auto = true; });
+grid.addEventListener('touchstart', ()=>{ auto = false; }, {passive:true});
+grid.addEventListener('touchend', ()=>{ if(!reduce) setTimeout(()=>{ auto = true; }, 1500); }, {passive:true});
+
+// 滑鼠拖曳捲動（僅滑鼠；觸控用原生捲動）
+let startX=0, startScroll=0, moved=false;
+grid.addEventListener('pointerdown', e=>{
+  if(e.pointerType !== 'mouse') return;
+  down=true; moved=false; startX=e.clientX; startScroll=grid.scrollLeft;
+  grid.classList.add('dragging'); auto=false;
+});
+window.addEventListener('pointermove', e=>{
+  if(!down) return;
+  const dx = e.clientX - startX;
+  if(Math.abs(dx) > 4) moved = true;
+  grid.scrollLeft = startScroll - dx;
+});
+window.addEventListener('pointerup', ()=>{
+  if(!down) return; down=false; grid.classList.remove('dragging');
+});
+
+// 燈箱（拖曳過就不觸發點擊放大）
 const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
-grid.addEventListener('click',e=>{
-  const item=e.target.closest('.acc-item'); if(!item||item.dataset.ok!=='1')return;
-  lbImg.src=GALLERY[item.dataset.i].src; lb.classList.add('open');
+grid.addEventListener('click', e=>{
+  if(moved){ moved=false; return; }
+  const item = e.target.closest('.slide'); if(!item || item.dataset.ok!=='1') return;
+  lbImg.src = GALLERY[item.dataset.i].src; lb.classList.add('open');
 });
 document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
 lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};

@@ -14,7 +14,7 @@
     if(!t || Date.now() - t > ONE_DAY){ location.replace('terms.html'); }
   })();
 </script>
-<link rel="stylesheet" href="assets/style.css?v=10">
+<link rel="stylesheet" href="assets/style.css?v=11">
 <style>
   .wrap{padding-bottom:120px}
   .page-head{text-align:center;padding:40px 0 8px}
@@ -88,6 +88,10 @@
     background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1a1726;
     font-weight:700;padding:13px;border-radius:12px;border:none;cursor:pointer;font-size:15px}
   .cta-btn:hover{filter:brightness(1.08)}
+  .sub-link{display:block;width:100%;text-align:center;margin-top:10px;padding:11px;
+    border-radius:12px;border:1px solid var(--line);color:var(--muted);
+    font-size:14px;transition:.15s}
+  .sub-link:hover{border-color:var(--accent);color:var(--accent-2)}
 </style>
 </head>
 <body>
@@ -163,6 +167,7 @@
         <div class="total"><span class="lbl">預估總額</span><span class="amt" id="total">$0</span></div>
         <div class="from-note" id="fromNote"></div>
         <button class="cta-btn" id="cta">聯繫店主確認委託 →</button>
+        <a href="glossary.html" class="sub-link">📖 查看用詞說明</a>
       </div>
     </aside>
   </div>

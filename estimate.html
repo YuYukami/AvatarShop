@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>委託試算｜RimoStudio</title>
-<link rel="stylesheet" href="assets/style.css">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="assets/style.css?v=4">
 <style>
   .wrap{padding-bottom:120px}
   .page-head{text-align:center;padding:40px 0 8px}
@@ -96,44 +97,44 @@
 </div></nav>
 
 <div class="wrap">
-  <header class="page-head">
-    <h1>委託試算</h1>
-    <p>選擇方案與加購項目，即時估算你的委託費用（新台幣 TWD）</p>
-    <div class="steps"><span><b>1.</b> 選擇方案</span><span><b>2.</b> 選擇加購商品</span><span><b>3.</b> 聯繫店主</span></div>
+  <header class="page-head stagger">
+    <h1 class="reveal">委託試算</h1>
+    <p class="reveal">選擇方案與加購項目，即時估算你的委託費用（新台幣 TWD）</p>
+    <div class="steps reveal"><span><b>1.</b> 選擇方案</span><span><b>2.</b> 選擇加購商品</span><span><b>3.</b> 聯繫店主</span></div>
   </header>
 
   <div class="layout">
     <main>
-      <section class="card">
+      <section class="card reveal">
         <h2><span class="dot"></span>選擇方案</h2>
         <div class="sub">優惠方案已含基礎 $900；價格為方案總價</div>
-        <div class="plans" id="plans"></div>
+        <div class="plans stagger" id="plans"></div>
       </section>
 
-      <section class="card">
+      <section class="card reveal">
         <h2><span class="dot"></span>加購區</h2>
         <div class="sub">可依需求自由追加，數量即時計入總價</div>
         <div id="grp-main"></div>
       </section>
 
-      <section class="card">
+      <section class="card reveal">
         <h2><span class="dot"></span>便利功能</h2>
         <div id="grp-util"></div>
       </section>
 
-      <section class="card">
+      <section class="card reveal">
         <h2><span class="dot"></span>NSFW 系統</h2>
         <div class="sub">預設位置：嘴、胸、穴、屁股、左右手；每多一個位置 +$100</div>
         <div id="grp-nsfw"></div>
       </section>
 
-      <section class="card">
+      <section class="card reveal">
         <h2><span class="dot"></span>Booth 商品代購</h2>
         <div class="sub">依商品日幣金額分級，每件商品額外收取</div>
         <div id="grp-booth"></div>
       </section>
 
-      <section class="card">
+      <section class="card reveal">
         <h2><span class="dot"></span>加購保固</h2>
         <div class="sub">每 1 個月 $700，每個方案最多可加購至 6 個月（部分方案已含保固）</div>
         <div id="grp-warranty"></div>
@@ -141,7 +142,7 @@
     </main>
 
     <aside>
-      <div class="summary">
+      <div class="summary reveal right">
         <h3>試算明細</h3>
         <div id="items"><div class="empty">尚未選擇任何項目</div></div>
         <div class="total"><span class="lbl">預估總額</span><span class="amt" id="total">$0</span></div>
@@ -210,7 +211,7 @@ const $ = s => document.querySelector(s);
 
 function buildPlans(){
   $('#plans').innerHTML = PLANS.map(p=>`
-    <label class="plan ${p.id==='none'?'sel':''}" data-plan="${p.id}">
+    <label class="plan reveal ${p.id==='none'?'sel':''}" data-plan="${p.id}">
       <input type="radio" name="plan" value="${p.id}" ${p.id==='none'?'checked':''}>
       <div class="pname">${p.name}</div>
       <div class="pprice">${p.price?('$'+p.price.toLocaleString()+(p.from?' 起':'')):'—'}</div>
@@ -338,5 +339,7 @@ $('#cta').onclick = ()=>{
   window.open('https://discord.gg/tzbvaHy9Kx','_blank','noopener');
 };
 </script>
+<!-- 進場動畫（共用） -->
+<script src="assets/app.js?v=1"></script>
 </body>
 </html>

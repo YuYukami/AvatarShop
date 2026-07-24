@@ -58,9 +58,21 @@ a{color:var(--accent-2);text-decoration:none}
   background:linear-gradient(90deg,var(--accent),var(--accent-2))}
 .section .lead{color:var(--muted);margin-bottom:24px}
 
-/* 進場動畫 */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
-.reveal.in{opacity:1;transform:none}
+/* 進場動畫（一次性動畫，播完清除以免與 3D 傾斜衝突） */
+.js .reveal{opacity:0}
+@keyframes revUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+@keyframes revZoom{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+@keyframes revLeft{from{opacity:0;transform:translateX(-48px)}to{opacity:1;transform:none}}
+@keyframes revRight{from{opacity:0;transform:translateX(48px)}to{opacity:1;transform:none}}
+.reveal.play{animation:revUp .7s cubic-bezier(.16,.8,.3,1) both}
+.reveal.zoom.play{animation:revZoom .7s cubic-bezier(.16,.8,.3,1) both}
+.reveal.left.play{animation:revLeft .7s cubic-bezier(.16,.8,.3,1) both}
+.reveal.right.play{animation:revRight .7s cubic-bezier(.16,.8,.3,1) both}
+.reveal.done{opacity:1}
+@media (prefers-reduced-motion: reduce){
+  .js .reveal{opacity:1}
+  .reveal.play{animation:none}
+}
 
 /* ===== 服務項目卡片 ===== */
 .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
@@ -71,19 +83,33 @@ a{color:var(--accent-2);text-decoration:none}
 .feature h3{font-size:16px;margin-bottom:6px}
 .feature p{color:var(--muted);font-size:13.5px}
 
-/* ===== 作品集 ===== */
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-.gcard{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;
-  border:1px solid var(--line);background:var(--panel-2);cursor:pointer;transition:.2s}
-.gcard:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(124,58,237,.25);border-color:var(--accent)}
+/* ===== 作品集（3D 互動傾斜卡片）===== */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:24px;perspective:1200px}
+.gcard{position:relative;aspect-ratio:3/4;border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);background:var(--panel-2);cursor:pointer;
+  transition:transform .15s ease-out, box-shadow .35s ease, border-color .35s ease;
+  will-change:transform}
+.gcard:hover{box-shadow:0 26px 55px rgba(124,58,237,.4);border-color:var(--accent)}
 .gcard img{width:100%;height:100%;object-fit:cover;display:block}
 .gcard .ph{width:100%;height:100%;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:8px;color:var(--muted);
   background:linear-gradient(135deg,#231d38,#2c2247)}
 .gcard .ph .pic{font-size:34px;opacity:.7}
-.gcard .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 14px 10px;
-  font-size:13.5px;font-weight:600;
-  background:linear-gradient(0deg,rgba(15,13,23,.92),transparent)}
+.gcard .cap{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 12px;
+  font-size:13.5px;font-weight:600;z-index:2;
+  background:linear-gradient(0deg,rgba(15,13,23,.94),transparent)}
+/* 跟著游標的光澤反射 */
+.gcard .glare{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
+  transition:opacity .3s ease;mix-blend-mode:overlay;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),
+    rgba(255,255,255,.45),rgba(255,255,255,0) 42%)}
+.gcard:hover .glare{opacity:1}
+/* 邊框漸層光暈 */
+.gcard::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  border-radius:16px;opacity:0;transition:opacity .35s ease;
+  box-shadow:inset 0 0 0 1.5px var(--accent-2),inset 0 0 24px rgba(240,171,252,.25)}
+.gcard:hover::after{opacity:1}
 
 /* 燈箱 */
 .lightbox{position:fixed;inset:0;z-index:100;background:rgba(8,6,14,.9);

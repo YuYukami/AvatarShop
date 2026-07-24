@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>委託試算｜RimoStudio</title>
-<script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<script>
+  document.documentElement.classList.add('js');
+  /* 委託須知閘門：同意效期 24 小時，未同意或已過期者導回須知頁 */
+  (function(){
+    var ONE_DAY = 86400000;
+    var t = +localStorage.getItem('rimo_agreed') || 0;
+    if(!t || Date.now() - t > ONE_DAY){ location.replace('terms.html'); }
+  })();
+</script>
+<link rel="stylesheet" href="assets/style.css?v=10">
 <style>
   .wrap{padding-bottom:120px}
   .page-head{text-align:center;padding:40px 0 8px}
@@ -87,20 +96,26 @@
 
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
+  <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="index.html">首頁</a>
     <a href="index.html#gallery">作品集</a>
-    <a href="index.html#terms">委託須知</a>
+    <a href="terms.html">委託須知</a>
+    <a href="glossary.html">用詞說明</a>
     <a href="index.html#schedule">改模排程</a>
     <a href="estimate.html" class="cta">委託試算</a>
   </div>
 </div></nav>
+<div class="nav-backdrop"></div>
 
 <div class="wrap">
   <header class="page-head stagger">
     <h1 class="reveal">委託試算</h1>
     <p class="reveal">選擇方案與加購項目，即時估算你的委託費用（新台幣 TWD）</p>
     <div class="steps reveal"><span><b>1.</b> 選擇方案</span><span><b>2.</b> 選擇加購商品</span><span><b>3.</b> 聯繫店主</span></div>
+    <p class="reveal" style="margin-top:12px;font-size:13.5px;color:var(--muted)">
+      不清楚名詞含義？請先參考 <a href="glossary.html">用詞說明</a>
+    </p>
   </header>
 
   <div class="layout">
@@ -340,6 +355,6 @@ $('#cta').onclick = ()=>{
 };
 </script>
 <!-- 進場動畫（共用） -->
-<script src="assets/app.js?v=1"></script>
+<script src="assets/app.js?v=2"></script>
 </body>
 </html>

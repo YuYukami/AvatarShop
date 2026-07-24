@@ -1,5 +1,21 @@
-/* 進場動畫觀察器 —— index / estimate 兩頁共用 */
+/* 共用腳本 —— 漢堡選單 + 進場動畫 */
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* ===== 漢堡抽屜選單 ===== */
+  const toggle = document.querySelector('.nav-toggle');
+  if (toggle) {
+    const open  = () => { document.body.classList.add('nav-open');  toggle.setAttribute('aria-expanded', 'true'); };
+    const close = () => { document.body.classList.remove('nav-open'); toggle.setAttribute('aria-expanded', 'false'); };
+    toggle.addEventListener('click', () => {
+      document.body.classList.contains('nav-open') ? close() : open();
+    });
+    const backdrop = document.querySelector('.nav-backdrop');
+    if (backdrop) backdrop.addEventListener('click', close);
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', close));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  }
+
+  /* ===== 進場動畫觀察器 ===== */
   const els = document.querySelectorAll('.reveal');
   // 不支援 IntersectionObserver 時直接顯示，避免內容永遠隱藏
   if (!('IntersectionObserver' in window)) {

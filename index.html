@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RimoStudio｜客製化 VRChat 角色模型</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="stylesheet" href="assets/style.css?v=10">
 <style>
   /* 首頁專用 */
   .hero{text-align:center;padding:96px 0 48px;position:relative}
@@ -17,22 +18,6 @@
     -webkit-background-clip:text;background-clip:text;color:transparent}
   .hero p{color:var(--muted);max-width:620px;margin:20px auto 0;font-size:16px}
   .hero-btns{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
-  .btn{padding:12px 26px;border-radius:12px;font-weight:700;font-size:15px;transition:.15s;cursor:pointer;border:none}
-  .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1a1726}
-  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px)}
-  .btn-ghost{background:var(--panel);border:1px solid var(--line);color:var(--text)}
-  .btn-ghost:hover{border-color:var(--accent)}
-
-  .terms{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px}
-  .terms ol{list-style:none;counter-reset:t}
-  .terms li{counter-increment:t;position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line)}
-  .terms li:first-child{border-top:none}
-  .terms li::before{content:counter(t);position:absolute;left:0;top:12px;
-    width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);
-    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
-  .terms .hl{color:var(--accent-2);font-weight:600}
-  .terms .warn{color:#fca5a5}
-  .agree{margin-top:24px;text-align:center}
 </style>
 </head>
 <body>
@@ -41,22 +26,26 @@
 
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
+  <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="index.html">首頁</a>
     <a href="#gallery">作品集</a>
-    <a href="#terms">委託須知</a>
+    <a href="terms.html">委託須知</a>
+    <a href="glossary.html">用詞說明</a>
     <a href="#schedule">改模排程</a>
     <a href="estimate.html" class="cta">委託試算</a>
   </div>
 </div></nav>
+<div class="nav-backdrop"></div>
 
 <header class="hero">
   <div class="wrap stagger">
     <span class="tag reveal">✦ 客製化 VRChat 角色模型</span>
-    <h1 class="reveal">打造專屬於你的<br>虛擬分身</h1>
-    <p class="reveal">RimoStudio 提供 VRChat 角色模型的客製化服務 —— 服裝、髮型、功能安裝、改色改臉，從通靈到自訂人物，讓你的角色獨一無二。</p>
+    <h1 class="reveal">打造專屬於你的<br>個人角色</h1>
+    <p class="reveal">RimoStudio 提供 VRChat 角色模型的客製化服務 —— </p>
+    <p class="reveal">服裝、髮型、功能安裝、臉型等等，高度的客製化，讓你的角色獨一無二。</p>
     <div class="hero-btns reveal">
-      <a href="estimate.html" class="btn btn-primary">開始委託試算 →</a>
+      <a href="terms.html" class="btn btn-primary">開始委託試算 →</a>
       <a href="#gallery" class="btn btn-ghost">看看作品集</a>
     </div>
   </div>
@@ -71,7 +60,7 @@
       <div class="feature reveal"><div class="ico">👗</div><h3>服裝與髮型</h3><p>套換服裝、髮型、道具，打造理想造型。</p></div>
       <div class="feature reveal"><div class="ico">🎨</div><h3>改色與改臉</h3><p>簡易／進階改色、臉型與身形修改。</p></div>
       <div class="feature reveal"><div class="ico">⚙️</div><h3>功能安裝</h3><p>手部快捷選單、便利工具與各式功能。</p></div>
-      <div class="feature reveal"><div class="ico">✨</div><h3>通靈 / OC</h3><p>依你的設計或全權交給店主打造原創角色。</p></div>
+      <div class="feature reveal"><div class="ico">✨</div><h3>通靈 / OC</h3><p>依你的設計或全權(通靈)交給店主打造原創角色。</p></div>
     </div>
   </section>
 
@@ -79,31 +68,19 @@
   <section class="section" id="gallery">
     <h2 class="reveal"><span class="dot"></span>作品集</h2>
     <p class="lead reveal">部分客製化角色成果展示（點擊放大）。</p>
-    <div class="gallery stagger" id="galleryGrid"></div>
+    <div class="accordion reveal" id="galleryGrid"></div>
   </section>
 
-  <!-- 委託須知 -->
+  <!-- 委託須知（導向獨立頁面） -->
   <section class="section" id="terms">
-    <h2 class="reveal"><span class="dot"></span>委託須知條款</h2>
-    <p class="lead reveal">委託前請詳細閱讀以下條款，確認同意後即可進行試算與下單。</p>
-    <div class="terms reveal">
-      <ol class="stagger">
-        <li class="reveal">暫不接受<span class="hl">歐美 / Furry 模型</span>委託、<span class="hl">男性模型</span>（未來考慮開放）。</li>
-        <li class="reveal">假日為休息日不會製作，製作時間為平日 <span class="hl">20:00～22:00</span>。</li>
-        <li class="reveal">本工作室可幫顧客代購，製作完畢後確認沒問題會刪除本工作室未付費之檔案。</li>
-        <li class="reveal">客製化商品從做完當日開始計算 <span class="hl">7 天</span>後將刪除工程檔案。</li>
-        <li class="reveal">確定 <span class="hl">1 個月</span>內會〔再製、修改、本體分支〕等皆可保留，超過時間則需支付保管費，單隻角色 <span class="hl">NTD 150</span>。</li>
-        <li class="reveal">在製作前先支付〔<span class="hl">訂金（總金額 50%）／全額</span>〕才會開始製作。</li>
-        <li class="reveal">訂單在未開始前都可取消，一旦開始將會收取違約金（訂金）！<br>
-          <span class="warn">（製作開始第一天訂金 50%、第二天 75%、第三天 100%）</span></li>
-        <li class="reveal">需要您提供 <span class="hl">VRC 帳號密碼</span>，將由我們為您代上傳。</li>
-        <li class="reveal">不提供〔製作好 / 未完成〕工程檔！</li>
-        <li class="reveal"><span class="warn">禁止分享由本工作室出品的任何模型。</span></li>
-        <li class="reveal">本工作室擁有以上條款最終解釋權。</li>
-      </ol>
-      <div class="agree">
-        <a href="estimate.html" class="btn btn-primary">我已詳閱並同意條款，前往試算 →</a>
-      </div>
+    <h2 class="reveal"><span class="dot"></span>委託須知</h2>
+    <p class="lead reveal">委託前請務必詳閱委託須知並同意條款，才能進行試算與下單。</p>
+    <div class="terms reveal" style="text-align:center">
+      <p style="color:var(--muted);margin-bottom:20px;line-height:1.8">
+        內容包含<strong>製作時間、付款方式、訂金與違約規則、檔案保管、模型使用限制</strong>等重要事項，<br>
+        請閱讀完整條款並勾選同意後即可開始委託試算。
+      </p>
+      <a href="terms.html" class="btn btn-primary">閱讀委託須知並開始 →</a>
     </div>
   </section>
 
@@ -113,7 +90,6 @@
     <p class="lead reveal">目前的製作與檔期安排。</p>
     <div class="cal-box reveal">
       <iframe src="https://calendar.google.com/calendar/embed?src=1cbd4bf29bf8e6618d2e45f01a871a949950ca574e1ee829e12ca2b120aea6bd%40group.calendar.google.com&ctz=Asia%2FTaipei" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-      <!-- ▲▲▲ -->
     </div>
   </section>
 </main>
@@ -136,46 +112,34 @@
    把照片放進 assets/gallery/ 資料夾，然後在下面陣列加入檔名與標題即可。
    （沒有對應圖片時會自動顯示佔位圖，不會破版） */
 const GALLERY = [
-  {src:'assets/gallery/1.jpg', title:'作品範例 1'},
-  {src:'assets/gallery/2.jpg', title:'作品範例 2'},
-  {src:'assets/gallery/3.jpg', title:'作品範例 3'},
-  {src:'assets/gallery/4.jpg', title:'作品範例 4'},
-  {src:'assets/gallery/5.jpg', title:'作品範例 5'},
-  {src:'assets/gallery/6.jpg', title:'作品範例 6'},
+  {src:'assets/gallery/1.jpg', title:' '},
+  {src:'assets/gallery/2.jpg', title:' '},
+  {src:'assets/gallery/3.jpg', title:' '},
+  {src:'assets/gallery/4.jpg', title:' '},
+  {src:'assets/gallery/5.jpg', title:' '},
+  {src:'assets/gallery/6.jpg', title:' '},
+  {src:'assets/gallery/7.jpg', title:' '},
+  {src:'assets/gallery/8.jpg', title:' '},
 ];
 const grid = document.getElementById('galleryGrid');
 grid.innerHTML = GALLERY.map((g,i)=>`
-  <div class="gcard reveal" data-i="${i}">
-    <img src="${g.src}" alt="${g.title}" loading="lazy"
+  <div class="acc-item" data-i="${i}">
+    <img src="${g.src}" alt="${g.title.trim()}" loading="lazy"
       onload="this.parentNode.dataset.ok='1'"
       onerror="this.remove();this.parentNode.insertAdjacentHTML('afterbegin','<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span><span>放上你的作品照片</span></div>')">
-    <div class="glare"></div>
-    <div class="cap">${g.title}</div>
+    ${g.title.trim() ? `<div class="cap">${g.title}</div>` : ''}
   </div>`).join('');
 
-/* 3D 互動傾斜 */
-document.querySelectorAll('.gcard').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-    const rx=(py-.5)*-16, ry=(px-.5)*16;
-    card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`;
-    card.style.setProperty('--mx',(px*100)+'%');
-    card.style.setProperty('--my',(py*100)+'%');
-  });
-  card.addEventListener('mouseleave',()=>{ card.style.transform=''; });
-});
-
-// 燈箱
+// 燈箱（點擊放大）
 const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
 grid.addEventListener('click',e=>{
-  const card=e.target.closest('.gcard'); if(!card||card.dataset.ok!=='1')return;
-  lbImg.src=GALLERY[card.dataset.i].src; lb.classList.add('open');
+  const item=e.target.closest('.acc-item'); if(!item||item.dataset.ok!=='1')return;
+  lbImg.src=GALLERY[item.dataset.i].src; lb.classList.add('open');
 });
 document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
 lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
 </script>
 <!-- 進場動畫（共用） -->
-<script src="assets/app.js?v=1"></script>
+<script src="assets/app.js?v=2"></script>
 </body>
 </html>

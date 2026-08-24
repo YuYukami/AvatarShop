@@ -3,7 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RimoStudio｜客製化 VRChat 角色模型</title>
+<title>RimoStudio｜VRChat 角色模型客製化・模型修改委託</title>
+<meta name="description" content="RimoStudio —— VRChat 角色模型客製化服務。提供服裝、髮型、道具、功能安裝、改色、臉型與身形修改，以及通靈／OC 原創角色設計。線上委託試算，打造你的專屬虛擬分身。">
+<meta name="keywords" content="VRChat,Avatar,虛擬分身,VRChat模型,模型修改,改模,VRChat改模,角色客製化,模型委託,VRChat委託,服裝,髮型,通靈,OC,虛擬角色,台灣">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://rimo.vrc-yune.org/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RimoStudio">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="RimoStudio｜VRChat 角色模型客製化・模型修改委託">
+<meta property="og:description" content="VRChat 角色模型客製化服務：服裝、髮型、功能安裝、改色改臉、通靈／OC 原創角色。線上委託試算，打造你的專屬虛擬分身。">
+<meta property="og:url" content="https://rimo.vrc-yune.org/">
+<meta property="og:image" content="https://rimo.vrc-yune.org/assets/gallery/1.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RimoStudio｜VRChat 角色模型客製化">
+<meta name="twitter:description" content="VRChat 角色模型客製化服務，線上委託試算，打造你的專屬虛擬分身。">
+<meta name="twitter:image" content="https://rimo.vrc-yune.org/assets/gallery/1.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "RimoStudio",
+  "description": "VRChat 角色模型客製化服務：服裝、髮型、道具、功能安裝、改色、臉型與身形修改，以及通靈／OC 原創角色設計。",
+  "url": "https://rimo.vrc-yune.org/",
+  "image": "https://rimo.vrc-yune.org/assets/gallery/1.jpg",
+  "serviceType": "VRChat 角色模型客製化",
+  "sameAs": [
+    "https://discord.gg/tzbvaHy9Kx",
+    "https://x.com/Rimooo_vrc"
+  ]
+}
+</script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="assets/style.css?v=11">
@@ -125,7 +155,7 @@ const grid = document.getElementById('galleryGrid');
 const COPIES = 3;  // 複製多份以達成無縫無限循環
 const cardHTML = (g,i)=>`
   <div class="slide" data-i="${i}">
-    <img src="${g.src}" alt="${g.title.trim()}" loading="lazy" draggable="false"
+    <img src="${g.src}" alt="${g.title.trim() || 'RimoStudio VRChat 客製化角色作品 '+(i+1)}" loading="lazy" draggable="false"
       onload="this.parentNode.dataset.ok='1'"
       onerror="this.remove();this.parentNode.insertAdjacentHTML('afterbegin','<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span><span>放上你的作品照片</span></div>')">
     ${g.title.trim() ? `<div class="cap">${g.title}</div>` : ''}

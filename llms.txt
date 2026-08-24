@@ -1,0 +1,22 @@
+# RimoStudio
+
+> RimoStudio 是專注於 VRChat 角色模型客製化（俗稱「改模」）的工作室，提供服裝、髮型、道具套換、功能安裝、改色、臉型與身形修改，以及「通靈／OC」原創角色設計。提供線上委託試算與完整委託須知，服務對象以華語 VRChat 玩家為主。
+
+## 服務項目
+- 服裝與髮型：套換服裝、髮型、道具，支援對應與非對應角色。
+- 改色與改臉：簡易／進階改色、臉型修改、身形修改。
+- 功能安裝：手部快捷選單、便利工具、各式功能安裝與修改、按鈕（開關／轉盤）。
+- 通靈 / OC：依客戶設計或全權交由店主打造原創角色（風格方案／自訂方案）。
+- 商品代購：Booth 商品代購。
+- 保固：任何方案皆可加購保固（每月 NT$700，最多 6 個月）。
+- NSFW 系統：SPS、SPS-D、PCS（成人向功能）。
+
+## 重要頁面
+- [首頁](https://www.vrc-yune.org/): 服務介紹、作品集、改模排程。
+- [委託須知](https://www.vrc-yune.org/terms.html): 製作時間、付款與訂金、違約規則、檔案保管、模型使用限制。
+- [用詞說明](https://www.vrc-yune.org/glossary.html): VRChat 改模常見名詞解釋（按鈕、對應/非對應、改色、臉型/身形修改、優化、保固、SPS/PCS）。
+- [委託試算](https://www.vrc-yune.org/estimate.html): 線上選擇方案與加購項目，即時估算改模費用（新台幣 TWD）。
+
+## 聯繫方式
+- Discord: https://discord.gg/tzbvaHy9Kx
+- X (Twitter): https://x.com/Rimooo_vrc

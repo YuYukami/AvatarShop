@@ -39,7 +39,7 @@ AvatarShop/
 
 ---
 
-## 三、自訂網域（目前：rimo.vrc-yune.org，透過 Cloudflare）
+## 三、自訂網域（目前：www.vrc-yune.org，透過 Cloudflare）
 
 - GitHub Pages 設定頁 **Custom domain** 已指向自訂網域。
 - Cloudflare DNS 以 CNAME 指向 `你的帳號.github.io`。

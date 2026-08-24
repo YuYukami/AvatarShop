@@ -21,6 +21,7 @@ body{
   line-height:1.6;
   min-height:100vh;
   overflow-x:hidden;
+  font-size:18px;
 }
 a{color:var(--accent-2);text-decoration:none}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -39,7 +40,7 @@ a{color:var(--accent-2);text-decoration:none}
   border-bottom:1px solid var(--line)}
 .nav-inner{max-width:1100px;margin:0 auto;padding:14px 20px;
   display:flex;align-items:center;gap:16px}
-.brand{font-weight:800;font-size:19px;letter-spacing:.5px;display:flex;align-items:center;gap:8px;
+.brand{font-weight:800;font-size:21px;letter-spacing:.5px;display:flex;align-items:center;gap:8px;
   background:linear-gradient(90deg,var(--accent),var(--accent-2));
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .brand::before{content:"✦";-webkit-text-fill-color:var(--accent)}
@@ -62,7 +63,7 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   display:flex;flex-direction:column;gap:4px;padding:90px 22px 30px;
   transform:translateX(105%);transition:transform .38s cubic-bezier(.16,.8,.3,1);z-index:55}
 body.nav-open .nav-links{transform:none}
-.nav-links a{color:var(--text);font-size:16px;padding:14px 16px;border-radius:12px;
+.nav-links a{color:var(--text);font-size:18px;padding:14px 16px;border-radius:12px;
   opacity:0;transform:translateX(24px);transition:background .15s ease,color .15s ease}
 .nav-links a:hover{background:var(--accent-soft);color:var(--accent-2)}
 /* 進場交錯：用 animation，與 hover 的 transition 完全分開，hover 才不會卡 */
@@ -85,7 +86,7 @@ body.nav-open .nav-backdrop{opacity:1;visibility:visible}
 
 /* ===== 通用區塊 ===== */
 .section{padding:56px 0 20px}
-.section h2{font-size:clamp(22px,3vw,30px);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.section h2{font-size:clamp(24px,3vw,32px);margin-bottom:8px;display:flex;align-items:center;gap:10px}
 .section h2 .dot{width:11px;height:11px;border-radius:50%;
   background:linear-gradient(90deg,var(--accent),var(--accent-2))}
 .section .lead{color:var(--muted);margin-bottom:24px}
@@ -112,8 +113,8 @@ body.nav-open .nav-backdrop{opacity:1;visibility:visible}
   padding:22px;transition:.2s}
 .feature:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 30px rgba(124,58,237,.18)}
 .feature .ico{font-size:26px;margin-bottom:10px}
-.feature h3{font-size:16px;margin-bottom:6px}
-.feature p{color:var(--muted);font-size:13.5px}
+.feature h3{font-size:18px;margin-bottom:6px}
+.feature p{color:var(--muted);font-size:15.5px}
 
 /* ===== 作品集（無限橫向輪播）===== */
 .carousel{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;
@@ -131,7 +132,7 @@ body.nav-open .nav-backdrop{opacity:1;visibility:visible}
   transition:transform .5s ease;pointer-events:none}
 .slide:hover img{transform:scale(1.06)}
 .slide .cap{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;
-  font-weight:600;font-size:15px;
+  font-weight:600;font-size:17px;
   background:linear-gradient(0deg,rgba(15,13,23,.92),transparent);
   opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
 .slide:hover .cap{opacity:1;transform:none}
@@ -156,15 +157,15 @@ body.nav-open .nav-backdrop{opacity:1;visibility:visible}
 
 /* ===== Footer ===== */
 .footer{border-top:1px solid var(--line);margin-top:60px;
-  padding:32px 20px;text-align:center;color:var(--muted);font-size:13px}
-.footer .brand{font-size:16px;justify-content:center;margin-bottom:10px}
+  padding:32px 20px;text-align:center;color:var(--muted);font-size:15px}
+.footer .brand{font-size:18px;justify-content:center;margin-bottom:10px}
 .footer .social{display:flex;gap:14px;justify-content:center;margin:12px 0}
-.footer .social a{color:var(--muted);font-size:14px;border:1px solid var(--line);
+.footer .social a{color:var(--muted);font-size:16px;border:1px solid var(--line);
   padding:6px 16px;border-radius:999px;transition:.15s}
 .footer .social a:hover{color:var(--text);border-color:var(--accent)}
 
 /* ===== 按鈕（共用） ===== */
-.btn{padding:12px 26px;border-radius:12px;font-weight:700;font-size:15px;
+.btn{padding:12px 26px;border-radius:12px;font-weight:700;font-size:17px;
   transition:.15s;cursor:pointer;border:none;display:inline-block;text-align:center}
 .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1a1726}
 .btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px)}
@@ -179,7 +180,7 @@ body.nav-open .nav-backdrop{opacity:1;visibility:visible}
 .terms li:first-child{border-top:none}
 .terms li::before{content:counter(t);position:absolute;left:0;top:12px;
   width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);
-  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
 .terms .hl{color:var(--accent-2);font-weight:600}
 .terms .warn{color:#fca5a5}
 .agree{margin-top:24px;text-align:center}
@@ -199,12 +200,12 @@ body.nav-open .nav-backdrop{opacity:1;visibility:visible}
 /* 同意區 */
 .gate{margin-top:22px;text-align:center}
 .gate .agree-check{display:inline-flex;align-items:center;gap:10px;cursor:pointer;
-  font-size:15px;user-select:none;color:var(--text);
+  font-size:17px;user-select:none;color:var(--text);
   background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 20px;transition:.15s}
 .gate .agree-check:not(.disabled):hover{border-color:var(--accent)}
 .gate .agree-check input{width:20px;height:20px;accent-color:var(--accent);cursor:pointer}
 .gate .agree-check.disabled{opacity:.5;cursor:not-allowed}
-.gate .hint{color:var(--muted);font-size:13.5px;margin:14px 0}
+.gate .hint{color:var(--muted);font-size:15.5px;margin:14px 0}
 .gate .hint.ok{color:var(--ok)}
 .gate .actions{margin-top:8px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
@@ -214,12 +215,12 @@ body.nav-open .nav-backdrop{opacity:1;visibility:visible}
   padding:20px 22px;transition:.2s}
 .term:hover{border-color:var(--accent);transform:translateY(-3px);
   box-shadow:0 12px 28px rgba(124,58,237,.16)}
-.term h3{font-size:17px;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:var(--accent-2)}
+.term h3{font-size:19px;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:var(--accent-2)}
 .term h3::before{content:"";width:7px;height:7px;border-radius:50%;
   background:linear-gradient(90deg,var(--accent),var(--accent-2));flex:none}
-.term h3 .nsfw{font-size:10px;font-weight:700;color:#fca5a5;border:1px solid #fca5a5;
+.term h3 .nsfw{font-size:12px;font-weight:700;color:#fca5a5;border:1px solid #fca5a5;
   border-radius:6px;padding:1px 6px;margin-left:auto}
-.term p{color:var(--muted);font-size:14px;line-height:1.7}
-.term .sub{color:var(--muted);font-size:14px;line-height:1.7;
+.term p{color:var(--muted);font-size:16px;line-height:1.7}
+.term .sub{color:var(--muted);font-size:16px;line-height:1.7;
   margin-top:8px;padding-left:12px;border-left:2px solid var(--line)}
 .term .sub b{color:var(--text)}

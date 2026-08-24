@@ -24,16 +24,16 @@
     if(!t || Date.now() - t > ONE_DAY){ location.replace('terms.html'); }
   })();
 </script>
-<link rel="stylesheet" href="assets/style.css?v=11">
+<link rel="stylesheet" href="assets/style.css?v=12">
 <style>
   .wrap{padding-bottom:120px}
   .page-head{text-align:center;padding:40px 0 8px}
-  .page-head h1{font-size:clamp(26px,4vw,38px);letter-spacing:1px;
+  .page-head h1{font-size:clamp(28px,4vw,40px);letter-spacing:1px;
     background:linear-gradient(90deg,var(--accent),var(--accent-2));
     -webkit-background-clip:text;background-clip:text;color:transparent}
   .page-head p{color:var(--muted);margin-top:6px}
   .steps{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
-  .steps span{font-size:13px;color:var(--muted);background:var(--panel);
+  .steps span{font-size:15px;color:var(--muted);background:var(--panel);
     border:1px solid var(--line);border-radius:999px;padding:6px 14px}
   .steps b{color:var(--accent)}
 
@@ -42,8 +42,8 @@
 
   section.card{background:var(--panel);border:1px solid var(--line);
     border-radius:var(--radius);padding:20px 22px;margin-bottom:20px}
-  section.card > h2{font-size:18px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-  section.card > .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+  section.card > h2{font-size:20px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  section.card > .sub{color:var(--muted);font-size:15px;margin-bottom:16px}
   h2 .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);display:inline-block}
 
   .plans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -53,23 +53,23 @@
   .plan:hover{border-color:var(--accent)}
   .plan.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
   .plan input{position:absolute;opacity:0;pointer-events:none}
-  .plan .pname{font-weight:600;font-size:15px}
+  .plan .pname{font-weight:600;font-size:17px}
   .plan .pprice{color:var(--accent-2);font-weight:700;margin:4px 0}
-  .plan .pnote{color:var(--muted);font-size:12px;line-height:1.5}
+  .plan .pnote{color:var(--muted);font-size:14px;line-height:1.5}
 
   .row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
   .row:first-of-type{border-top:none}
   .row .info{flex:1;min-width:0}
-  .row .rname{font-size:14.5px;font-weight:500}
-  .row .rnote{color:var(--muted);font-size:12px}
-  .row .price{color:var(--accent-2);font-weight:600;white-space:nowrap;font-size:14px}
-  .badge{display:inline-block;font-size:10px;background:var(--accent-soft);color:var(--accent);
+  .row .rname{font-size:16.5px;font-weight:500}
+  .row .rnote{color:var(--muted);font-size:14px}
+  .row .price{color:var(--accent-2);font-weight:600;white-space:nowrap;font-size:16px}
+  .badge{display:inline-block;font-size:12px;background:var(--accent-soft);color:var(--accent);
     border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
 
   .stepper{display:flex;align-items:center;background:var(--panel-2);
     border:1px solid var(--line);border-radius:10px;overflow:hidden}
   .stepper button{width:32px;height:32px;border:none;background:transparent;color:var(--text);
-    font-size:18px;cursor:pointer;transition:.1s}
+    font-size:20px;cursor:pointer;transition:.1s}
   .stepper button:hover{background:var(--accent-soft);color:var(--accent)}
   .stepper .val{width:34px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
   .stepper.zero .val{color:var(--muted)}
@@ -83,25 +83,34 @@
   aside{position:sticky;top:80px}
   .summary{background:linear-gradient(180deg,var(--panel-2),var(--panel));
     border:1px solid var(--line);border-radius:var(--radius);padding:20px}
-  .summary h3{font-size:16px;margin-bottom:14px}
-  #items{font-size:13px;max-height:44vh;overflow:auto}
+  .summary h3{font-size:18px;margin-bottom:14px}
+  #items{font-size:15px;max-height:44vh;overflow:auto}
   #items .li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;
     border-bottom:1px dashed var(--line);color:var(--muted)}
   #items .li .n{color:var(--text)}
   #items .empty{color:var(--muted);text-align:center;padding:20px 0}
   .total{margin-top:16px;padding-top:16px;border-top:2px solid var(--line);
     display:flex;justify-content:space-between;align-items:baseline}
-  .total .lbl{font-size:14px;color:var(--muted)}
-  .total .amt{font-size:30px;font-weight:800;color:var(--accent-2)}
-  .from-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
+  .total .lbl{font-size:16px;color:var(--muted)}
+  .total .amt{font-size:32px;font-weight:800;color:var(--accent-2)}
+  .from-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5}
   .cta-btn{display:block;width:100%;text-align:center;margin-top:16px;
     background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1a1726;
-    font-weight:700;padding:13px;border-radius:12px;border:none;cursor:pointer;font-size:15px}
+    font-weight:700;padding:13px;border-radius:12px;border:none;cursor:pointer;font-size:17px}
   .cta-btn:hover{filter:brightness(1.08)}
   .sub-link{display:block;width:100%;text-align:center;margin-top:10px;padding:11px;
     border-radius:12px;border:1px solid var(--line);color:var(--muted);
-    font-size:14px;transition:.15s}
+    font-size:16px;transition:.15s}
   .sub-link:hover{border-color:var(--accent);color:var(--accent-2)}
+  /* 對應／非對應雙計數器 */
+  .alt-counters{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+  .ac{display:flex;align-items:center;gap:10px}
+  .ac-lbl{font-size:14px;color:var(--muted);white-space:nowrap}
+  .ac-lbl b{color:var(--accent-2);font-weight:700;margin-left:4px}
+  @media(max-width:520px){
+    .alt-counters{align-items:stretch;width:100%}
+    .ac{justify-content:space-between}
+  }
 </style>
 </head>
 <body>
@@ -127,7 +136,7 @@
     <h1 class="reveal">委託試算</h1>
     <p class="reveal">選擇方案與加購項目，即時估算你的委託費用（新台幣 TWD）</p>
     <div class="steps reveal"><span><b>1.</b> 選擇方案</span><span><b>2.</b> 選擇加購商品</span><span><b>3.</b> 聯繫店主</span></div>
-    <p class="reveal" style="margin-top:12px;font-size:13.5px;color:var(--muted)">
+    <p class="reveal" style="margin-top:12px;font-size:15.5px;color:var(--muted)">
       不清楚名詞含義？請先參考 <a href="glossary.html">用詞說明</a>
     </p>
   </header>
@@ -262,21 +271,36 @@ function stepper(id, val){
       <button data-d="-1">−</button><span class="val" id="v-${id}">${val}</span><button data-d="1">+</button>
     </div>`;
 }
-function counterRow(it){
-  const q = state.qty[it.id]||0;
-  const useAlt = state.alt[it.id];
-  const cur = (useAlt && it.alt) ? it.alt : it;
-  const priceTxt = '$'+cur.price.toLocaleString()+(cur.from?'<span class="badge">起</span>':'');
-  let noteTxt = useAlt&&it.alt ? it.alt.name : (it.note||'');
-  const altHtml = it.alt ? `<label class="alt-toggle">
-      <input type="checkbox" data-alt="${it.id}" ${useAlt?'checked':''}> 改為${it.alt.name}（$${it.alt.price}${it.alt.from?' 起':''}）
-    </label>` : '';
+function subCounterRow(id, name, price, from, note){
+  const q = state.qty[id]||0;
+  const priceTxt = '$'+price.toLocaleString()+(from?'<span class="badge">起</span>':'');
   return `<div class="row">
-      <div class="info"><div class="rname">${it.name}</div>
-        <div class="rnote">${noteTxt}</div>${altHtml}</div>
+      <div class="info"><div class="rname">${name}</div>
+        <div class="rnote">${note||''}</div></div>
       <div class="price">${priceTxt}</div>
-      ${stepper(it.id, q)}
+      ${stepper(id, q)}
     </div>`;
+}
+function miniCounter(id, label, price, from){
+  const q = state.qty[id]||0;
+  return `<div class="ac">
+      <span class="ac-lbl">${label}<b>$${price.toLocaleString()}${from?' 起':''}</b></span>
+      ${stepper(id, q)}
+    </div>`;
+}
+function counterRow(it){
+  // 有對應/非對應之分的項目 → 同一列放兩個小計數器，可同時加購
+  if(it.alt){
+    return `<div class="row">
+        <div class="info"><div class="rname">${it.name}</div>
+          <div class="rnote">對應／非對應可分別加購</div></div>
+        <div class="alt-counters">
+          ${miniCounter(it.id, '對應角色 ', it.price, it.from)}
+          ${miniCounter(it.id+'_alt', it.alt.name+' ', it.alt.price, it.alt.from)}
+        </div>
+      </div>`;
+  }
+  return subCounterRow(it.id, it.name, it.price, it.from, it.note||'');
 }
 function baseCounterRow(it){
   const q = state.qty[it.id]||0;
@@ -302,7 +326,7 @@ function render(){
       <div class="info"><div class="rname">加購保固</div><div class="rnote">每 1 個月 $700，上限 6 個月</div></div>
       <div class="price">$700 / 月</div>${stepper('warranty', state.warranty)}
     </div>`;
-  bindSteppers(); bindAlts(); bindBases();
+  bindSteppers(); bindBases();
 }
 function bindSteppers(){
   document.querySelectorAll('[data-step]').forEach(el=>{
@@ -315,11 +339,6 @@ function bindSteppers(){
         recalc(); render();
       };
     });
-  });
-}
-function bindAlts(){
-  document.querySelectorAll('[data-alt]').forEach(el=>{
-    el.onchange = ()=>{ state.alt[el.dataset.alt]=el.checked; recalc(); render(); };
   });
 }
 function bindBases(){
@@ -337,10 +356,12 @@ function recalc(){
 
   const allCounters = [...MAIN, ...BOOTH, ...UTIL.filter(x=>x.type!=='baseCounter')];
   allCounters.forEach(it=>{
-    const q = state.qty[it.id]||0; if(!q) return;
-    const useAlt = state.alt[it.id] && it.alt;
-    const cur = useAlt ? it.alt : it;
-    add(`${it.name}${useAlt?'（'+it.alt.name+'）':''} ×${q}`, cur.price*q, cur.from);
+    const q = state.qty[it.id]||0;
+    if(q) add(`${it.name}${it.alt?'（對應角色）':''} ×${q}`, it.price*q, it.from);
+    if(it.alt){
+      const qa = state.qty[it.id+'_alt']||0;
+      if(qa) add(`${it.name}（${it.alt.name}）×${qa}`, it.alt.price*qa, it.alt.from);
+    }
   });
 
   [...UTIL, ...NSFW].filter(x=>x.type==='baseCounter').forEach(it=>{

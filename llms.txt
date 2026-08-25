@@ -11,8 +11,13 @@
 - 保固：任何方案皆可加購保固（每月 NT$700，最多 6 個月）。
 - NSFW 系統：SPS、SPS-D、PCS（成人向功能）。
 
+## 付款方式
+- 台灣客戶：銀行／ATM 轉帳、Line Pay、街口支付。
+- 海外客戶：PayPal。
+- 製作前需先支付訂金（總金額 50%）或全額才會開始製作；實際收款資訊於透過 Discord 聯繫後提供。
+
 ## 重要頁面
-- [首頁](https://www.vrc-yune.org/): 服務介紹、作品集、改模排程。
+- [首頁](https://www.vrc-yune.org/): 服務介紹、作品集、常見問答（FAQ）、改模排程。
 - [委託須知](https://www.vrc-yune.org/terms.html): 製作時間、付款與訂金、違約規則、檔案保管、模型使用限制。
 - [用詞說明](https://www.vrc-yune.org/glossary.html): VRChat 改模常見名詞解釋（按鈕、對應/非對應、改色、臉型/身形修改、優化、保固、SPS/PCS）。
 - [委託試算](https://www.vrc-yune.org/estimate.html): 線上選擇方案與加購項目，即時估算改模費用（新台幣 TWD）。

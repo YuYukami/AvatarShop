@@ -75,6 +75,7 @@ body.nav-open .nav-links a:nth-child(3){animation-delay:.15s}
 body.nav-open .nav-links a:nth-child(4){animation-delay:.20s}
 body.nav-open .nav-links a:nth-child(5){animation-delay:.25s}
 body.nav-open .nav-links a:nth-child(6){animation-delay:.30s}
+body.nav-open .nav-links a:nth-child(7){animation-delay:.35s}
 .nav-links a.cta{color:#1a1726;background:linear-gradient(90deg,var(--accent),var(--accent-2));
   font-weight:700;text-align:center;margin-top:10px}
 .nav-links a.cta:hover{filter:brightness(1.08);color:#1a1726}

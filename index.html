@@ -34,9 +34,25 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"VRChat 改模（角色客製化）要多少錢？","acceptedAnswer":{"@type":"Answer","text":"費用依方案與加購項目而定：獨立方案從 NT$250 起（代客上傳）、優惠方案 NT$1,200 起。可到委託試算頁自由選擇方案與加購項目，即時估算費用。"}},
+    {"@type":"Question","name":"要怎麼開始委託？","acceptedAnswer":{"@type":"Answer","text":"三個步驟：① 閱讀並同意委託須知 → ② 用委託試算估價 → ③ 透過 Discord 聯繫店主確認委託。"}},
+    {"@type":"Question","name":"什麼是通靈？","acceptedAnswer":{"@type":"Answer","text":"通靈是指你不需要提供明確設計，全權交由店主依風格為你打造原創角色；也可以提供設計圖或喜歡的風格（風格方案）。"}},
+    {"@type":"Question","name":"可以套用不是我角色的衣服或髮型嗎？（非對應）","acceptedAnswer":{"@type":"Answer","text":"可以。原本為其他角色設計的商品套到你的模型上稱為非對應，因為需要額外適配，費用會比對應角色高一些。"}},
+    {"@type":"Question","name":"製作要多久？什麼時候製作？","acceptedAnswer":{"@type":"Answer","text":"製作時間為平日 20:00–22:00，假日休息。實際工期依項目複雜度而定，確切時程會在委託時與店主確認。"}},
+    {"@type":"Question","name":"需要訂金嗎？怎麼付款？","acceptedAnswer":{"@type":"Answer","text":"目前接受銀行/ATM 轉帳、Line Pay、街口支付，海外客戶可使用 PayPal；收款資訊會在透過 Discord 聯繫後提供。製作前需先支付訂金（總金額 50%）或全額才會開始製作。"}},
+    {"@type":"Question","name":"有提供保固嗎？","acceptedAnswer":{"@type":"Answer","text":"有。標準保固為角色驗收後 7 天內免費修復製作瑕疵。也可加購保固，每月 NT$700、最多 6 個月。"}},
+    {"@type":"Question","name":"有哪些不接的委託？","acceptedAnswer":{"@type":"Answer","text":"目前暫不接受歐美、Furry 模型與男性模型委託（未來考慮開放）。另外禁止分享由本工作室出品的任何模型。"}}
+  ]
+}
+</script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/style.css?v=12">
+<link rel="stylesheet" href="assets/style.css?v=13">
 <style>
   /* 首頁專用 */
   .hero{text-align:center;padding:96px 0 48px;position:relative}
@@ -48,6 +64,20 @@
     -webkit-background-clip:text;background-clip:text;color:transparent}
   .hero p{color:var(--muted);max-width:620px;margin:20px auto 0;font-size:18px}
   .hero-btns{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+  /* 常見問答 FAQ */
+  .faq{display:flex;flex-direction:column;gap:12px}
+  .faq details{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:border-color .2s}
+  .faq details[open]{border-color:var(--accent)}
+  .faq summary{list-style:none;cursor:pointer;padding:18px 22px;font-size:17px;font-weight:600;
+    display:flex;align-items:center;gap:12px;color:var(--text)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";margin-left:auto;font-size:24px;color:var(--accent);
+    transition:transform .25s ease;line-height:1}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq summary:hover{color:var(--accent-2)}
+  .faq .fa-body{padding:0 22px 20px;color:var(--muted);font-size:15.5px;line-height:1.85}
+  .faq .fa-body a{color:var(--accent-2)}
 </style>
 </head>
 <body>
@@ -62,6 +92,7 @@
     <a href="#gallery">作品集</a>
     <a href="terms.html">委託須知</a>
     <a href="glossary.html">用詞說明</a>
+    <a href="#faq">常見問答</a>
     <a href="#schedule">改模排程</a>
     <a href="estimate.html" class="cta">委託試算</a>
   </div>
@@ -111,6 +142,38 @@
         請閱讀完整條款並勾選同意後即可開始委託試算。
       </p>
       <a href="terms.html" class="btn btn-primary">閱讀委託須知並開始 →</a>
+    </div>
+  </section>
+
+  <!-- 常見問答 FAQ -->
+  <section class="section" id="faq">
+    <h2 class="reveal"><span class="dot"></span>常見問答</h2>
+    <p class="lead reveal">關於 VRChat 改模委託的常見疑問。</p>
+    <div class="faq stagger">
+      <details class="reveal"><summary>VRChat 改模（角色客製化）要多少錢？</summary>
+        <div class="fa-body">費用依方案與加購項目而定：獨立方案從 NT$250 起（代客上傳）、優惠方案 NT$1,200 起。你可以到 <a href="estimate.html">委託試算</a> 頁自由選擇方案與加購項目，即時估算費用。</div>
+      </details>
+      <details class="reveal"><summary>要怎麼開始委託？</summary>
+        <div class="fa-body">三個步驟：① 閱讀並同意 <a href="terms.html">委託須知</a> → ② 用 <a href="estimate.html">委託試算</a> 估價 → ③ 透過 <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener">Discord</a> 聯繫店主確認委託。</div>
+      </details>
+      <details class="reveal"><summary>什麼是「通靈」？</summary>
+        <div class="fa-body">「通靈」是指你不需要提供明確設計，全權交由店主依風格為你打造原創角色；當然你也可以提供設計圖或喜歡的風格（風格方案）。更多名詞可參考 <a href="glossary.html">用詞說明</a>。</div>
+      </details>
+      <details class="reveal"><summary>可以套用不是我角色的衣服／髮型嗎？（非對應）</summary>
+        <div class="fa-body">可以。原本為其他角色設計的商品，套到你的模型上稱為「非對應」，因為需要額外適配，費用會比「對應角色」高一些。試算頁可分別選擇對應與非對應的數量。</div>
+      </details>
+      <details class="reveal"><summary>製作要多久？什麼時候製作？</summary>
+        <div class="fa-body">製作時間為平日 20:00–22:00（假日休息）。實際工期依項目複雜度而定，確切時程會在委託時與店主確認。目前檔期可參考首頁的「改模排程」。</div>
+      </details>
+      <details class="reveal"><summary>需要訂金嗎？怎麼付款？</summary>
+        <div class="fa-body">目前接受 <b>銀行／ATM 轉帳、Line Pay、街口支付</b>，海外客戶可使用 <b>PayPal</b>；實際收款帳號或收款碼會在你透過 Discord 聯繫店主後提供。製作前需先支付訂金（總金額 50%）或全額才會開始製作；訂單在開始製作前皆可取消，一旦開始將依進度收取違約金，詳見 <a href="terms.html">委託須知</a>。</div>
+      </details>
+      <details class="reveal"><summary>有提供保固嗎？</summary>
+        <div class="fa-body">有。標準保固為角色驗收後 7 天內，免費修復製作瑕疵（如穿模、權重異常等）。也可加購保固，每月 NT$700、最多 6 個月。詳見 <a href="glossary.html">保固說明</a>。</div>
+      </details>
+      <details class="reveal"><summary>有哪些不接的委託？</summary>
+        <div class="fa-body">目前暫不接受歐美／Furry 模型與男性模型委託（未來考慮開放）。另外，禁止分享由本工作室出品的任何模型。</div>
+      </details>
     </div>
   </section>
 

@@ -52,7 +52,7 @@
 </script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/style.css?v=13">
+<link rel="stylesheet" href="assets/style.css?v=14">
 <style>
   /* 首頁專用 */
   .hero{text-align:center;padding:96px 0 48px;position:relative}
@@ -78,6 +78,17 @@
   .faq summary:hover{color:var(--accent-2)}
   .faq .fa-body{padding:0 22px 20px;color:var(--muted);font-size:15.5px;line-height:1.85}
   .faq .fa-body a{color:var(--accent-2)}
+  /* 首頁團隊區塊 */
+  .team-preview{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:32px 24px;text-align:center}
+  .tp-avatars{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:22px}
+  .tp-ava{width:96px;height:96px;border-radius:50%;overflow:hidden;
+    border:2px solid var(--line);background:var(--panel-2);transition:.2s}
+  .tp-ava:hover{border-color:var(--accent);transform:translateY(-4px)}
+  .tp-ava img{width:100%;height:100%;object-fit:cover;display:block}
+  .tp-ava .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    font-size:34px;color:var(--muted);background:linear-gradient(135deg,#231d38,#2c2247)}
+  .team-preview p{color:var(--muted);margin-bottom:22px}
 </style>
 </head>
 <body>
@@ -90,6 +101,7 @@
   <div class="nav-links">
     <a href="index.html">首頁</a>
     <a href="#gallery">作品集</a>
+    <a href="team.html">團隊介紹</a>
     <a href="terms.html">委託須知</a>
     <a href="glossary.html">用詞說明</a>
     <a href="#faq">常見問答</a>
@@ -130,6 +142,21 @@
     <h2 class="reveal"><span class="dot"></span>作品集</h2>
     <p class="lead reveal">部分客製化角色成果展示 —— 可左右滑動瀏覽，點擊放大。</p>
     <div class="carousel reveal" id="galleryGrid"></div>
+  </section>
+
+  <!-- 專業團隊 -->
+  <section class="section" id="team">
+    <h2 class="reveal"><span class="dot"></span>專業團隊</h2>
+    <p class="lead reveal">RimoStudio 由店主與專業成員組成，各有專精 —— 建模、動畫、改色、功能安裝，為你的角色量身打造。</p>
+    <div class="team-preview reveal">
+      <a href="team.html" class="tp-avatars" aria-label="查看團隊介紹">
+        <span class="tp-ava"><img src="assets/team/rimo.jpg" alt="Rimo" loading="lazy" onerror="this.parentNode.innerHTML='<span class=&quot;ph&quot;>👤</span>'"></span>
+        <span class="tp-ava"><img src="assets/team/member2.jpg" alt="成員" loading="lazy" onerror="this.parentNode.innerHTML='<span class=&quot;ph&quot;>👤</span>'"></span>
+        <span class="tp-ava"><img src="assets/team/member3.jpg" alt="成員" loading="lazy" onerror="this.parentNode.innerHTML='<span class=&quot;ph&quot;>👤</span>'"></span>
+      </a>
+      <p>店主與 2 位專業成員，各有專精領域</p>
+      <a href="team.html" class="btn btn-primary">認識我們的團隊 →</a>
+    </div>
   </section>
 
   <!-- 委託須知（導向獨立頁面） -->

@@ -18,6 +18,7 @@
 
 ## 重要頁面
 - [首頁](https://www.vrc-yune.org/): 服務介紹、作品集、常見問答（FAQ）、改模排程。
+- [團隊介紹](https://www.vrc-yune.org/team.html): 團隊成員、專長與作品。
 - [委託須知](https://www.vrc-yune.org/terms.html): 製作時間、付款與訂金、違約規則、檔案保管、模型使用限制。
 - [用詞說明](https://www.vrc-yune.org/glossary.html): VRChat 改模常見名詞解釋（按鈕、對應/非對應、改色、臉型/身形修改、優化、保固、SPS/PCS）。
 - [委託試算](https://www.vrc-yune.org/estimate.html): 線上選擇方案與加購項目，即時估算改模費用（新台幣 TWD）。

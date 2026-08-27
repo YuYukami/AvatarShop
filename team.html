@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>團隊介紹｜RimoStudio VRChat 改模團隊</title>
+<meta name="description" content="RimoStudio 團隊介紹 —— 認識我們的 VRChat 改模團隊成員、專長與作品。">
+<meta name="keywords" content="VRChat,改模,團隊,成員,建模,改色,RimoStudio">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.vrc-yune.org/team.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RimoStudio">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="團隊介紹｜RimoStudio">
+<meta property="og:description" content="認識 RimoStudio 的 VRChat 改模團隊成員、專長與作品。">
+<meta property="og:url" content="https://www.vrc-yune.org/team.html">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="assets/style.css?v=14">
+<style>
+  .wrap{padding-bottom:100px}
+  .member{display:grid;grid-template-columns:200px 1fr;gap:26px;align-items:start;
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;margin-bottom:20px}
+  .member .portrait{width:200px;height:200px;border-radius:16px;overflow:hidden;
+    border:1px solid var(--line);background:var(--panel-2);flex:none}
+  .member .portrait img{width:100%;height:100%;object-fit:cover;display:block}
+  .member .ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:6px;color:var(--muted);background:linear-gradient(135deg,#231d38,#2c2247)}
+  .member .ph .pic{font-size:40px;opacity:.7}
+  .m-info h3{font-size:23px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .m-info .role{font-size:14px;color:#1a1726;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:3px 14px;border-radius:999px}
+  .m-info .role.soon{background:var(--line);color:var(--muted)}
+  .m-info .role.hiring{background:linear-gradient(90deg,#4ade80,#34d399);color:#0f2417}
+  .member-hiring{border-style:dashed;border-color:var(--accent)}
+  .member-soon .portrait .ph .pic,.member-hiring .portrait .ph .pic{font-size:46px}
+  .m-desc{color:var(--muted);margin-top:10px;line-height:1.8}
+  .m-label{font-size:14px;color:var(--accent-2);font-weight:600;margin:16px 0 8px}
+  .skills{display:flex;flex-wrap:wrap;gap:8px}
+  .skills span{font-size:14px;background:var(--accent-soft);color:var(--accent);
+    border:1px solid var(--line);border-radius:999px;padding:5px 14px}
+  .skills.avoid span{background:rgba(252,165,165,.1);color:#fca5a5;border-color:rgba(252,165,165,.4)}
+  .m-works{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+  .m-works .w{aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid var(--line);
+    background:var(--panel-2);cursor:pointer}
+  .m-works .w img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+  .m-works .w:hover img{transform:scale(1.08)}
+  @media(max-width:600px){
+    .member{grid-template-columns:1fr;justify-items:center;text-align:center}
+    .member .portrait{width:100%;max-width:260px;height:auto;aspect-ratio:1}
+    .m-info h3{justify-content:center}
+    .skills{justify-content:center}
+    .m-works{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<div class="orbs"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
+
+<nav class="nav"><div class="nav-inner">
+  <span class="brand">RimoStudio</span>
+  <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="index.html">首頁</a>
+    <a href="index.html#gallery">作品集</a>
+    <a href="team.html">團隊介紹</a>
+    <a href="terms.html">委託須知</a>
+    <a href="glossary.html">用詞說明</a>
+    <a href="index.html#faq">常見問答</a>
+    <a href="index.html#schedule">改模排程</a>
+    <a href="estimate.html" class="cta">委託試算</a>
+  </div>
+</div></nav>
+<div class="nav-backdrop"></div>
+
+<div class="wrap">
+  <section class="section">
+    <h2 class="reveal"><span class="dot"></span>團隊介紹</h2>
+    <p class="lead reveal">認識 RimoStudio 的成員、專長與作品。</p>
+
+    <!--
+      ▼▼▼ 如何編輯 ▼▼▼
+      1. 修改每位成員的「名稱、職稱、介紹、專長標籤」文字。
+      2. 頭像：放一張圖到 assets/team/，把 <img src="..."> 換成你的檔名（建議正方形）。
+      3. 作品照：把圖放到 assets/team/，換掉 <img src="...">（建議正方形，可增減數量）。
+      沒有放圖時會自動顯示佔位圖，不會破版。點作品照可放大。
+    -->
+
+    <!-- 成員 1（店主）-->
+    <article class="member reveal">
+      <div class="portrait">
+        <img src="assets/team/rimo.jpg" alt="Rimo 頭像" loading="lazy"
+          onerror="this.remove();this.parentNode.insertAdjacentHTML('afterbegin','<div class=&quot;ph&quot;><span class=&quot;pic&quot;>👤</span><span>放上頭像</span></div>')">
+      </div>
+      <div class="m-info">
+        <h3>Rimo <span class="role">店主</span></h3>
+        <p class="m-desc">從事 VRChat 角色客製化長達6~7年，製作過的角色已突破800+，在改模的基礎上有深厚的經驗</p>
+        <div class="m-label">專長</div>
+        <div class="skills">
+          <span>動畫調整</span><span>功能安裝</span><span>改色 / 改圖</span><span>臉型 / 身形修改</span><span>通靈</span>
+        </div>
+        <div class="m-label">擅長風格</div>
+        <div class="skills"><span>妹系</span><span>姐系</span><span>微年上</span></div>
+        <div class="m-label">不接</div>
+        <div class="skills avoid"><span>Furry</span><span>男性模型</span></div>
+        <div class="m-label">作品</div>
+        <div class="m-works">
+          <div class="w"><img src="assets/team/rimo-1.jpg" alt="Rimo 作品 1" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
+          <div class="w"><img src="assets/team/rimo-2.jpg" alt="Rimo 作品 2" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
+          <div class="w"><img src="assets/team/rimo-3.jpg" alt="Rimo 作品 3" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
+          <div class="w"><img src="assets/team/rimo-4.jpg" alt="Rimo 作品 4" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 成員 2（工事中）-->
+    <article class="member member-soon reveal">
+      <div class="portrait">
+        <div class="ph"><span class="pic">🚧</span><span>工事中</span></div>
+      </div>
+      <div class="m-info">
+        <h3>成員資訊建置中 <span class="role soon">Coming Soon</span></h3>
+        <p class="m-desc">這位成員的介紹、專長與作品正在整理中，敬請期待！</p>
+      </div>
+    </article>
+
+    <!-- 成員 3（工事中）-->
+    <article class="member member-soon reveal">
+      <div class="portrait">
+        <div class="ph"><span class="pic">🚧</span><span>工事中</span></div>
+      </div>
+      <div class="m-info">
+        <h3>成員資訊建置中 <span class="role soon">Coming Soon</span></h3>
+        <p class="m-desc">這位成員的介紹、專長與作品正在整理中，敬請期待！</p>
+      </div>
+    </article>
+
+    <!-- 成員 4（徵才中）-->
+    <article class="member member-hiring reveal">
+      <div class="portrait">
+        <div class="ph"><span class="pic">📢</span><span>徵才中</span></div>
+      </div>
+      <div class="m-info">
+        <h3>徵才中 <span class="role hiring">加入我們</span></h3>
+        <p class="m-desc">RimoStudio 正在尋找志同道合的夥伴！若你擅長 Unity、Blender、建模、改色、貼圖或動畫，歡迎加入我們一起打造角色。</p>
+        <div class="m-label">應徵方式</div>
+        <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener" class="btn btn-primary">透過 Discord 應徵 →</a>
+      </div>
+    </article>
+
+    <div style="text-align:center;margin-top:36px" class="reveal">
+      <a href="estimate.html" class="btn btn-primary">前往委託試算 →</a>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="brand">RimoStudio</div>
+  <div class="social">
+    <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener">Discord</a>
+    <a href="https://x.com/Rimooo_vrc" target="_blank" rel="noopener">Twitter / X</a>
+    <a href="index.html">回首頁</a>
+  </div>
+  <div>Rimo © 2025 RimoStudio</div>
+</footer>
+
+<!-- 燈箱 -->
+<div class="lightbox" id="lightbox"><span class="x" id="lbClose">×</span><img id="lbImg" alt=""></div>
+
+<script>
+// 作品照點擊放大
+const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
+document.querySelectorAll('.m-works').forEach(box=>{
+  box.addEventListener('click', e=>{
+    const img = e.target.closest('img'); if(!img) return;
+    lbImg.src = img.src; lb.classList.add('open');
+  });
+});
+document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
+lb.onclick=e=>{ if(e.target===lb) lb.classList.remove('open'); };
+</script>
+<script src="assets/app.js?v=2"></script>
+</body>
+</html>

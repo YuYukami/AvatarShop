@@ -102,6 +102,19 @@
     border-radius:12px;border:1px solid var(--line);color:var(--muted);
     font-size:16px;transition:.15s}
   .sub-link:hover{border-color:var(--accent);color:var(--accent-2)}
+  /* 折扣代碼 */
+  .disc-box{margin-top:14px}
+  .disc-row{display:flex;gap:8px}
+  .disc-row input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--text);font-size:15px;text-transform:uppercase}
+  .disc-row input::placeholder{text-transform:none;color:var(--muted)}
+  .disc-row button{border:none;border-radius:10px;padding:0 18px;cursor:pointer;font-weight:700;font-size:15px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--text);transition:.15s}
+  .disc-row button:hover{border-color:var(--accent);color:var(--accent-2)}
+  .disc-msg{font-size:13px;margin-top:8px;min-height:1em}
+  .disc-msg.ok{color:var(--ok)} .disc-msg.err{color:#fca5a5}
+  .disc-line{display:flex;justify-content:space-between;align-items:center;margin-top:14px;
+    color:var(--ok);font-size:14px;font-weight:600}
   /* 對應／非對應雙計數器 */
   .alt-counters{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
   .ac{display:flex;align-items:center;gap:10px}
@@ -185,6 +198,14 @@
       <div class="summary reveal right">
         <h3>試算明細</h3>
         <div id="items"><div class="empty">尚未選擇任何項目</div></div>
+        <div class="disc-box" id="discBox">
+          <div class="disc-row">
+            <input type="text" id="discCode" placeholder="折扣代碼（選填）" autocomplete="off">
+            <button type="button" id="discApply">套用</button>
+          </div>
+          <div class="disc-msg" id="discMsg"></div>
+        </div>
+        <div class="disc-line" id="discLine" style="display:none"><span id="discTag"></span><span id="discAmt"></span></div>
         <div class="total"><span class="lbl">預估總額</span><span class="amt" id="total">$0</span></div>
         <div class="from-note" id="fromNote"></div>
         <button class="cta-btn" id="cta">聯繫店主確認委託 →</button>
@@ -247,7 +268,11 @@ const BOOTH = [
   {id:'b3', name:'Booth 代購 ¥5000 以上',  price:150},
 ];
 
-const state = { plan:'none', qty:{}, alt:{}, warranty:0 };
+// ▼▼▼ 折扣後台網址：部署 Cloudflare Worker 後填入（結尾不要加斜線）；留空則隱藏折扣框 ▼▼▼
+const DISCOUNT_API = 'https://rimo-discount.u1788u1788.workers.dev';
+// ▲▲▲
+
+const state = { plan:'none', qty:{}, alt:{}, warranty:0, discount:null };
 const $ = s => document.querySelector(s);
 
 function buildPlans(){
@@ -378,7 +403,25 @@ function recalc(){
   $('#items').innerHTML = lines.length
     ? lines.map(l=>`<div class="li"><span class="n">${l.name}${l.from?'<span class="badge">起</span>':''}</span><span>$${l.amt.toLocaleString()}</span></div>`).join('')
     : '<div class="empty">尚未選擇任何項目</div>';
-  $('#total').textContent = '$'+total.toLocaleString()+(hasFrom?' 起':'');
+
+  // 折扣
+  let discountAmt = 0;
+  if(state.discount && total>0){
+    discountAmt = state.discount.type==='percent'
+      ? Math.round(total * state.discount.value / 100)
+      : Math.min(total, state.discount.value);
+  }
+  const finalTotal = Math.max(0, total - discountAmt);
+  if(state.discount && discountAmt>0){
+    $('#discLine').style.display='flex';
+    const d = state.discount;
+    $('#discTag').textContent = `折扣 ${d.code}（${d.type==='percent' ? d.value+'%' : '折抵 $'+d.value}）`;
+    $('#discAmt').textContent = '-$'+discountAmt.toLocaleString();
+  } else {
+    $('#discLine').style.display='none';
+  }
+
+  $('#total').textContent = '$'+finalTotal.toLocaleString()+(hasFrom?' 起':'');
   $('#fromNote').textContent = hasFrom
     ? '※ 含「起」價項目，實際費用依需求複雜度由店主確認為準。'
     : '';
@@ -386,9 +429,45 @@ function recalc(){
 buildPlans();
 render();
 recalc();
+
+/* ===== 折扣代碼 ===== */
+(function initDiscount(){
+  if(!DISCOUNT_API){ $('#discBox').style.display='none'; return; }
+  const apply = async ()=>{
+    const code = $('#discCode').value.trim();
+    const msg = $('#discMsg');
+    if(!code){ state.discount=null; msg.textContent=''; msg.className='disc-msg'; recalc(); return; }
+    msg.textContent='驗證中…'; msg.className='disc-msg';
+    try{
+      const r = await fetch(DISCOUNT_API.replace(/\/$/,'')+'/api/validate',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({code})
+      });
+      const d = await r.json();
+      if(d && d.ok){
+        state.discount = {code:d.code, type:d.type, value:d.value, label:d.label};
+        msg.textContent = '✓ 已套用折扣'+(d.label?'：'+d.label:'');
+        msg.className='disc-msg ok';
+      }else{
+        state.discount = null;
+        msg.textContent = '✗ 代碼無效或已停用';
+        msg.className='disc-msg err';
+      }
+    }catch(e){
+      state.discount = null;
+      msg.textContent = '✗ 連線失敗，請稍後再試';
+      msg.className='disc-msg err';
+    }
+    recalc();
+  };
+  $('#discApply').onclick = apply;
+  $('#discCode').addEventListener('keydown', e=>{ if(e.key==='Enter') apply(); });
+})();
+
 $('#cta').onclick = ()=>{
   const t = $('#total').textContent;
-  alert('預估總額：'+t+'\n\n請截圖此明細，點確定後將前往 RimoStudio Discord 聯繫店主完成委託 🙌');
+  const codeLine = state.discount ? '\n折扣代碼：'+state.discount.code : '';
+  alert('預估總額：'+t+codeLine+'\n\n請截圖此明細，點確定後將前往 RimoStudio Discord 聯繫店主完成委託 🙌');
   window.open('https://discord.gg/tzbvaHy9Kx','_blank','noopener');
 };
 </script>

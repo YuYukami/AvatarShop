@@ -28,10 +28,47 @@ function randomCode(len = 8) {
   return s;
 }
 
+/* 定時比較，避免用回應時間逐字元猜密碼 */
+function safeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (a.length !== b.length) return false;
+  let r = 0;
+  for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return r === 0;
+}
+
 function authed(request, env) {
   const h = request.headers.get('Authorization') || '';
   const token = h.replace(/^Bearer\s+/i, '');
-  return env.ADMIN_PASSWORD && token === env.ADMIN_PASSWORD;
+  return !!env.ADMIN_PASSWORD && safeEqual(token, env.ADMIN_PASSWORD);
+}
+
+/* ---- 簡易速率限制（防折扣代碼 / 後台密碼被暴力枚舉） ----
+   用 Worker isolate 的記憶體計數，不寫 KV（免費方案每天只有 1000 次 KV 寫入）。
+   Cloudflare 可能把同一客戶端分散到多個 isolate，所以這是「大幅提高門檻」
+   而非絕對上限；若要硬性限制，可改綁定 Cloudflare 原生 Rate Limiting（見 README）。 */
+const RL_WINDOW_MS = 60000;   // 計算視窗：60 秒
+const RL_MAX = 15;            // 視窗內最多 15 次
+
+const rlHits = new Map();
+
+/* 記錄一次請求，並回報是否已超過上限 */
+function rateLimited(ip) {
+  const now = Date.now();
+  const hits = (rlHits.get(ip) || []).filter((t) => now - t < RL_WINDOW_MS);
+  hits.push(now);
+  rlHits.set(ip, hits);
+  // 定期清掉過期紀錄，避免 Map 無限成長
+  if (rlHits.size > 5000) {
+    for (const [k, v] of rlHits) {
+      if (!v.length || now - v[v.length - 1] > RL_WINDOW_MS) rlHits.delete(k);
+    }
+  }
+  return hits.length > RL_MAX;
+}
+
+function clientIP(request) {
+  return request.headers.get('CF-Connecting-IP') || 'unknown';
 }
 
 export default {
@@ -43,6 +80,9 @@ export default {
 
     /* 公開：驗證折扣代碼（試算頁呼叫） */
     if (path === '/api/validate' && request.method === 'POST') {
+      if (rateLimited(clientIP(request))) {
+        return json({ ok: false, error: 'rate_limited' }, 429);
+      }
       const body = await request.json().catch(() => ({}));
       const code = (body.code || '').trim().toUpperCase();
       if (!code) return json({ ok: false });
@@ -55,7 +95,13 @@ export default {
 
     /* 管理 API（需密碼） */
     if (path.startsWith('/api/admin/')) {
-      if (!authed(request, env)) return json({ ok: false, error: 'unauthorized' }, 401);
+      if (!authed(request, env)) {
+        // 密碼錯誤才計次；rateLimited() 本身就會記錄這一次，不要重複呼叫
+        if (rateLimited(clientIP(request))) {
+          return json({ ok: false, error: 'rate_limited' }, 429);
+        }
+        return json({ ok: false, error: 'unauthorized' }, 401);
+      }
 
       if (path === '/api/admin/list') {
         const list = await env.CODES.list({ prefix: 'code:' });
@@ -71,6 +117,8 @@ export default {
       if (path === '/api/admin/create' && request.method === 'POST') {
         const body = await request.json().catch(() => ({}));
         let code = (body.code || '').trim().toUpperCase();
+        // 自訂代碼只允許英數字，避免奇怪字元被寫進 KV key 或後台頁面
+        code = code.replace(/[^A-Z0-9]/g, '').slice(0, 24);
         if (!code) code = randomCode(8);
         const type = body.type === 'amount' ? 'amount' : 'percent';
         let value = Number(body.value) || 0;
@@ -183,6 +231,7 @@ document.getElementById('loginBtn').onclick=function(){
   PW=document.getElementById('pw').value;
   api('/api/admin/list').then(function(d){
     if(d&&d.ok){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';render(d.items);}
+    else if(d&&d.error==='rate_limited'){document.getElementById('loginMsg').textContent='嘗試次數過多，請稍候 1 分鐘再試';}
     else{document.getElementById('loginMsg').textContent='密碼錯誤';}
   }).catch(function(){document.getElementById('loginMsg').textContent='連線失敗';});
 };
@@ -191,21 +240,28 @@ document.getElementById('createBtn').onclick=function(){
   var body={type:document.getElementById('type').value,value:document.getElementById('value').value,label:document.getElementById('label').value,code:document.getElementById('custom').value};
   api('/api/admin/create',body).then(function(d){
     var m=document.getElementById('createMsg');
-    if(d&&d.ok){m.className='msg ok';m.textContent='\\u2713 已產生代碼：'+d.code;document.getElementById('value').value='';document.getElementById('label').value='';document.getElementById('custom').value='';refresh();}
+    if(d&&d.ok){m.className='msg ok';m.textContent='\\u2713 已產生代碼：'+esc(d.code);document.getElementById('value').value='';document.getElementById('label').value='';document.getElementById('custom').value='';refresh();}
     else{m.className='msg err';m.textContent='\\u2717 產生失敗';}
   });
 };
 function refresh(){api('/api/admin/list').then(function(d){if(d&&d.ok)render(d.items);});}
+/* 逸出所有會被寫進 HTML 的欄位（代碼與標籤都是自由輸入） */
+function esc(s){
+  return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
 function render(items){
   var el=document.getElementById('list');
   if(!items.length){el.innerHTML='<p style="color:var(--muted)">尚無代碼</p>';return;}
   var h='<table><tr><th>代碼</th><th>折扣</th><th>標籤</th><th>狀態</th><th></th></tr>';
   items.forEach(function(it){
-    var disc=it.type==='percent'?(it.value+'%'):('$'+it.value);
-    h+='<tr><td><span class="code" data-copy="'+it.code+'">'+it.code+'</span></td><td>'+disc+'</td><td>'+(it.label||'-')+'</td>'
+    var disc=it.type==='percent'?(esc(it.value)+'%'):('$'+esc(it.value));
+    var code=esc(it.code);
+    h+='<tr><td><span class="code" data-copy="'+code+'">'+code+'</span></td><td>'+disc+'</td><td>'+(esc(it.label)||'-')+'</td>'
       +'<td><span class="badge '+(it.enabled?'on':'off')+'">'+(it.enabled?'啟用':'停用')+'</span></td>'
-      +'<td style="white-space:nowrap"><button class="ghost small" data-act="toggle" data-code="'+it.code+'" data-en="'+(it.enabled?'0':'1')+'">'+(it.enabled?'停用':'啟用')+'</button> '
-      +'<button class="danger small" data-act="del" data-code="'+it.code+'">刪除</button></td></tr>';
+      +'<td style="white-space:nowrap"><button class="ghost small" data-act="toggle" data-code="'+code+'" data-en="'+(it.enabled?'0':'1')+'">'+(it.enabled?'停用':'啟用')+'</button> '
+      +'<button class="danger small" data-act="del" data-code="'+code+'">刪除</button></td></tr>';
   });
   el.innerHTML=h+'</table>';
 }

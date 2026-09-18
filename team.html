@@ -14,9 +14,19 @@
 <meta property="og:title" content="團隊介紹｜RimoStudio">
 <meta property="og:description" content="認識 RimoStudio 的 VRChat 改模團隊成員、專長與作品。">
 <meta property="og:url" content="https://www.vrc-yune.org/team.html">
+<meta property="og:image" content="https://www.vrc-yune.org/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/style.css?v=14">
+<script>
+  document.documentElement.classList.add('js');
+  /* 保險：app.js 若載入失敗，3 秒後移除 .js 讓內容直接顯示，避免整頁空白 */
+  setTimeout(function(){ if(!window.__rimoAppLoaded) document.documentElement.classList.remove('js'); }, 3000);
+  /* 圖片載不出來時顯示佔位圖。站上圖片一律 WebP（2020 年後的瀏覽器全支援），
+     不放 .jpg 備援。定義在 <head> 才能保證圖片出錯時它已存在。 */
+  function imgFallback(img, placeholder){
+    if(img.parentNode) img.parentNode.innerHTML = placeholder;
+  }
+</script>
+<link rel="stylesheet" href="assets/style.css?v=16">
 <style>
   .wrap{padding-bottom:100px}
   .member{display:grid;grid-template-columns:200px 1fr;gap:26px;align-items:start;
@@ -41,6 +51,8 @@
   .skills span{font-size:14px;background:var(--accent-soft);color:var(--accent);
     border:1px solid var(--line);border-radius:999px;padding:5px 14px}
   .skills.avoid span{background:rgba(252,165,165,.1);color:#fca5a5;border-color:rgba(252,165,165,.4)}
+  /* 「不熟」介於專長（紫）與不接（紅）之間，用琥珀色表示「可以談但非強項」 */
+  .skills.weak span{background:rgba(251,191,36,.1);color:#fcd34d;border-color:rgba(251,191,36,.35)}
   .m-works{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
   .m-works .w{aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid var(--line);
     background:var(--panel-2);cursor:pointer}
@@ -91,8 +103,8 @@
     <!-- 成員 1（店主）-->
     <article class="member reveal">
       <div class="portrait">
-        <img src="assets/team/rimo.jpg" alt="Rimo 頭像" loading="lazy"
-          onerror="this.remove();this.parentNode.insertAdjacentHTML('afterbegin','<div class=&quot;ph&quot;><span class=&quot;pic&quot;>👤</span><span>放上頭像</span></div>')">
+        <img src="assets/team/rimo/avatar.webp" alt="Rimo 頭像" loading="lazy"
+          onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>👤</span><span>放上頭像</span></div>')">
       </div>
       <div class="m-info">
         <h3>Rimo <span class="role">店主</span></h3>
@@ -104,13 +116,13 @@
         <div class="m-label">擅長風格</div>
         <div class="skills"><span>妹系</span><span>微姐系</span><span>微年上</span></div>
         <div class="m-label">不接</div>
-        <div class="skills avoid"><span>Furry</span><span>男性模型</span></div>
+        <div class="skills avoid"><span>歐美</span><span>Furry</span></div>
         <div class="m-label">作品</div>
         <div class="m-works">
-          <div class="w"><img src="assets/team/rimo-1.jpg" alt="Rimo 作品 1" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
-          <div class="w"><img src="assets/team/rimo-2.jpg" alt="Rimo 作品 2" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
-          <div class="w"><img src="assets/team/rimo-3.jpg" alt="Rimo 作品 3" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
-          <div class="w"><img src="assets/team/rimo-4.jpg" alt="Rimo 作品 4" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
+          <div class="w"><img src="assets/team/rimo/1.webp" alt="Rimo 作品 1" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/rimo/2.webp" alt="Rimo 作品 2" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/rimo/3.webp" alt="Rimo 作品 3" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/rimo/4.webp" alt="Rimo 作品 4" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
         </div>
       </div>
     </article>
@@ -118,8 +130,8 @@
     <!-- 成員 2 -->
     <article class="member reveal">
       <div class="portrait">
-        <img src="assets/team/Pisa.jpg" alt="Pisa 頭像" loading="lazy"
-          onerror="this.remove();this.parentNode.insertAdjacentHTML('afterbegin','<div class=&quot;ph&quot;><span class=&quot;pic&quot;>👤</span><span>放上頭像</span></div>')">
+        <img src="assets/team/pisa/avatar.webp" alt="Pisa 頭像" loading="lazy"
+          onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>👤</span><span>放上頭像</span></div>')">
       </div>
       <div class="m-info">
         <h3>Pisa <span class="role">造型設計師</span></h3>
@@ -131,29 +143,82 @@
         <div class="m-label">擅長風格</div>
         <div class="skills"><span>姊姊系</span><span>酷風</span><span>韓系</span><span>真實系</span></div>
         <div class="m-label">不接</div>
-        <div class="skills avoid"><span>Furry</span></div>
+        <div class="skills avoid"><span>歐美</span><span>Furry</span></div>
         <div class="m-label">作品</div>
         <div class="m-works">
-          <div class="w"><img src="assets/team/Pisa-1.jpg" alt="Pisa 作品 1" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
-          <div class="w"><img src="assets/team/Pisa-2.jpg" alt="Pisa 作品 2" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
-          <div class="w"><img src="assets/team/Pisa-3.jpg" alt="Pisa 作品 3" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
-          <div class="w"><img src="assets/team/Pisa-4.jpg" alt="Pisa 作品 4" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>'"></div>
+          <div class="w"><img src="assets/team/pisa/1.webp" alt="Pisa 作品 1" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/pisa/2.webp" alt="Pisa 作品 2" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/pisa/3.webp" alt="Pisa 作品 3" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/pisa/4.webp" alt="Pisa 作品 4" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
         </div>
       </div>
     </article>
 
-    <!-- 成員 3（工事中）-->
-    <article class="member member-soon reveal">
+    <!-- 成員：Bacon -->
+    <article class="member reveal">
       <div class="portrait">
-        <div class="ph"><span class="pic">🚧</span><span>工事中</span></div>
+        <img src="assets/team/bacon/avatar.webp" alt="Bacon 頭像" loading="lazy"
+          onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>👤</span><span>放上頭像</span></div>')">
       </div>
       <div class="m-info">
-        <h3>成員資訊建置中 <span class="role soon">Coming Soon</span></h3>
-        <p class="m-desc">這位成員的介紹、專長與作品正在整理中，敬請期待！</p>
+        <h3>Bacon <span class="role">造型設計師</span></h3>
+        <p class="m-desc">是個看到粉色就無法自拔的人類　よろしく</p>
+        <div class="m-label">專長</div>
+        <div class="skills"><span>材質改變</span><span>服裝搭配</span><span>臉型改變</span><span>拼接服裝</span></div>
+        <div class="m-label">擅長風格</div>
+        <div class="skills"><span>可愛</span><span>粉白色</span><span>日系</span><span>蘿莉</span><span>少女</span></div>
+        <div class="m-label">不熟</div>
+        <div class="skills weak"><span>男模</span><span>動畫調整</span><span>道具系</span></div>
+        <div class="m-label">不接</div>
+        <div class="skills avoid"><span>歐美</span><span>Furry</span></div>
+        <div class="m-label">作品</div>
+        <div class="m-works">
+          <div class="w"><img src="assets/team/bacon/1.webp" alt="Bacon 作品 1" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/bacon/2.webp" alt="Bacon 作品 2" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/bacon/3.webp" alt="Bacon 作品 3" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/bacon/4.webp" alt="Bacon 作品 4" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+        </div>
       </div>
     </article>
 
-    <!-- 成員 4（徵才中）-->
+    <!-- 成員：Kuro -->
+    <article class="member reveal">
+      <div class="portrait">
+        <img src="assets/team/kuro/avatar.webp" alt="Kuro 頭像" loading="lazy"
+          onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>👤</span><span>放上頭像</span></div>')">
+      </div>
+      <div class="m-info">
+        <h3>Kuro <span class="role">造型設計師</span></h3>
+        <p class="m-desc">非常喜歡改模，是個有事沒事就開始馴服 Unity(? 的普通人類</p>
+        <div class="m-label">專長</div>
+        <div class="skills"><span>服裝搭配</span><span>拼接服裝 / 頭髮</span><span>皮膚材質變更</span><span>臉型修改</span><span>改色 / 改圖</span></div>
+        <div class="m-label">擅長風格</div>
+        <div class="skills"><span>可愛系</span><span>日系</span></div>
+        <div class="m-label">不熟</div>
+        <div class="skills weak"><span>姊姊系</span></div>
+        <div class="m-label">不接</div>
+        <div class="skills avoid"><span>男模</span><span>歐美</span><span>Furry</span></div>
+        <div class="m-label">作品</div>
+        <div class="m-works">
+          <div class="w"><img src="assets/team/kuro/1.webp" alt="Kuro 作品 1" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/kuro/2.webp" alt="Kuro 作品 2" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+          <div class="w"><img src="assets/team/kuro/3.webp" alt="Kuro 作品 3" loading="lazy" onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span></div>')"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 成員：Alam（資料建置中，照片放進 assets/team/alam/ 後再改成正式卡片）-->
+    <article class="member member-soon reveal">
+      <div class="portrait">
+        <div class="ph"><span class="pic">🚧</span><span>建置中</span></div>
+      </div>
+      <div class="m-info">
+        <h3>Alam <span class="role soon">Coming Soon</span></h3>
+        <p class="m-desc">介紹、專長與作品正在整理中，敬請期待！</p>
+      </div>
+    </article>
+
+    <!-- 徵才中 -->
     <article class="member member-hiring reveal">
       <div class="portrait">
         <div class="ph"><span class="pic">📢</span><span>徵才中</span></div>
@@ -196,7 +261,8 @@ document.querySelectorAll('.m-works').forEach(box=>{
 });
 document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
 lb.onclick=e=>{ if(e.target===lb) lb.classList.remove('open'); };
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
 </script>
-<script src="assets/app.js?v=2"></script>
+<script src="assets/app.js?v=3"></script>
 </body>
 </html>

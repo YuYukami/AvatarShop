@@ -46,5 +46,14 @@
 - 客人在試算頁輸入代碼 → 按「套用」→ 即時折扣、明細顯示折扣。
 - 要停用某代碼：後台按「停用」；要刪除按「刪除」。改動即時生效，不用 push。
 
+## 安全性
+
+- `/api/validate` 與後台登入都有**速率限制**：同一 IP 每 60 秒最多 15 次，超過回 429。
+  這是用 Worker 記憶體計數的（不佔 KV 寫入額度），目的是擋掉折扣代碼被暴力枚舉。
+- 想要更嚴格的硬性限制，可以改用 Cloudflare 原生的 **Rate Limiting 繫結**：
+  Worker → Settings → Bindings → 新增 Rate Limiting，再把 `worker.js` 裡的
+  `rateLimited()` 換成該繫結的 `limit()` 呼叫。
+- 後台密碼請設為 **Secret（加密）**，不要用明文環境變數。
+
 ## 費用
 Cloudflare Workers + KV 免費額度：每天 10 萬次請求、KV 讀取充足 —— 一般委託流量完全免費。

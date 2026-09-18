@@ -14,9 +14,14 @@
 <meta property="og:title" content="委託須知｜RimoStudio">
 <meta property="og:description" content="VRChat 模型客製化委託須知：製作時間、付款、訂金與違約規則、檔案保管與使用限制。">
 <meta property="og:url" content="https://www.vrc-yune.org/terms.html">
+<meta property="og:image" content="https://www.vrc-yune.org/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/style.css?v=14">
+<script>
+  document.documentElement.classList.add('js');
+  /* 保險：app.js 若載入失敗，3 秒後移除 .js 讓內容直接顯示，避免整頁空白 */
+  setTimeout(function(){ if(!window.__rimoAppLoaded) document.documentElement.classList.remove('js'); }, 3000);
+</script>
+<link rel="stylesheet" href="assets/style.css?v=16">
 <style>
   .wrap{padding-bottom:100px}
 </style>
@@ -117,7 +122,9 @@ window.addEventListener('load', ()=>{ if(box.scrollHeight <= box.clientHeight + 
 
 // 24 小時內同意過 → 直接放行
 (function(){
-  var t = +localStorage.getItem(KEY) || 0;
+  var t = 0;
+  // 無痕模式／封鎖網站資料時 localStorage 會直接 throw
+  try { t = +localStorage.getItem(KEY) || 0; } catch(e) {}
   if(t && Date.now() - t <= ONE_DAY){
     unlockCheck('您今日已閱讀並同意過條款，可直接開始試算');
     chk.checked = true;
@@ -127,11 +134,12 @@ window.addEventListener('load', ()=>{ if(box.scrollHeight <= box.clientHeight + 
 
 chk.addEventListener('change', ()=>{ btn.disabled = !chk.checked; });
 btn.addEventListener('click', ()=>{
-  localStorage.setItem(KEY, Date.now());  // 記錄同意時間
-  location.href = 'estimate.html';
+  // 寫不進去也要放行，不然無痕模式的使用者會永遠卡在這一頁
+  try { localStorage.setItem(KEY, Date.now()); } catch(e) {}
+  location.href = 'estimate.html?agreed=1';
 });
 </script>
 <!-- 進場動畫（共用） -->
-<script src="assets/app.js?v=2"></script>
+<script src="assets/app.js?v=3"></script>
 </body>
 </html>

@@ -1,4 +1,10 @@
 /* 共用腳本 —— 漢堡選單 + 進場動畫 */
+
+/* 各頁 <head> 的保險機制會檢查這個旗標：若本檔載入失敗，
+   3 秒後會移除 html 的 .js class，讓 .reveal 內容直接顯示，
+   避免整站因為 opacity:0 而變成空白。 */
+window.__rimoAppLoaded = true;
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== 漢堡抽屜選單 ===== */

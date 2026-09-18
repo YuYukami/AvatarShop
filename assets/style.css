@@ -61,8 +61,10 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   background:linear-gradient(180deg,var(--panel-2),var(--panel));
   border-left:1px solid var(--line);box-shadow:-24px 0 60px rgba(0,0,0,.45);
   display:flex;flex-direction:column;gap:4px;padding:90px 22px 30px;
-  transform:translateX(105%);transition:transform .38s cubic-bezier(.16,.8,.3,1);z-index:55}
-body.nav-open .nav-links{transform:none}
+  transform:translateX(105%);visibility:hidden;
+  transition:transform .38s cubic-bezier(.16,.8,.3,1),visibility .38s;z-index:55}
+/* visibility:hidden 讓關閉狀態的選單連結不會被 Tab 鍵聚焦 */
+body.nav-open .nav-links{transform:none;visibility:visible}
 .nav-links a{color:var(--text);font-size:18px;padding:14px 16px;border-radius:12px;
   opacity:0;transform:translateX(24px);transition:background .15s ease,color .15s ease}
 .nav-links a:hover{background:var(--accent-soft);color:var(--accent-2)}
@@ -142,6 +144,9 @@ body.nav-open .nav-backdrop{opacity:1;visibility:visible}
   align-items:center;justify-content:center;gap:8px;color:var(--muted);
   background:linear-gradient(135deg,#231d38,#2c2247)}
 .slide .ph .pic{font-size:30px;opacity:.7}
+
+/* 橫式作品用較寬的版位（輪播用 offsetLeft 量測，寬度不一致也不影響無限循環） */
+.slide.wide{width:clamp(380px,42vw,520px)}
 
 /* 燈箱 */
 .lightbox{position:fixed;inset:0;z-index:100;background:rgba(8,6,14,.9);

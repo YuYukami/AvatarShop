@@ -1,2 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# 圖片一律視為二進位，避免 text=auto 誤判而在 Windows/Linux 間換行轉換弄壞檔案
+*.webp binary
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.ico  binary

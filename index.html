@@ -14,11 +14,11 @@
 <meta property="og:title" content="RimoStudio｜VRChat 角色模型客製化・模型修改委託">
 <meta property="og:description" content="VRChat 角色模型客製化服務：服裝、髮型、功能安裝、改色改臉、通靈／OC 原創角色。線上委託試算，打造你的專屬虛擬分身。">
 <meta property="og:url" content="https://www.vrc-yune.org/">
-<meta property="og:image" content="https://www.vrc-yune.org/assets/gallery/1.jpg">
+<meta property="og:image" content="https://www.vrc-yune.org/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="RimoStudio｜VRChat 角色模型客製化">
 <meta name="twitter:description" content="VRChat 角色模型客製化服務，線上委託試算，打造你的專屬虛擬分身。">
-<meta name="twitter:image" content="https://www.vrc-yune.org/assets/gallery/1.jpg">
+<meta name="twitter:image" content="https://www.vrc-yune.org/assets/og.jpg">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -26,7 +26,7 @@
   "name": "RimoStudio",
   "description": "VRChat 角色模型客製化服務：服裝、髮型、道具、功能安裝、改色、臉型與身形修改，以及通靈／OC 原創角色設計。",
   "url": "https://www.vrc-yune.org/",
-  "image": "https://www.vrc-yune.org/assets/gallery/1.jpg",
+  "image": "https://www.vrc-yune.org/assets/og.jpg",
   "serviceType": "VRChat 角色模型客製化",
   "sameAs": [
     "https://discord.gg/tzbvaHy9Kx",
@@ -39,20 +39,29 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"VRChat 改模（角色客製化）要多少錢？","acceptedAnswer":{"@type":"Answer","text":"費用依方案與加購項目而定：獨立方案從 NT$250 起（代客上傳）、優惠方案 NT$1,200 起。可到委託試算頁自由選擇方案與加購項目，即時估算費用。"}},
+    {"@type":"Question","name":"VRChat 改模（角色客製化）要多少錢？","acceptedAnswer":{"@type":"Answer","text":"費用依方案與加購項目而定：代客上傳 NT$250、組合方案從 NT$1,200 起（友好方案）、通靈／OC 從 NT$4,500 起。可到委託試算頁自由選擇方案與加購項目，即時估算費用。"}},
     {"@type":"Question","name":"要怎麼開始委託？","acceptedAnswer":{"@type":"Answer","text":"三個步驟：① 閱讀並同意委託須知 → ② 用委託試算估價 → ③ 透過 Discord 聯繫店主確認委託。"}},
     {"@type":"Question","name":"什麼是通靈？","acceptedAnswer":{"@type":"Answer","text":"通靈是指你不需要提供明確設計，全權交由店主依風格為你打造原創角色；也可以提供設計圖或喜歡的風格（風格方案）。"}},
     {"@type":"Question","name":"可以套用不是我角色的衣服或髮型嗎？（非對應）","acceptedAnswer":{"@type":"Answer","text":"可以。原本為其他角色設計的商品套到你的模型上稱為非對應，因為需要額外適配，費用會比對應角色高一些。"}},
     {"@type":"Question","name":"製作要多久？什麼時候製作？","acceptedAnswer":{"@type":"Answer","text":"製作時間為平日 20:00–22:00，假日休息。實際工期依項目複雜度而定，確切時程會在委託時與店主確認。"}},
-    {"@type":"Question","name":"需要訂金嗎？怎麼付款？","acceptedAnswer":{"@type":"Answer","text":"目前接受銀行/ATM 轉帳、Line Pay、街口支付，海外客戶可使用 PayPal；收款資訊會在透過 Discord 聯繫後提供。製作前需先支付訂金（總金額 50%）或全額才會開始製作。"}},
+    {"@type":"Question","name":"需要訂金嗎？怎麼付款？","acceptedAnswer":{"@type":"Answer","text":"目前接受銀行／ATM 轉帳，海外客戶可使用 PayPal；收款資訊會在透過 Discord 聯繫後提供。製作前需先支付訂金（總金額 50%）或全額才會開始製作。"}},
     {"@type":"Question","name":"有提供保固嗎？","acceptedAnswer":{"@type":"Answer","text":"有。標準保固為角色驗收後 7 天內免費修復製作瑕疵。也可加購保固，每月 NT$700、最多 6 個月。"}},
-    {"@type":"Question","name":"有哪些不接的委託？","acceptedAnswer":{"@type":"Answer","text":"目前暫不接受歐美、Furry 模型與男性模型委託（未來考慮開放）。另外禁止分享由本工作室出品的任何模型。"}}
+    {"@type":"Question","name":"有哪些不接的委託？","acceptedAnswer":{"@type":"Answer","text":"目前暫不接受歐美 / Furry 模型委託（未來考慮開放）。另外禁止分享由本工作室出品的任何模型。"}}
   ]
 }
 </script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/style.css?v=14">
+<script>
+  document.documentElement.classList.add('js');
+  /* 保險：app.js 若載入失敗，3 秒後移除 .js 讓內容直接顯示，避免整頁空白 */
+  setTimeout(function(){ if(!window.__rimoAppLoaded) document.documentElement.classList.remove('js'); }, 3000);
+  /* 圖片載不出來時顯示佔位圖。站上圖片一律 WebP（2020 年後的瀏覽器全支援），
+     不放 .jpg 備援。定義在 <head> 才能保證圖片出錯時它已存在。 */
+  function imgFallback(img, placeholder){
+    if(img.parentNode) img.parentNode.innerHTML = placeholder;
+  }
+</script>
+<link rel="stylesheet" href="assets/style.css?v=16">
 <style>
   /* 首頁專用 */
   .hero{text-align:center;padding:96px 0 48px;position:relative}
@@ -150,11 +159,13 @@
     <p class="lead reveal">RimoStudio 由店主與專業成員組成，各有專精 —— 建模、動畫、改色、功能安裝，為你的角色量身打造。</p>
     <div class="team-preview reveal">
       <a href="team.html" class="tp-avatars" aria-label="查看團隊介紹">
-        <span class="tp-ava"><img src="assets/team/rimo.jpg" alt="Rimo" loading="lazy" onerror="this.parentNode.innerHTML='<span class=&quot;ph&quot;>👤</span>'"></span>
-        <span class="tp-ava"><img src="assets/team/Pisa.jpg" alt="Pisa" loading="lazy" onerror="this.parentNode.innerHTML='<span class=&quot;ph&quot;>👤</span>'"></span>
-        <span class="tp-ava"><img src="assets/team/member3.jpg" alt="成員" loading="lazy" onerror="this.parentNode.innerHTML='<span class=&quot;ph&quot;>👤</span>'"></span>
+        <span class="tp-ava"><img src="assets/team/rimo/avatar.webp" alt="Rimo" loading="lazy" onerror="imgFallback(this,'<span class=&quot;ph&quot;>👤</span>')"></span>
+        <span class="tp-ava"><img src="assets/team/pisa/avatar.webp" alt="Pisa" loading="lazy" onerror="imgFallback(this,'<span class=&quot;ph&quot;>👤</span>')"></span>
+        <span class="tp-ava"><img src="assets/team/bacon/avatar.webp" alt="Bacon" loading="lazy" onerror="imgFallback(this,'<span class=&quot;ph&quot;>👤</span>')"></span>
+        <span class="tp-ava"><img src="assets/team/kuro/avatar.webp" alt="Kuro" loading="lazy" onerror="imgFallback(this,'<span class=&quot;ph&quot;>👤</span>')"></span>
+        <span class="tp-ava" title="Alam：資料建置中"><span class="ph">🚧</span></span>
       </a>
-      <p>店主與 2 位專業成員，各有專精領域</p>
+      <p>店主與專業成員，各有專精領域（持續擴編中）</p>
       <a href="team.html" class="btn btn-primary">認識我們的團隊 →</a>
     </div>
   </section>
@@ -178,7 +189,7 @@
     <p class="lead reveal">關於 VRChat 改模委託的常見疑問。</p>
     <div class="faq stagger">
       <details class="reveal"><summary>VRChat 改模（角色客製化）要多少錢？</summary>
-        <div class="fa-body">費用依方案與加購項目而定：獨立方案從 NT$250 起（代客上傳）、優惠方案 NT$1,200 起。你可以到 <a href="estimate.html">委託試算</a> 頁自由選擇方案與加購項目，即時估算費用。</div>
+        <div class="fa-body">費用依方案與加購項目而定：代客上傳 NT$250、組合方案從 NT$1,200 起（友好方案）、通靈／OC 從 NT$4,500 起。你可以到 <a href="estimate.html">委託試算</a> 頁自由選擇方案與加購項目，即時估算費用。</div>
       </details>
       <details class="reveal"><summary>要怎麼開始委託？</summary>
         <div class="fa-body">三個步驟：① 閱讀並同意 <a href="terms.html">委託須知</a> → ② 用 <a href="estimate.html">委託試算</a> 估價 → ③ 透過 <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener">Discord</a> 聯繫店主確認委託。</div>
@@ -193,13 +204,13 @@
         <div class="fa-body">製作時間為平日 20:00–22:00（假日休息）。實際工期依項目複雜度而定，確切時程會在委託時與店主確認。目前檔期可參考首頁的「改模排程」。</div>
       </details>
       <details class="reveal"><summary>需要訂金嗎？怎麼付款？</summary>
-        <div class="fa-body">目前接受 <b>銀行／ATM 轉帳、Line Pay、街口支付</b>，海外客戶可使用 <b>PayPal</b>；實際收款帳號或收款碼會在你透過 Discord 聯繫店主後提供。製作前需先支付訂金（總金額 50%）或全額才會開始製作；訂單在開始製作前皆可取消，一旦開始將依進度收取違約金，詳見 <a href="terms.html">委託須知</a>。</div>
+        <div class="fa-body">目前接受 <b>銀行／ATM 轉帳</b>，海外客戶可使用 <b>PayPal</b>；實際收款帳號或收款碼會在你透過 Discord 聯繫店主後提供。製作前需先支付訂金（總金額 50%）或全額才會開始製作；訂單在開始製作前皆可取消，一旦開始將依進度收取違約金，詳見 <a href="terms.html">委託須知</a>。</div>
       </details>
       <details class="reveal"><summary>有提供保固嗎？</summary>
         <div class="fa-body">有。標準保固為角色驗收後 7 天內，免費修復製作瑕疵（如穿模、權重異常等）。也可加購保固，每月 NT$700、最多 6 個月。詳見 <a href="glossary.html">保固說明</a>。</div>
       </details>
       <details class="reveal"><summary>有哪些不接的委託？</summary>
-        <div class="fa-body">目前暫不接受歐美／Furry 模型（未來考慮開放）。另外，禁止分享由本工作室出品的任何模型。</div>
+        <div class="fa-body">目前暫不接受歐美 / Furry 模型（未來考慮開放）。另外，禁止分享由本工作室出品的任何模型。</div>
       </details>
     </div>
   </section>
@@ -232,30 +243,39 @@
    把照片放進 assets/gallery/ 資料夾，然後在下面陣列加入檔名與標題即可。
    （沒有對應圖片時會自動顯示佔位圖，不會破版） */
 const GALLERY = [
-  {src:'assets/gallery/1.jpg', title:' '},
-  {src:'assets/gallery/2.jpg', title:' '},
-  {src:'assets/gallery/3.jpg', title:' '},
-  {src:'assets/gallery/4.jpg', title:' '},
-  {src:'assets/gallery/5.jpg', title:' '},
-  {src:'assets/gallery/6.jpg', title:' '},
-  {src:'assets/gallery/7.jpg', title:' '},
-  {src:'assets/gallery/8.jpg', title:' '},
-  {src:'assets/gallery/9.jpg', title:' '},
-  {src:'assets/gallery/10.jpg', title:' '},
-  {src:'assets/gallery/11.jpg', title:' '},
-  {src:'assets/gallery/12.jpg', title:' '},
-  {src:'assets/gallery/13.jpg', title:' '},
-  {src:'assets/gallery/14.jpg', title:' '},
-  {src:'assets/gallery/15.jpg', title:' '},
-  {src:'assets/gallery/16.jpg', title:' '},
+  {src:'assets/gallery/1.webp', title:' '},
+  {src:'assets/gallery/2.webp', title:' '},
+  {src:'assets/gallery/3.webp', title:' '},
+  {src:'assets/gallery/4.webp', title:' '},
+  {src:'assets/gallery/5.webp', title:' '},
+  {src:'assets/gallery/6.webp', title:' '},
+  {src:'assets/gallery/7.webp', title:' '},
+  {src:'assets/gallery/8.webp', title:' '},
+  {src:'assets/gallery/9.webp', title:' '},
+  {src:'assets/gallery/10.webp', title:' '},
+  {src:'assets/gallery/11.webp', title:' '},
+  {src:'assets/gallery/12.webp', title:' '},
+  {src:'assets/gallery/13.webp', title:' '},
+  {src:'assets/gallery/14.webp', title:' '},
+  {src:'assets/gallery/15.webp', title:' '},
+  {src:'assets/gallery/16.webp', title:' '},
+  /* 團隊成員作品。wide:true 給橫式照片較寬的版位，
+     不然 3:4 的直式版位會把左右兩邊裁掉一大半。 */
+  {src:'assets/team/bacon/1.webp', title:' ', wide:true},
+  {src:'assets/team/bacon/2.webp', title:' '},
+  {src:'assets/team/bacon/3.webp', title:' '},
+  {src:'assets/team/bacon/4.webp', title:' ', wide:true},
+  {src:'assets/team/kuro/1.webp',  title:' '},
+  {src:'assets/team/kuro/2.webp',  title:' '},
+  {src:'assets/team/kuro/3.webp',  title:' '},
 ];
 const grid = document.getElementById('galleryGrid');
 const COPIES = 3;  // 複製多份以達成無縫無限循環
 const cardHTML = (g,i)=>`
-  <div class="slide" data-i="${i}">
+  <div class="slide${g.wide ? ' wide' : ''}" data-i="${i}">
     <img src="${g.src}" alt="${g.title.trim() || 'RimoStudio VRChat 客製化角色作品 '+(i+1)}" loading="lazy" draggable="false"
       onload="this.parentNode.dataset.ok='1'"
-      onerror="this.remove();this.parentNode.insertAdjacentHTML('afterbegin','<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span><span>放上你的作品照片</span></div>')">
+      onerror="imgFallback(this,'<div class=&quot;ph&quot;><span class=&quot;pic&quot;>🖼️</span><span>放上你的作品照片</span></div>')">
     ${g.title.trim() ? `<div class="cap">${g.title}</div>` : ''}
   </div>`;
 let out=''; for(let c=0;c<COPIES;c++){ out += GALLERY.map(cardHTML).join(''); }
@@ -312,12 +332,15 @@ const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbI
 grid.addEventListener('click', e=>{
   if(moved){ moved=false; return; }
   const item = e.target.closest('.slide'); if(!item || item.dataset.ok!=='1') return;
-  lbImg.src = GALLERY[item.dataset.i].src; lb.classList.add('open');
+  const im = item.querySelector('img');
+  lbImg.src = im ? im.src : GALLERY[item.dataset.i].src;
+  lb.classList.add('open');
 });
 document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
 lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
 </script>
 <!-- 進場動畫（共用） -->
-<script src="assets/app.js?v=2"></script>
+<script src="assets/app.js?v=3"></script>
 </body>
 </html>

@@ -184,6 +184,12 @@
     .alt-counters{align-items:stretch;width:100%}
     .ac{justify-content:space-between}
   }
+  /* 語言切換 */
+  .lang-switch{margin-left:auto;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .lang-switch button{background:transparent;border:none;color:var(--muted);padding:6px 12px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s}
+  .lang-switch button.active{background:var(--accent-soft);color:var(--accent-2)}
+  .lang-switch button:not(.active):hover{color:var(--text)}
+  .nav-inner .nav-toggle{margin-left:10px}
 </style>
 </head>
 <body>
@@ -192,26 +198,27 @@
 
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
+  <div class="lang-switch"><button data-lang-btn="zh">中</button><button data-lang-btn="ja">日</button></div>
   <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
-    <a href="index.html">首頁</a>
-    <a href="index.html#gallery">作品集</a>
-    <a href="team.html">團隊介紹</a>
-    <a href="terms.html">委託須知</a>
-    <a href="glossary.html">用詞說明</a>
-    <a href="index.html#faq">常見問答</a>
-    <a href="index.html#schedule">改模排程</a>
-    <a href="estimate.html" class="cta">委託試算</a>
+    <a href="index.html" data-i18n="nav.home">首頁</a>
+    <a href="index.html#gallery" data-i18n="nav.gallery">作品集</a>
+    <a href="team.html" data-i18n="nav.team">團隊介紹</a>
+    <a href="terms.html" data-i18n="nav.terms">委託須知</a>
+    <a href="glossary.html" data-i18n="nav.glossary">用詞說明</a>
+    <a href="index.html#faq" data-i18n="nav.faq">常見問答</a>
+    <a href="index.html#schedule" data-i18n="nav.schedule">改模排程</a>
+    <a href="estimate.html" class="cta" data-i18n="nav.estimate">委託試算</a>
   </div>
 </div></nav>
 <div class="nav-backdrop"></div>
 
 <div class="wrap">
   <header class="page-head stagger">
-    <h1 class="reveal">委託試算</h1>
-    <p class="reveal">選擇方案與加購項目，即時估算你的委託費用（新台幣 TWD）</p>
-    <div class="steps reveal"><span><b>1.</b> 選擇方案</span><span><b>2.</b> 選擇加購商品</span><span><b>3.</b> 聯繫店主</span></div>
-    <p class="reveal" style="margin-top:12px;font-size:15.5px;color:var(--muted)">
+    <h1 class="reveal" data-i18n="est.title">委託試算</h1>
+    <p class="reveal" data-i18n="est.sub">選擇方案與加購項目，即時估算你的委託費用（新台幣 TWD）</p>
+    <div class="steps reveal"><span data-i18n="est.step1"><b>1.</b> 選擇方案</span><span data-i18n="est.step2"><b>2.</b> 選擇加購商品</span><span data-i18n="est.step3"><b>3.</b> 聯繫店主</span></div>
+    <p class="reveal" style="margin-top:12px;font-size:15.5px;color:var(--muted)" data-i18n="est.glossHint">
       不清楚名詞含義？請先參考 <a href="glossary.html">用詞說明</a>
     </p>
   </header>
@@ -219,61 +226,61 @@
   <div class="layout">
     <main>
       <section class="card reveal">
-        <h2><span class="dot"></span>選擇方案</h2>
-        <div class="sub">標示價格為方案總價，已包含該方案列出的所有項目</div>
+        <h2><span class="dot"></span><span data-i18n="est.h.plan">選擇方案</span></h2>
+        <div class="sub" data-i18n="est.sub.plan">標示價格為方案總價，已包含該方案列出的所有項目</div>
         <div class="plans stagger" id="plans"></div>
       </section>
 
       <section class="card reveal">
-        <h2><span class="dot"></span>加購區</h2>
-        <div class="sub">可依需求自由追加，數量即時計入總價</div>
+        <h2><span class="dot"></span><span data-i18n="est.h.addon">加購區</span></h2>
+        <div class="sub" data-i18n="est.sub.addon">可依需求自由追加，數量即時計入總價</div>
         <div id="grp-main"></div>
 
-        <h3 class="sub-head">加急製作</h3>
-        <div class="rush-note">依上方所有項目的小計加收，兩種擇一；再點一次可取消。</div>
+        <h3 class="sub-head" data-i18n="est.h.rush">加急製作</h3>
+        <div class="rush-note" data-i18n="est.rushnote">依上方所有項目的小計加收，兩種擇一；再點一次可取消。</div>
         <div id="grp-rush"></div>
       </section>
 
       <section class="card reveal">
-        <h2><span class="dot"></span>便利功能</h2>
+        <h2><span class="dot"></span><span data-i18n="est.h.util">便利功能</span></h2>
         <div id="grp-util"></div>
       </section>
 
       <section class="card reveal">
-        <h2><span class="dot"></span>NSFW 系統</h2>
-        <div class="sub">預設位置：嘴、胸、穴、屁股、左右手；每多一個位置 +$100</div>
+        <h2><span class="dot"></span><span data-i18n="est.h.nsfw">NSFW 系統</span></h2>
+        <div class="sub" data-i18n="est.sub.nsfw">預設位置：嘴、胸、穴、屁股、左右手；每多一個位置 +$100</div>
         <div id="grp-nsfw"></div>
       </section>
 
       <section class="card reveal">
-        <h2><span class="dot"></span>Booth 商品代購</h2>
-        <div class="sub">依商品日幣金額分級，每件商品額外收取</div>
+        <h2><span class="dot"></span><span data-i18n="est.h.booth">Booth 商品代購</span></h2>
+        <div class="sub" data-i18n="est.sub.booth">依商品日幣金額分級，每件商品額外收取</div>
         <div id="grp-booth"></div>
       </section>
 
       <section class="card reveal">
-        <h2><span class="dot"></span>加購保固</h2>
-        <div class="sub">每 1 個月 $700，每個方案最多可加購至 6 個月（部分方案已含保固）</div>
+        <h2><span class="dot"></span><span data-i18n="est.h.warranty">加購保固</span></h2>
+        <div class="sub" data-i18n="est.sub.warranty">每 1 個月 $700，每個方案最多可加購至 6 個月（部分方案已含保固）</div>
         <div id="grp-warranty"></div>
       </section>
     </main>
 
     <aside>
       <div class="summary reveal right">
-        <h3>試算明細</h3>
+        <h3 data-i18n="est.summary">試算明細</h3>
         <div id="items"><div class="empty">尚未選擇任何項目</div></div>
         <div class="disc-box" id="discBox">
           <div class="disc-row">
-            <input type="text" id="discCode" placeholder="折扣代碼（選填）" autocomplete="off">
-            <button type="button" id="discApply">套用</button>
+            <input type="text" id="discCode" placeholder="折扣代碼（選填）" data-i18n-ph="est.codePh" autocomplete="off">
+            <button type="button" id="discApply" data-i18n="est.apply">套用</button>
           </div>
           <div class="disc-msg" id="discMsg"></div>
         </div>
         <div class="disc-line" id="discLine" style="display:none"><span id="discTag"></span><span id="discAmt"></span></div>
-        <div class="total"><span class="lbl">預估總額</span><span class="amt" id="total">$0</span></div>
+        <div class="total"><span class="lbl" data-i18n="est.total">預估總額</span><span class="amt" id="total">$0</span></div>
         <div class="from-note" id="fromNote"></div>
-        <button class="cta-btn" id="cta">聯繫店主確認委託 →</button>
-        <a href="glossary.html" class="sub-link">📖 查看用詞說明</a>
+        <button class="cta-btn" id="cta" data-i18n="est.cta">聯繫店主確認委託 →</button>
+        <a href="glossary.html" class="sub-link" data-i18n="est.glossLink">📖 查看用詞說明</a>
       </div>
     </aside>
   </div>
@@ -284,10 +291,10 @@
 <div class="terms-gate" id="termsGate">
   <div class="tg-card">
     <div class="tg-logo">✦ RimoStudio</div>
-    <h2>開始試算前，請先閱讀委託須知</h2>
-    <p>委託須知包含<strong>製作時間、付款方式、訂金與違約規則、檔案保管、模型使用限制</strong>等重要事項。閱讀並勾選同意後即可開始試算。</p>
-    <a href="terms.html" class="btn btn-primary">前往閱讀委託須知 →</a>
-    <a href="index.html" class="btn btn-ghost">返回首頁</a>
+    <h2 data-i18n="est.gate.h">開始試算前，請先閱讀委託須知</h2>
+    <p data-i18n="est.gate.p">委託須知包含<strong>製作時間、付款方式、訂金與違約規則、檔案保管、模型使用限制</strong>等重要事項。閱讀並勾選同意後即可開始試算。</p>
+    <a href="terms.html" class="btn btn-primary" data-i18n="est.gate.btn1">前往閱讀委託須知 →</a>
+    <a href="index.html" class="btn btn-ghost" data-i18n="est.gate.btn2">返回首頁</a>
   </div>
 </div>
 
@@ -297,17 +304,17 @@
     <button class="rm-x" id="rmClose" aria-label="關閉">×</button>
     <div class="rm-head">
       <div class="rm-logo">✦ RimoStudio</div>
-      <h3>委託試算結果</h3>
+      <h3 data-i18n="est.rm.title">委託試算結果</h3>
       <div class="rm-date" id="rmDate"></div>
     </div>
     <div class="rm-items" id="rmItems"></div>
-    <div class="rm-total-row"><span>預估總額</span><span class="rm-total" id="rmTotal">$0</span></div>
+    <div class="rm-total-row"><span data-i18n="est.total">預估總額</span><span class="rm-total" id="rmTotal">$0</span></div>
     <div class="rm-code" id="rmCode" style="display:none"></div>
-    <div class="rm-note">※ 此為預估金額，實際費用由店主確認為準。<br>請<strong>截圖或複製此結果</strong>，並透過 Discord 聯繫店主完成委託。</div>
+    <div class="rm-note" data-i18n="est.rm.note">※ 此為預估金額，實際費用由店主確認為準。<br>請<strong>截圖或複製此結果</strong>，並透過 Discord 聯繫店主完成委託。</div>
     <div class="rm-actions">
-      <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener" class="btn btn-primary">前往 Discord 聯繫店主 →</a>
-      <button class="btn btn-ghost" id="rmCopy">📋 複製明細文字</button>
-      <button class="btn btn-ghost" id="rmBack">返回修改</button>
+      <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="est.rm.discord">前往 Discord 聯繫店主 →</a>
+      <button class="btn btn-ghost" id="rmCopy" data-i18n="est.rm.copy">📋 複製明細文字</button>
+      <button class="btn btn-ghost" id="rmBack" data-i18n="est.rm.back">返回修改</button>
     </div>
   </div>
 </div>
@@ -324,9 +331,9 @@
 
 <script>
 const PLANS = [
-  {id:'none',    name:'不選方案（只加購）', price:0,    note:'僅計算下方加購項目'},
+  {id:'none',    name:'不選方案（只加購）',  price:0,    note:'僅計算下方加購項目'},
   {id:'upload',  name:'代客上傳',           price:250,  note:'僅上傳模型，不含任何修改及保固'},
-  {id:'oc',      name:'通靈 / 風格 / OC 人物', price:4500, from:true, note:'店主風格／自訂人物，含保固 1 個月'},
+  {id:'oc',      name:'特殊方案',           price:4500, from:true, note:'風格 / OC人物，可提供工程檔，含保固 1 個月'},
   {id:'friendly',name:'友好方案',           price:1200, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×2 / 無保固'},
   {id:'value',   name:'超值方案',           price:2100, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×5 / 簡易改色×1 / 保固1個月'},
   {id:'discount',name:'優惠方案',           price:2700, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×8 / 簡易改色×1 / 臉型×1 / 保固2個月'},
@@ -377,12 +384,74 @@ const DISCOUNT_API = 'https://rimo-discount.u1788u1788.workers.dev';
 const state = { plan:'none', qty:{}, alt:{}, warranty:0, rush:null, discount:null };
 const $ = s => document.querySelector(s);
 
+/* ===== 動態文字日文化（中文原文 → 日文；找不到回原文） ===== */
+const JA = {
+  // 方案
+  '不選方案（只加購）':'プランなし（追加のみ）','代客上傳':'アップロード代行',
+  '特殊方案':'特別プラン','友好方案':'フレンドプラン',
+  '超值方案':'お得プラン','優惠方案':'割引プラン','安心方案':'安心プラン',
+  '僅計算下方加購項目':'下記の追加項目のみ計算','僅上傳模型，不含任何修改及保固':'モデルのアップロードのみ。修正・保証は含みません',
+  '風格 / OC人物，可提供工程檔，含保固 1 個月':'スタイル / OC キャラ、作業ファイル提供可、保証1か月付き',
+  '模型×1 / 衣服×1 / 頭髮×1 / 按鈕×2 / 無保固':'モデル×1 / 衣装×1 / 髪型×1 / ボタン×2 / 保証なし',
+  '模型×1 / 衣服×1 / 頭髮×1 / 按鈕×5 / 簡易改色×1 / 保固1個月':'モデル×1 / 衣装×1 / 髪型×1 / ボタン×5 / 簡易色替え×1 / 保証1か月',
+  '模型×1 / 衣服×1 / 頭髮×1 / 按鈕×8 / 簡易改色×1 / 臉型×1 / 保固2個月':'モデル×1 / 衣装×1 / 髪型×1 / ボタン×8 / 簡易色替え×1 / 顔型×1 / 保証2か月',
+  '模型×1 / 自由選配 / 保固1個月':'モデル×1 / 自由選択 / 保証1か月',
+  // 加購
+  '套衣服':'衣装の着せ替え','套頭髮':'髪型の着せ替え','套道具':'小物の装着',
+  '妝容 / 紋身':'メイク / タトゥー','功能安裝':'機能導入','功能修改':'機能の修正',
+  '傳統按鈕':'従来ボタン','現代按鈕':'モダンボタン','簡易改圖 / 色':'簡易 画像 / 色替え',
+  '進階改圖 / 色':'応用 画像 / 色替え','臉型修改':'顔型修正','角色動畫':'アニメーション',
+  '身形修改':'体型修正','材質修改':'マテリアル修正','網格修改':'メッシュ修正','非對應角色':'非対応キャラ',
+  '對應角色':'対応キャラ','提取部分功能等':'一部機能の抽出など','所有方案預設現代按鈕':'全プラン標準でモダンボタン',
+  '無精修':'簡易調整のみ','精修':'細部まで調整','姐系 / 妹系等':'姉系 / 妹系 など',
+  '手勢、表情、動作':'ハンドサイン・表情・アクション','$300～2000 起，依複雜度':'$300〜2000〜、複雑さにより変動',
+  // 便利功能 / NSFW
+  '手部虛擬快捷選單':'ハンドメニュー','簡易便利工具安裝':'便利ツール導入','安裝':'導入',
+  '額外虛擬按鈕':'追加ボタン','額外位置':'追加位置',
+  '僅限 VR 玩家；每顆按鈕 +$100':'VR ユーザー限定；ボタン1つにつき +$100',
+  '睡姿 / 坐蹲姿 / 畫筆 / 小地圖 / 飛行 等':'寝ポーズ / 座り・しゃがみ / ペン / ミニマップ / 飛行 など',
+  'SPS 系統':'SPS システム','SPS-D 系統':'SPS-D システム','PCS 系統':'PCS システム',
+  '可吸附柱狀體':'柱状オブジェクトを吸着可能','插入物體':'挿入オブジェクト','吸附時有聲音':'吸着時に音が出る',
+  // 加急 / Booth
+  '加急製作（2 天內完成）':'特急制作（2日以内）','加急製作（4 天內完成）':'特急制作（4日以内）',
+  'Booth 代購 ¥50～2999':'Booth 代理購入 ¥50〜2999','Booth 代購 ¥3000～4999':'Booth 代理購入 ¥3000〜4999',
+  'Booth 代購 ¥5000 以上':'Booth 代理購入 ¥5000 以上',
+  // 片語 / UI
+  '起':'〜','每個':'1つにつき','個月':'か月','加購保固':'保証の追加',
+  '對應／非對應可分別加購':'対応／非対応は個別に追加できます','（對應角色）':'（対応キャラ）',
+  '每 1 個月 $700，上限 6 個月':'1か月あたり $700、最大 6 か月','$700 / 月':'$700 / 月',
+  '尚未選擇任何項目':'まだ何も選択されていません',
+  '※ 含「起」價項目，實際費用依需求複雜度由店主確認為準。':'※「〜」表記の項目を含みます。実際の料金は内容の複雑さにより店主が確定します。',
+  '折扣':'割引','折抵 $':'割引 $','折抵$':'割引$','驗證中…':'確認中…',
+  '✓ 已套用折扣':'✓ 割引を適用しました','✗ 代碼無效或已停用':'✗ コードが無効または停止中です',
+  '✗ 連線失敗，請稍後再試':'✗ 接続に失敗しました。後でお試しください',
+  '請先選擇方案或加購項目':'先にプランまたは追加項目を選んでください',
+  '試算時間：':'見積り日時：','折扣代碼：':'割引コード：','預估總額：':'見積り合計：',
+  '【RimoStudio 委託試算】':'【RimoStudio 料金見積り】','※ 實際費用以店主確認為準':'※ 実際の料金は店主の確認によります',
+  '📋 複製明細文字':'📋 明細をコピー','✓ 已複製！貼到 Discord 即可':'✓ コピーしました！Discord に貼り付け可能',
+};
+let LANG = (function(){ try{ var s=localStorage.getItem('rimo_lang'); if(s==='ja'||s==='zh')return s; }catch(e){} return (navigator.language||'').toLowerCase().indexOf('ja')===0?'ja':'zh'; })();
+function t(s){ return (LANG==='ja' && JA[s]!=null) ? JA[s] : s; }
+/* 快照各資料項的中文原文，切語言時據此換 name / note / label */
+const _ITEMS = [...PLANS, ...MAIN, ...UTIL, ...NSFW, ...RUSH, ...BOOTH];
+_ITEMS.forEach(it=>{ it._n=it.name; if('note' in it)it._t=it.note; if(it.baseLabel)it._bl=it.baseLabel; if(it.perLabel)it._pl=it.perLabel; if(it.alt)it.alt._n=it.alt.name; });
+function applyDataLang(){
+  _ITEMS.forEach(it=>{
+    it.name = t(it._n);
+    if('_t' in it) it.note = t(it._t);
+    if(it._bl) it.baseLabel = t(it._bl);
+    if(it._pl) it.perLabel = t(it._pl);
+    if(it.alt) it.alt.name = t(it.alt._n);
+  });
+}
+applyDataLang();
+
 function buildPlans(){
   $('#plans').innerHTML = PLANS.map(p=>`
-    <label class="plan reveal ${p.id==='none'?'sel':''}" data-plan="${p.id}">
-      <input type="radio" name="plan" value="${p.id}" ${p.id==='none'?'checked':''}>
+    <label class="plan ${p.id===state.plan?'sel':''}" data-plan="${p.id}">
+      <input type="radio" name="plan" value="${p.id}" ${p.id===state.plan?'checked':''}>
       <div class="pname">${p.name}</div>
-      <div class="pprice">${p.price?('$'+p.price.toLocaleString()+(p.from?' 起':'')):'—'}</div>
+      <div class="pprice">${p.price?('$'+p.price.toLocaleString()+(p.from?' '+t('起'):'')):'—'}</div>
       <div class="pnote">${p.note}</div>
     </label>`).join('');
   document.querySelectorAll('.plan').forEach(el=>{
@@ -402,7 +471,7 @@ function stepper(id, val){
 }
 function subCounterRow(id, name, price, from, note){
   const q = state.qty[id]||0;
-  const priceTxt = '$'+price.toLocaleString()+(from?'<span class="badge">起</span>':'');
+  const priceTxt = '$'+price.toLocaleString()+(from?'<span class="badge">'+t('起')+'</span>':'');
   return `<div class="row">
       <div class="info"><div class="rname">${name}</div>
         <div class="rnote">${note||''}</div></div>
@@ -413,7 +482,7 @@ function subCounterRow(id, name, price, from, note){
 function miniCounter(id, label, price, from){
   const q = state.qty[id]||0;
   return `<div class="ac">
-      <span class="ac-lbl">${label}<b>$${price.toLocaleString()}${from?' 起':''}</b></span>
+      <span class="ac-lbl">${label}<b>$${price.toLocaleString()}${from?' '+t('起'):''}</b></span>
       ${stepper(id, q)}
     </div>`;
 }
@@ -422,9 +491,9 @@ function counterRow(it){
   if(it.alt){
     return `<div class="row">
         <div class="info"><div class="rname">${it.name}</div>
-          <div class="rnote">對應／非對應可分別加購</div></div>
+          <div class="rnote">${t('對應／非對應可分別加購')}</div></div>
         <div class="alt-counters">
-          ${miniCounter(it.id, '對應角色 ', it.price, it.from)}
+          ${miniCounter(it.id, t('對應角色')+' ', it.price, it.from)}
           ${miniCounter(it.id+'_alt', it.alt.name+' ', it.alt.price, it.alt.from)}
         </div>
       </div>`;
@@ -438,7 +507,7 @@ function baseCounterRow(it){
       <div class="info">
         <label class="chk"><input type="checkbox" data-base="${it.id}" ${on?'checked':''}>
           <span class="rname">${it.name}</span></label>
-        <div class="rnote">${it.note||''}（${it.baseLabel} $${it.base}／${it.perLabel} 每個 +$${it.per}）</div>
+        <div class="rnote">${it.note||''}（${it.baseLabel} $${it.base}／${it.perLabel} ${t('每個')} +$${it.per}）</div>
       </div>
       <div class="price">$${it.base}</div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
@@ -453,7 +522,7 @@ function rushRow(it){
       <div class="info">
         <label class="chk"><input type="checkbox" data-rush="${it.id}" ${on?'checked':''}>
           <span class="rname">${it.name}</span></label>
-        <div class="rnote">在其他項目小計之上加收 ${pct}%</div>
+        <div class="rnote">${LANG==='ja' ? ('他の項目の小計に +'+pct+'%') : ('在其他項目小計之上加收 '+pct+'%')}</div>
       </div>
       <div class="price">+${pct}%</div>
     </div>`;
@@ -465,8 +534,8 @@ function render(){
   $('#grp-rush').innerHTML  = RUSH.map(rushRow).join('');
   $('#grp-booth').innerHTML = BOOTH.map(counterRow).join('');
   $('#grp-warranty').innerHTML = `<div class="row">
-      <div class="info"><div class="rname">加購保固</div><div class="rnote">每 1 個月 $700，上限 6 個月</div></div>
-      <div class="price">$700 / 月</div>${stepper('warranty', state.warranty)}
+      <div class="info"><div class="rname">${t('加購保固')}</div><div class="rnote">${t('每 1 個月 $700，上限 6 個月')}</div></div>
+      <div class="price">${t('$700 / 月')}</div>${stepper('warranty', state.warranty)}
     </div>`;
   bindSteppers(); bindBases(); bindRush();
 }
@@ -508,7 +577,7 @@ function recalc(){
   const allCounters = [...MAIN, ...BOOTH, ...UTIL.filter(x=>x.type!=='baseCounter')];
   allCounters.forEach(it=>{
     const q = state.qty[it.id]||0;
-    if(q) add(`${it.name}${it.alt?'（對應角色）':''} ×${q}`, it.price*q, it.from);
+    if(q) add(`${it.name}${it.alt?t('（對應角色）'):''} ×${q}`, it.price*q, it.from);
     if(it.alt){
       const qa = state.qty[it.id+'_alt']||0;
       if(qa) add(`${it.name}（${it.alt.name}）×${qa}`, it.alt.price*qa, it.alt.from);
@@ -522,7 +591,7 @@ function recalc(){
     if(extra) add(`　└ ${it.perLabel} ×${extra}`, it.per*extra, false);
   });
 
-  if(state.warranty>0) add(`加購保固 ×${state.warranty} 個月`, 700*state.warranty, false);
+  if(state.warranty>0) add(`${t('加購保固')} ×${state.warranty} ${t('個月')}`, 700*state.warranty, false);
 
   // 加急費用依前面所有項目的小計計算，所以一定要放在最後一個 add 之後。
   // 若前面有「起」價項目，加急金額同樣是估算值，因此沿用當下的 hasFrom。
@@ -532,8 +601,8 @@ function recalc(){
   }
 
   $('#items').innerHTML = lines.length
-    ? lines.map(l=>`<div class="li"><span class="n">${l.name}${l.from?'<span class="badge">起</span>':''}</span><span>$${l.amt.toLocaleString()}</span></div>`).join('')
-    : '<div class="empty">尚未選擇任何項目</div>';
+    ? lines.map(l=>`<div class="li"><span class="n">${l.name}${l.from?'<span class="badge">'+t('起')+'</span>':''}</span><span>$${l.amt.toLocaleString()}</span></div>`).join('')
+    : '<div class="empty">'+t('尚未選擇任何項目')+'</div>';
 
   // 折扣
   let discountAmt = 0;
@@ -546,7 +615,7 @@ function recalc(){
   if(state.discount && discountAmt>0){
     $('#discLine').style.display='flex';
     const d = state.discount;
-    $('#discTag').textContent = `折扣 ${d.code}（${d.type==='percent' ? d.value+'%' : '折抵 $'+d.value}）`;
+    $('#discTag').textContent = `${t('折扣')} ${d.code}（${d.type==='percent' ? d.value+'%' : t('折抵 $')+d.value}）`;
     $('#discAmt').textContent = '-$'+discountAmt.toLocaleString();
   } else {
     $('#discLine').style.display='none';
@@ -555,9 +624,9 @@ function recalc(){
   // 供結果彈窗 / 複製功能使用
   state.summary = { lines: lines.slice(), discountAmt, finalTotal, hasFrom, discount: state.discount };
 
-  $('#total').textContent = '$'+finalTotal.toLocaleString()+(hasFrom?' 起':'');
+  $('#total').textContent = '$'+finalTotal.toLocaleString()+(hasFrom?' '+t('起'):'');
   $('#fromNote').textContent = hasFrom
-    ? '※ 含「起」價項目，實際費用依需求複雜度由店主確認為準。'
+    ? t('※ 含「起」價項目，實際費用依需求複雜度由店主確認為準。')
     : '';
 }
 buildPlans();
@@ -571,7 +640,7 @@ recalc();
     const code = $('#discCode').value.trim();
     const msg = $('#discMsg');
     if(!code){ state.discount=null; msg.textContent=''; msg.className='disc-msg'; recalc(); return; }
-    msg.textContent='驗證中…'; msg.className='disc-msg';
+    msg.textContent=t('驗證中…'); msg.className='disc-msg';
     try{
       const r = await fetch(DISCOUNT_API.replace(/\/$/,'')+'/api/validate',{
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -580,16 +649,16 @@ recalc();
       const d = await r.json();
       if(d && d.ok){
         state.discount = {code:d.code, type:d.type, value:d.value, label:d.label};
-        msg.textContent = '✓ 已套用折扣'+(d.label?'：'+d.label:'');
+        msg.textContent = t('✓ 已套用折扣')+(d.label?'：'+d.label:'');
         msg.className='disc-msg ok';
       }else{
         state.discount = null;
-        msg.textContent = '✗ 代碼無效或已停用';
+        msg.textContent = t('✗ 代碼無效或已停用');
         msg.className='disc-msg err';
       }
     }catch(e){
       state.discount = null;
-      msg.textContent = '✗ 連線失敗，請稍後再試';
+      msg.textContent = t('✗ 連線失敗，請稍後再試');
       msg.className='disc-msg err';
     }
     recalc();
@@ -601,9 +670,9 @@ recalc();
 $('#cta').onclick = ()=>{
   // 未選任何項目 → 提示，不開結果
   if($('#items .empty')){
-    const b=$('#cta'), t=b.textContent;
-    b.textContent='請先選擇方案或加購項目';
-    setTimeout(()=>{ b.textContent=t; }, 1600);
+    const b=$('#cta'), old=b.textContent;
+    b.textContent=t('請先選擇方案或加購項目');
+    setTimeout(()=>{ b.textContent=old; }, 1600);
     return;
   }
   // 組合明細（含折扣行）帶入結果彈窗
@@ -613,9 +682,9 @@ $('#cta').onclick = ()=>{
   }
   $('#rmItems').innerHTML = html;
   $('#rmTotal').textContent = $('#total').textContent;
-  $('#rmDate').textContent = '試算時間：' + new Date().toLocaleString('zh-TW');
+  $('#rmDate').textContent = t('試算時間：') + new Date().toLocaleString(LANG==='ja'?'ja-JP':'zh-TW');
   const dc = $('#rmCode');
-  if(state.discount){ dc.style.display='block'; dc.innerHTML = '🎟️ 折扣代碼：<b>'+state.discount.code+'</b>'; }
+  if(state.discount){ dc.style.display='block'; dc.innerHTML = '🎟️ '+t('折扣代碼：')+'<b>'+state.discount.code+'</b>'; }
   else { dc.style.display='none'; }
   $('#resultModal').classList.add('open');
 };
@@ -628,16 +697,16 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeResult(); })
 /* 複製明細文字（方便貼到 Discord） */
 function buildResultText(){
   const s = state.summary; if(!s) return '';
-  let t = '【RimoStudio 委託試算】\n';
-  s.lines.forEach(l=>{ t += '・' + l.name + '  $' + l.amt.toLocaleString() + (l.from?'起':'') + '\n'; });
+  let out = t('【RimoStudio 委託試算】') + '\n';
+  s.lines.forEach(l=>{ out += '・' + l.name + '  $' + l.amt.toLocaleString() + (l.from?t('起'):'') + '\n'; });
   if(s.discountAmt>0 && s.discount){
     const d = s.discount;
-    t += '折扣 ' + d.code + '（' + (d.type==='percent' ? d.value+'%' : '折抵$'+d.value) + '）  -$' + s.discountAmt.toLocaleString() + '\n';
+    out += t('折扣') + ' ' + d.code + '（' + (d.type==='percent' ? d.value+'%' : t('折抵$')+d.value) + '）  -$' + s.discountAmt.toLocaleString() + '\n';
   }
-  t += '─────────────\n預估總額：$' + s.finalTotal.toLocaleString() + (s.hasFrom?' 起':'') + '\n';
-  if(s.discount) t += '折扣代碼：' + s.discount.code + '\n';
-  t += '※ 實際費用以店主確認為準';
-  return t;
+  out += '─────────────\n' + t('預估總額：') + '$' + s.finalTotal.toLocaleString() + (s.hasFrom?' '+t('起'):'') + '\n';
+  if(s.discount) out += t('折扣代碼：') + s.discount.code + '\n';
+  out += t('※ 實際費用以店主確認為準');
+  return out;
 }
 function fallbackCopy(txt, cb){
   const ta = document.createElement('textarea');
@@ -648,13 +717,23 @@ function fallbackCopy(txt, cb){
 }
 $('#rmCopy').onclick = ()=>{
   const txt = buildResultText();
-  const done = ()=>{ const b=$('#rmCopy'), o='📋 複製明細文字'; b.textContent='✓ 已複製！貼到 Discord 即可'; setTimeout(()=>{ b.textContent=o; }, 1800); };
+  const done = ()=>{ const b=$('#rmCopy'), o=t('📋 複製明細文字'); b.textContent=t('✓ 已複製！貼到 Discord 即可'); setTimeout(()=>{ b.textContent=o; }, 1800); };
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt, done));
   } else { fallbackCopy(txt, done); }
 };
+
+/* 語言切換 → 重建動態內容（保留使用者的選擇與數量） */
+document.addEventListener('rimo:lang', function(e){
+  LANG = e.detail || 'zh';
+  applyDataLang();
+  buildPlans(); render(); recalc();
+  // 便利功能中的按鈕標籤（rmCopy）語言同步
+  var cp = $('#rmCopy'); if(cp) cp.textContent = t('📋 複製明細文字');
+});
 </script>
 <!-- 進場動畫（共用） -->
 <script src="assets/app.js?v=3"></script>
+<script src="assets/i18n.js?v=2"></script>
 </body>
 </html>

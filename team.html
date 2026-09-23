@@ -65,6 +65,11 @@
     .skills{justify-content:center}
     .m-works{width:100%}
   }
+  .lang-switch{margin-left:auto;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .lang-switch button{background:transparent;border:none;color:var(--muted);padding:6px 12px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s}
+  .lang-switch button.active{background:var(--accent-soft);color:var(--accent-2)}
+  .lang-switch button:not(.active):hover{color:var(--text)}
+  .nav-inner .nav-toggle{margin-left:10px}
 </style>
 </head>
 <body>
@@ -73,24 +78,25 @@
 
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
+  <div class="lang-switch"><button data-lang-btn="zh">中</button><button data-lang-btn="ja">日</button></div>
   <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
-    <a href="index.html">首頁</a>
-    <a href="index.html#gallery">作品集</a>
-    <a href="team.html">團隊介紹</a>
-    <a href="terms.html">委託須知</a>
-    <a href="glossary.html">用詞說明</a>
-    <a href="index.html#faq">常見問答</a>
-    <a href="index.html#schedule">改模排程</a>
-    <a href="estimate.html" class="cta">委託試算</a>
+    <a href="index.html" data-i18n="nav.home">首頁</a>
+    <a href="index.html#gallery" data-i18n="nav.gallery">作品集</a>
+    <a href="team.html" data-i18n="nav.team">團隊介紹</a>
+    <a href="terms.html" data-i18n="nav.terms">委託須知</a>
+    <a href="glossary.html" data-i18n="nav.glossary">用詞說明</a>
+    <a href="index.html#faq" data-i18n="nav.faq">常見問答</a>
+    <a href="index.html#schedule" data-i18n="nav.schedule">改模排程</a>
+    <a href="estimate.html" class="cta" data-i18n="nav.estimate">委託試算</a>
   </div>
 </div></nav>
 <div class="nav-backdrop"></div>
 
 <div class="wrap">
   <section class="section">
-    <h2 class="reveal"><span class="dot"></span>團隊介紹</h2>
-    <p class="lead reveal">認識 RimoStudio 的成員、專長與作品。</p>
+    <h2 class="reveal"><span class="dot"></span><span data-i18n="tm.h">團隊介紹</span></h2>
+    <p class="lead reveal" data-i18n="tm.lead">認識 RimoStudio 的成員、專長與作品。</p>
 
     <!--
       ▼▼▼ 如何編輯 ▼▼▼
@@ -170,9 +176,9 @@
         </div>
         <div class="m-label">擅長風格</div>
         <div class="skills"><span>韓系</span><span>姊姊系</span><span>酷風</span><span>真實系</span></div>
-        <div class="m-label">不接</div>
         <div class="m-label">不熟</div>
         <div class="skills weak"><span>Furry</span><span>蘿莉</span><span>插件</span><span>ERP系統</span></div>
+        <div class="m-label">不接</div>
         <div class="skills avoid"><span>歐美</span><span>Furry</span></div>
         <div class="m-label">作品</div>
         <div class="m-works">
@@ -243,7 +249,7 @@
         <div class="ph"><span class="pic">📢</span><span>招募中止</span></div>
       </div>
       <div class="m-info">
-        <h3>招募中止 <span class="role hiring"> </span></h3>
+        <h3><span data-i18n="tm.hiring.title">招募中止</span> <span class="role hiring"> </span></h3>
         <p class="m-desc">RimoStudio 目前停止徵才，靜待通知</p>
         <div class="m-label">應徵方式</div>
         <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener" class="btn btn-primary">透過 Discord 看看 →</a>
@@ -251,7 +257,7 @@
     </article>
 
     <div style="text-align:center;margin-top:36px" class="reveal">
-      <a href="estimate.html" class="btn btn-primary">前往委託試算 →</a>
+      <a href="estimate.html" class="btn btn-primary" data-i18n="tm.btnEstimate">前往委託試算 →</a>
     </div>
   </section>
 </div>
@@ -281,7 +287,46 @@ document.querySelectorAll('.m-works').forEach(box=>{
 document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
 lb.onclick=e=>{ if(e.target===lb) lb.classList.remove('open'); };
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
+
+/* ===== 成員卡片（職稱 / 標籤 / 專長 / 介紹）日文化 ===== */
+const TJA = {
+  // 標籤
+  '專長':'得意分野','擅長風格':'得意なスタイル','不熟':'苦手','不接':'対応不可','作品':'作品','應徵方式':'応募方法',
+  // 職稱
+  '店長':'店長','首席設計師':'チーフデザイナー','造型設計師':'スタイルデザイナー',
+  // 專長 / 風格標籤
+  '動畫調整':'アニメーション調整','功能安裝':'機能導入','改色 / 改圖':'色替え / 画像調整',
+  '臉型 / 身形修改':'顔型 / 体型修正','通靈':'おまかせ','日系':'日系','妹妹系':'妹系','姊姊系':'姉系',
+  '微年上':'年上寄り','男模':'男性モデル','歐美':'欧米系','Furry':'ケモノ（Furry）',
+  'Unity（不含程式）':'Unity（プログラム除く）','材質球':'マテリアル','女模':'女性モデル','少女':'少女',
+  '手繪上色':'手描き塗り','服裝搭配':'衣装コーデ','拼接服裝 / 妝容':'衣装合成 / メイク',
+  '皮膚材質變更':'肌マテリアル変更','細節設定':'ディテール設定','韓系':'韓国系','酷風':'クール系',
+  '真實系':'リアル系','蘿莉':'ロリ','插件':'プラグイン','ERP系統':'ERP システム',
+  '材質改變':'マテリアル変更','臉型改變':'顔型変更','拼接服裝':'衣装合成','可愛':'可愛い',
+  '粉白色':'ピンク＆白','道具系':'小物系','拼接服裝 / 頭髮':'衣装 / 髪合成','臉型修改':'顔型修正','可愛系':'可愛い系',
+  // 介紹
+  '從事 VRChat 角色客製化長達6~7年，製作過的角色已突破800+，在改模的基礎上有深厚的經驗':'VRChat アバターのカスタマイズ歴 6〜7 年、制作したキャラは 800 体以上。改変の基礎から深い経験があります。',
+  '我愛 Unity，Unity 愛我（大概）':'Unity が大好き、Unity も私を愛してる（たぶん）',
+  '為了改模來玩 VRChat，有強迫症的細節控。':'改変のために VRChat を始めた、こだわり強めのディテール派。',
+  '是個看到粉色就無法自拔的人類　よろしく':'ピンクを見ると抗えない人類です　よろしく',
+  '非常喜歡改模，是個有事沒事就開始馴服 Unity(? 的普通人類':'改変が大好きで、暇さえあれば Unity を手懐け始める普通の人類（？）',
+  // 徵才
+  'RimoStudio 目前停止徵才，靜待通知':'RimoStudio は現在メンバー募集を停止しています。次のお知らせをお待ちください',
+  '透過 Discord 看看 →':'Discord を見る →',
+};
+function TL(){ return window.__rimoLang || ((navigator.language||'').toLowerCase().indexOf('ja')===0?'ja':'zh'); }
+function trEls(sel){
+  document.querySelectorAll(sel).forEach(function(el){
+    if(el.dataset.zh == null) el.dataset.zh = el.textContent;
+    var zh = el.dataset.zh.trim();
+    el.textContent = (TL()==='ja' && TJA[zh]!=null) ? TJA[zh] : el.dataset.zh;
+  });
+}
+function applyTeamLang(){ trEls('.m-label'); trEls('.skills span'); trEls('.m-info .role'); trEls('.m-desc'); trEls('.m-info .btn'); }
+applyTeamLang();
+document.addEventListener('rimo:lang', applyTeamLang);
 </script>
 <script src="assets/app.js?v=3"></script>
+<script src="assets/i18n.js?v=2"></script>
 </body>
 </html>

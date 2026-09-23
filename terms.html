@@ -24,6 +24,11 @@
 <link rel="stylesheet" href="assets/style.css?v=16">
 <style>
   .wrap{padding-bottom:100px}
+  .lang-switch{margin-left:auto;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .lang-switch button{background:transparent;border:none;color:var(--muted);padding:6px 12px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s}
+  .lang-switch button.active{background:var(--accent-soft);color:var(--accent-2)}
+  .lang-switch button:not(.active):hover{color:var(--text)}
+  .nav-inner .nav-toggle{margin-left:10px}
 </style>
 </head>
 <body>
@@ -32,54 +37,56 @@
 
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
+  <div class="lang-switch"><button data-lang-btn="zh">中</button><button data-lang-btn="ja">日</button></div>
   <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
-    <a href="index.html">首頁</a>
-    <a href="index.html#gallery">作品集</a>
-    <a href="team.html">團隊介紹</a>
-    <a href="terms.html">委託須知</a>
-    <a href="glossary.html">用詞說明</a>
-    <a href="index.html#faq">常見問答</a>
-    <a href="index.html#schedule">改模排程</a>
-    <a href="estimate.html" class="cta">委託試算</a>
+    <a href="index.html" data-i18n="nav.home">首頁</a>
+    <a href="index.html#gallery" data-i18n="nav.gallery">作品集</a>
+    <a href="team.html" data-i18n="nav.team">團隊介紹</a>
+    <a href="terms.html" data-i18n="nav.terms">委託須知</a>
+    <a href="glossary.html" data-i18n="nav.glossary">用詞說明</a>
+    <a href="index.html#faq" data-i18n="nav.faq">常見問答</a>
+    <a href="index.html#schedule" data-i18n="nav.schedule">改模排程</a>
+    <a href="estimate.html" class="cta" data-i18n="nav.estimate">委託試算</a>
   </div>
 </div></nav>
 <div class="nav-backdrop"></div>
 
 <div class="wrap">
   <section class="section">
-    <h2 class="reveal"><span class="dot"></span>委託須知條款</h2>
-    <p class="lead reveal">請將以下條款<strong>捲動閱讀至最底端</strong>，勾選同意後即可開始委託試算。</p>
+    <h2 class="reveal"><span class="dot"></span><span data-i18n="terms.h">委託須知條款</span></h2>
+    <p class="lead reveal" data-i18n="terms.leadFull">請將以下條款<strong>捲動閱讀至最底端</strong>，勾選同意後即可開始委託試算。</p>
 
     <div class="terms reveal scroll-fade" id="termsWrap">
       <div class="terms-scroll" id="termsScroll">
         <ol>
-          <li>暫不接受<span class="hl">歐美 / Furry 模型</span>委託（未來考慮開放）。</li>
-          <li>假日為休息日不會製作，製作時間為平日 <span class="hl">20:00～22:00</span>。</li>
-          <li>本工作室可幫顧客代購，製作完畢後確認沒問題會刪除本工作室未付費之檔案。</li>
-          <li>客製化商品從提交後開始計算 <span class="hl">7 天</span>後將刪除工程檔案，請於該期間內查驗完畢。</li>
-          <li>確定 <span class="hl">1 個月</span>內會〔再製、修改、本體分支〕等皆可免費保留，超過時間則需支付保管費，單隻角色 <span class="hl">NTD 350</span>。</li>
-          <li>在製作前先支付〔<span class="hl">訂金（總金額 50%）／全額</span>〕才會開始製作。<br>
+          <li data-i18n="terms.li1">暫不接受<span class="hl">歐美 / Furry 模型</span>委託（未來考慮開放）。</li>
+          <li data-i18n="terms.li2">假日為休息日不會製作，製作時間為平日 <span class="hl">20:00～22:00</span>。</li>
+          <li data-i18n="terms.li3">本工作室可幫顧客代購，製作完畢後確認沒問題會刪除本工作室未付費之檔案。</li>
+          <li data-i18n="terms.li4">客製化商品從提交後開始計算 <span class="hl">15 天</span>後將刪除工程檔案，請於該期間內查驗完畢。</li>
+          <li data-i18n="terms.li5">確定 <span class="hl">1 個月</span>內會〔再製、修改〕等皆可免費保留1個月，超過時間則需支付保管費，單隻角色 <span class="hl">NTD 250</span>。</li>
+          <li data-i18n="terms.li6">在製作前先支付〔<span class="hl">訂金（總金額 50%）／全額</span>〕才會開始製作。<br>
             <span style="color:var(--muted)">付款方式：銀行／ATM 轉帳，海外客戶可用 PayPal；收款資訊將於聯繫後提供。</span></li>
-          <li>訂單在未開始前都可取消，一旦開始將會收取違約金（訂金）！<br>
+          <li data-i18n="terms.li7">交付訂金<span class="hl">(全額50%)</span>或全額後才會開始動工，每隻角色大約一個禮拜內可完成<span class="hl">(不含六、日)</span></li>
+          <li data-i18n="terms.li8">訂單在未開始前都可取消，一旦開始將會收取違約金（訂金）！<br>
             <span class="warn">（製作開始第一天訂金 50%、第二天 80%、第三天 100%）</span></li>
-          <li>需要您提供 <span class="hl">VRC 帳號/密碼</span>，將由我們為您代上傳。</li>
-          <li>恕不提供〔製作好 / 未完成〕之工程檔！</li>
-          <li><span class="warn">禁止分享由本工作室出品的任何模型。</span></li>
-          <li>本工作室擁有以上所有條款最終解釋權。</li>
+          <li data-i18n="terms.li9">需要您提供 <span class="hl">VRC 帳號/密碼</span>，將由我們為您代上傳。</li>
+          <li data-i18n="terms.li10">大部分方案不提供〔製作好 / 未完成〕之工程檔，僅特殊方案提供！</li>
+          <li data-i18n="terms.li11"><span class="warn">禁止分享由本工作室出品的任何模型。</span></li>
+          <li data-i18n="terms.li12">本工作室擁有以上所有條款最終解釋權。</li>
         </ol>
       </div>
     </div>
 
     <div class="gate reveal">
-      <div class="hint" id="hint">👇 請將條款閱讀至最底端後才能勾選同意</div>
+      <div class="hint" id="hint" data-i18n="terms.hint">👇 請將條款閱讀至最底端後才能勾選同意</div>
       <label class="agree-check disabled" id="agreeLabel">
         <input type="checkbox" id="agreeChk" disabled>
-        <span>我已詳細閱讀並同意以上所有條款</span>
+        <span data-i18n="terms.agree">我已詳細閱讀並同意以上所有條款</span>
       </label>
       <div class="actions">
-        <a href="index.html" class="btn btn-ghost">返回首頁</a>
-        <button class="btn btn-primary" id="agreeBtn" disabled>同意並開始試算 →</button>
+        <a href="index.html" class="btn btn-ghost" data-i18n="terms.btnHome">返回首頁</a>
+        <button class="btn btn-primary" id="agreeBtn" disabled data-i18n="terms.btnAgree">同意並開始試算 →</button>
       </div>
     </div>
   </section>
@@ -105,11 +112,17 @@ const btn   = document.getElementById('agreeBtn');
 const hint  = document.getElementById('hint');
 const label = document.getElementById('agreeLabel');
 
+function TL(){ return window.__rimoLang || ((navigator.language||'').toLowerCase().indexOf('ja')===0?'ja':'zh'); }
+const MSG = {
+  read:   { zh:'✓ 已閱讀完畢，請勾選下方「我同意」', ja:'✓ 読み終わりました。下の「同意」にチェックしてください' },
+  agreed: { zh:'您今日已閱讀並同意過條款，可直接開始試算', ja:'本日すでに規約に同意済みです。そのまま見積りを開始できます' },
+};
+
 function unlockCheck(msg){
   chk.disabled = false;
   label.classList.remove('disabled');
   wrap.classList.add('at-bottom');
-  hint.textContent = msg || '✓ 已閱讀完畢，請勾選下方「我同意」';
+  hint.textContent = msg || MSG.read[TL()];
   hint.classList.add('ok');
 }
 function atBottom(){
@@ -141,5 +154,6 @@ btn.addEventListener('click', ()=>{
 </script>
 <!-- 進場動畫（共用） -->
 <script src="assets/app.js?v=3"></script>
+<script src="assets/i18n.js?v=2"></script>
 </body>
 </html>

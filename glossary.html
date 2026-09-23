@@ -24,6 +24,11 @@
 <link rel="stylesheet" href="assets/style.css?v=16">
 <style>
   .wrap{padding-bottom:100px}
+  .lang-switch{margin-left:auto;display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .lang-switch button{background:transparent;border:none;color:var(--muted);padding:6px 12px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s}
+  .lang-switch button.active{background:var(--accent-soft);color:var(--accent-2)}
+  .lang-switch button:not(.active):hover{color:var(--text)}
+  .nav-inner .nav-toggle{margin-left:10px}
 </style>
 </head>
 <body>
@@ -32,16 +37,17 @@
 
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
+  <div class="lang-switch"><button data-lang-btn="zh">中</button><button data-lang-btn="ja">日</button></div>
   <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
-    <a href="index.html">首頁</a>
-    <a href="index.html#gallery">作品集</a>
-    <a href="team.html">團隊介紹</a>
-    <a href="terms.html">委託須知</a>
-    <a href="glossary.html">用詞說明</a>
-    <a href="index.html#faq">常見問答</a>
-    <a href="index.html#schedule">改模排程</a>
-    <a href="estimate.html" class="cta">委託試算</a>
+    <a href="index.html" data-i18n="nav.home">首頁</a>
+    <a href="index.html#gallery" data-i18n="nav.gallery">作品集</a>
+    <a href="team.html" data-i18n="nav.team">團隊介紹</a>
+    <a href="terms.html" data-i18n="nav.terms">委託須知</a>
+    <a href="glossary.html" data-i18n="nav.glossary">用詞說明</a>
+    <a href="index.html#faq" data-i18n="nav.faq">常見問答</a>
+    <a href="index.html#schedule" data-i18n="nav.schedule">改模排程</a>
+    <a href="estimate.html" class="cta" data-i18n="nav.estimate">委託試算</a>
   </div>
 </div></nav>
 <div class="nav-backdrop"></div>
@@ -49,89 +55,89 @@
 <div class="wrap">
   <!-- 方案類型 -->
   <section class="section">
-    <h2 class="reveal"><span class="dot"></span>各式用詞說明</h2>
-    <p class="lead reveal">委託前建議先了解這些名詞，才能更清楚選擇適合自己的方案與加購項目。</p>
+    <h2 class="reveal"><span class="dot"></span><span data-i18n="gl.sec1">各式用詞說明</span></h2>
+    <p class="lead reveal" data-i18n="gl.lead">委託前建議先了解這些名詞，才能更清楚選擇適合自己的方案與加購項目。</p>
     <div class="glossary stagger">
       <div class="term reveal">
-        <h3>按鈕</h3>
-        <div class="sub"><b>開關按鈕：</b>可切換衣服、髮色、瞳色、飾品配件的顯示／隱藏，甚至是其他任何物件的開關狀態。</div>
-        <div class="sub"><b>轉盤按鈕：</b>可調整胸部大小、物件顏色、部分可動區塊的變化幅度。</div>
+        <h3 data-i18n="gl.t.button">按鈕</h3>
+        <div class="sub" data-i18n="gl.button.on"><b>開關按鈕：</b>可切換衣服、髮色、瞳色、飾品配件的顯示／隱藏，甚至是其他任何物件的開關狀態。</div>
+        <div class="sub" data-i18n="gl.button.dial"><b>轉盤按鈕：</b>可調整胸部大小、物件顏色、部分可動區塊的變化幅度。</div>
       </div>
       <div class="term reveal">
-        <h3>自訂方案 vs 風格方案</h3>
-        <div class="sub"><b>自訂方案：</b>你可以自由決定按鈕數量、是否需要改色、是否想調整臉型等功能。</div>
-        <div class="sub"><b>風格方案：</b>你可以直接選擇我預設的角色風格，或提供你喜歡的風格 / OC 設計圖。</div>
+        <h3 data-i18n="gl.t.plan">自訂方案 vs 風格方案</h3>
+        <div class="sub" data-i18n="gl.plan.custom"><b>自訂方案：</b>你可以自由決定按鈕數量、是否需要改色、是否想調整臉型等功能。</div>
+        <div class="sub" data-i18n="gl.plan.style"><b>風格方案：</b>你可以直接選擇我預設的角色風格，或提供你喜歡的風格 / OC 設計圖。</div>
       </div>
       <div class="term reveal">
-        <h3>非對應</h3>
-        <p>當你購買的商品與你的角色模型不相容（例如商品是為角色 B 設計，但你使用的是角色 A），這種情況就稱為「非對應／非適配」。</p>
+        <h3 data-i18n="gl.t.nonc">非對應</h3>
+        <p data-i18n="gl.nonc.d">當你購買的商品與你的角色模型不相容（例如商品是為角色 B 設計，但你使用的是角色 A），這種情況就稱為「非對應／非適配」。</p>
       </div>
       <div class="term reveal">
-        <h3>簡易改圖／色 vs 進階改圖／色</h3>
-        <div class="sub"><b>簡易改色：</b>使用基礎調色工具進行顏色、亮暗調整。</div>
-        <div class="sub"><b>進階改圖：</b>使用 Photoshop 等專業繪圖軟體，針對貼圖細節進行進階調整。</div>
+        <h3 data-i18n="gl.t.recolor">簡易改圖／色 vs 進階改圖／色</h3>
+        <div class="sub" data-i18n="gl.recolor.s"><b>簡易改色：</b>使用基礎調色工具進行顏色、亮暗調整。</div>
+        <div class="sub" data-i18n="gl.recolor.a"><b>進階改圖：</b>使用 Photoshop 等專業繪圖軟體，針對貼圖細節進行進階調整。</div>
       </div>
       <div class="term reveal">
-        <h3>臉型修改</h3>
-        <p>會動到臉部的部分，可能是眼睛大小、下巴長寬、臉的胖瘦等，都屬於臉型修改。</p>
+        <h3 data-i18n="gl.t.face">臉型修改</h3>
+        <p data-i18n="gl.face.d">會動到臉部的部分，可能是眼睛大小、下巴長寬、臉的胖瘦等，都屬於臉型修改。</p>
       </div>
       <div class="term reveal">
-        <h3>身形修改</h3>
-        <p>調整大/小腿長、腰/臀部寬瘦、頭的大小等等， 身體上的每個部位都能調整。</p>
+        <h3 data-i18n="gl.t.body">身形修改</h3>
+        <p data-i18n="gl.body.d">調整大/小腿長、腰/臀部寬瘦、頭的大小等等， 身體上的每個部位都能調整。</p>
       </div>
       <div class="term reveal">
-        <h3>優化</h3>
-        <p>為了讓你與他人在 VRChat 中擁有流暢、不卡頓的體驗，我們建議每位角色只穿戴一件衣服與一種髮型，而且如果您的模型太大別人也是會載入不出來的！</p>
+        <h3 data-i18n="gl.t.opt">優化</h3>
+        <p data-i18n="gl.opt.d">為了讓你與他人在 VRChat 中擁有流暢、不卡頓的體驗，我們建議每位角色只穿戴一件衣服與一種髮型，而且如果您的模型太大別人也是會載入不出來的！</p>
       </div>
     </div>
   </section>
 
   <!-- 保固說明 -->
   <section class="section">
-    <h2 class="reveal"><span class="dot"></span>保固說明</h2>
-    <p class="lead reveal">任何方案皆可加購保固，每個方案最多可加購至 6 個月。</p>
+    <h2 class="reveal"><span class="dot"></span><span data-i18n="gl.sec3">保固說明</span></h2>
+    <p class="lead reveal" data-i18n="gl.sec3lead">任何方案皆可加購保固，每個方案最多可加購至 6 個月。</p>
     <div class="glossary stagger">
       <div class="term reveal">
-        <h3>標準保固</h3>
-        <div class="sub"><b>期限：</b>角色驗收後 7 天內。</div>
-        <div class="sub"><b>範圍：</b>僅針對製作瑕疵提供免費修復（如：穿模、權重異常、顯示 Bug 等）。</div>
-        <div class="sub"><b>注意：</b>造型外觀與配色因已於驗收階段確認，故不在此修復範圍內。</div>
+        <h3 data-i18n="gl.std">標準保固</h3>
+        <div class="sub" data-i18n="gl.std.term"><b>期限：</b>角色驗收後 7 天內。</div>
+        <div class="sub" data-i18n="gl.std.scope"><b>範圍：</b>僅針對製作瑕疵提供免費修復（如：穿模、權重異常、顯示 Bug 等）。</div>
+        <div class="sub" data-i18n="gl.std.note"><b>注意：</b>造型外觀與配色因已於驗收階段確認，故不在此修復範圍內。</div>
       </div>
       <div class="term reveal">
-        <h3>加購保固</h3>
-        <div class="sub"><b>優先異常排查：</b>全力協助處理角色運作上的各類異常。</div>
-        <div class="sub"><b>簡易變更額度：</b>提供 2 次免費「簡易物件更換／移除」（需為同價位且未超出方案總額）。</div>
-        <div class="sub"><b>進階修改支援：</b>若涉及複雜結構調整，將視情況另行報價。</div>
+        <h3 data-i18n="gl.add">加購保固</h3>
+        <div class="sub" data-i18n="gl.add.1"><b>優先異常排查：</b>全力協助處理角色運作上的各類異常。</div>
+        <div class="sub" data-i18n="gl.add.2"><b>簡易變更額度：</b>提供 2 次免費「簡易物件更換／移除」（需為同價位且未超出方案總額）。</div>
+        <div class="sub" data-i18n="gl.add.3"><b>進階修改支援：</b>若涉及複雜結構調整，將視情況另行報價。</div>
       </div>
       <div class="term reveal">
-        <h3>過保維修</h3>
-        <p>⚠️ 若保固期已過，您仍可隨時透過「重新購買保固方案」來恢復上述維修與修改服務。</p>
+        <h3 data-i18n="gl.over">過保維修</h3>
+        <p data-i18n="gl.over.d">⚠️ 若保固期已過，您仍可隨時透過「重新購買保固方案」來恢復上述維修與修改服務。</p>
       </div>
     </div>
   </section>
 
   <!-- NSFW -->
   <section class="section">
-    <h2 class="reveal"><span class="dot"></span>NSFW 系統說明</h2>
-    <p class="lead reveal">以下為成人向功能系統的用詞說明。</p>
+    <h2 class="reveal"><span class="dot"></span><span data-i18n="gl.sec2">NSFW 系統說明</span></h2>
+    <p class="lead reveal" data-i18n="gl.sec2lead">以下為成人向功能系統的用詞說明。</p>
     <div class="glossary stagger">
       <div class="term reveal">
         <h3>SPS <span class="nsfw">NSFW</span></h3>
-        <p>SPS 就是幫忙吸住 GG 的系統，不要讓那根亂晃穿模導致出戲。</p>
+        <p data-i18n="gl.sps">SPS 就是幫忙吸住 GG 的系統，不要讓那根亂晃穿模導致出戲。</p>
       </div>
       <div class="term reveal">
         <h3>SPS-D <span class="nsfw">NSFW</span></h3>
-        <p>SPS-D 就是 GG（插入物體）。</p>
+        <p data-i18n="gl.spsd">SPS-D 就是 GG（插入物體）。</p>
       </div>
       <div class="term reveal">
         <h3>PCS <span class="nsfw">NSFW</span></h3>
-        <p>PCS 是只有發出聲音的功能，比如用手會發出水聲，用嘴會有深喉的聲音。</p>
+        <p data-i18n="gl.pcs">PCS 是只有發出聲音的功能，比如用手會發出水聲，用嘴會有深喉的聲音。</p>
       </div>
     </div>
   </section>
 
   <div style="text-align:center;margin-top:40px" class="reveal">
-    <a href="estimate.html" class="btn btn-primary">前往委託試算 →</a>
+    <a href="estimate.html" class="btn btn-primary" data-i18n="gl.btnEstimate">前往委託試算 →</a>
   </div>
 </div>
 
@@ -147,5 +153,6 @@
 
 <!-- 進場動畫（共用） -->
 <script src="assets/app.js?v=3"></script>
+<script src="assets/i18n.js?v=2"></script>
 </body>
 </html>

@@ -368,18 +368,27 @@ const MAIN = [
   {id:'funcmod',name:'功能修改',   price:600, from:true, note:'提取部分功能等'},
   {id:'btnTrad',name:'傳統按鈕',   price:250},
   {id:'btnMod', name:'現代按鈕',   price:100, note:'所有方案預設現代按鈕'},
-  {id:'recolor',name:'簡易改圖 / 色', price:250, note:'無精修'},
-  {id:'recolorAdv',name:'進階改圖 / 色', price:500, from:true, note:'精修'},
+  {id:'recolor',name:'簡易改圖 / 色', note:'無精修；一套＝角色／衣服／頭髮', parts:[
+    {id:'recolor_char', label:'角色', price:250},
+    {id:'recolor_cloth',label:'衣服', price:200},
+    {id:'recolor_hair', label:'頭髮', price:150},
+  ]},
+  {id:'recolorAdv',name:'進階改圖 / 色', from:true, note:'精修；一套＝角色／衣服／頭髮', parts:[
+    {id:'recolorAdv_char', label:'角色', price:450},
+    {id:'recolorAdv_cloth',label:'衣服', price:350},
+    {id:'recolorAdv_hair', label:'頭髮', price:250},
+  ]},
   {id:'face',  name:'臉型修改',    price:450, from:true, note:'姐系 / 妹系等'},
   {id:'anim',  name:'角色動畫',    price:350, from:true, note:'手勢、表情、動作'},
   {id:'body',  name:'身形修改',    price:600, from:true},
+  {id:'swap',  name:'換頭 / 換身體', price:500},
   {id:'material',name:'材質修改',  price:350, from:true},
   {id:'mesh',  name:'網格修改',    price:300, from:true, note:'$300～2000 起，依複雜度'},
 ];
 const UTIL = [
-  {id:'handmenu', type:'baseCounter', name:'手部虛擬快捷選單', base:300, per:100,
-    baseLabel:'安裝', perLabel:'額外虛擬按鈕', note:'僅限 VR 玩家；每顆按鈕 +$100'},
-  {id:'utility', name:'簡易便利工具安裝', price:350, note:'睡姿 / 坐蹲姿 / 畫筆 / 小地圖 / 飛行 等'},
+  {id:'handmenu', type:'baseCounter', name:'手部虛擬快捷選單', base:150, per:50,
+    baseLabel:'安裝', perLabel:'額外虛擬按鈕', note:'僅限 VR 玩家；每顆按鈕 +$50'},
+  {id:'utility', name:'簡易便利工具安裝', price:250, note:'睡姿 / 坐蹲姿 / 畫筆 / 小地圖 / 飛行 等'},
 ];
 const NSFW = [
   {id:'sps',  type:'baseCounter', name:'SPS 系統',   base:250, per:100, baseLabel:'安裝', perLabel:'額外位置', note:'可吸附柱狀體'},
@@ -421,7 +430,7 @@ const JA = {
   '妝容 / 紋身':'メイク / タトゥー','功能安裝':'機能導入','功能修改':'機能の修正',
   '傳統按鈕':'従来ボタン','現代按鈕':'モダンボタン','簡易改圖 / 色':'簡易 画像 / 色替え',
   '進階改圖 / 色':'応用 画像 / 色替え','臉型修改':'顔型修正','角色動畫':'アニメーション',
-  '身形修改':'体型修正','材質修改':'マテリアル修正','網格修改':'メッシュ修正','非對應角色':'非対応キャラ',
+  '身形修改':'体型修正','換頭 / 換身體':'頭／体の交換','材質修改':'マテリアル修正','網格修改':'メッシュ修正','非對應角色':'非対応キャラ',
   '對應角色':'対応キャラ','提取部分功能等':'一部機能の抽出など','所有方案預設現代按鈕':'全プラン標準でモダンボタン',
   '無精修':'簡易調整のみ','精修':'細部まで調整','姐系 / 妹系等':'姉系 / 妹系 など',
   '手勢、表情、動作':'ハンドサイン・表情・アクション','$300～2000 起，依複雜度':'$300〜2000〜、複雑さにより変動',
@@ -451,6 +460,9 @@ const JA = {
   '📋 複製明細文字':'📋 明細をコピー','✓ 已複製！貼到 Discord 即可':'✓ コピーしました！Discord に貼り付け可能',
   '素材網址':'素材 URL','備註':'備考',
   '貼上此項目的素材網址，一行一個':'この項目の素材 URL（1行に1つ）',
+  '角色':'キャラ本体','衣服':'衣装','頭髮':'髪',
+  '無精修；一套＝角色／衣服／頭髮':'簡易調整のみ；1セット＝キャラ／衣装／髪',
+  '精修；一套＝角色／衣服／頭髮':'細部まで調整；1セット＝キャラ／衣装／髪',
 };
 let LANG = (function(){ try{ var s=localStorage.getItem('rimo_lang'); if(s==='ja'||s==='zh')return s; }catch(e){} return (navigator.language||'').toLowerCase().indexOf('ja')===0?'ja':'zh'; })();
 function t(s){ return (LANG==='ja' && JA[s]!=null) ? JA[s] : s; }
@@ -528,6 +540,17 @@ function miniCounter(id, label, price, from){
 }
 function counterRow(it){
   var row;
+  // 分部位的項目（角色／衣服／頭髮）→ 同一列放多個小計數器
+  if(it.parts){
+    row = `<div class="row">
+        <div class="info"><div class="rname">${it.name}</div>
+          <div class="rnote">${it.note||''}</div></div>
+        <div class="alt-counters">
+          ${it.parts.map(p=>miniCounter(p.id, t(p.label)+' ', p.price, it.from)).join('')}
+        </div>
+      </div>`;
+    return row + urlField(it);
+  }
   // 有對應/非對應之分的項目 → 同一列放兩個小計數器，可同時加購
   if(it.alt){
     row = `<div class="row">
@@ -624,6 +647,13 @@ function recalc(){
 
   const allCounters = [...MAIN, ...BOOTH, ...UTIL.filter(x=>x.type!=='baseCounter')];
   allCounters.forEach(it=>{
+    if(it.parts){
+      it.parts.forEach(p=>{
+        const qp = state.qty[p.id]||0;
+        if(qp) add(`${it.name}（${t(p.label)}）×${qp}`, p.price*qp, it.from);
+      });
+      return;
+    }
     const q = state.qty[it.id]||0;
     if(q) add(`${it.name}${it.alt?t('（對應角色）'):''} ×${q}`, it.price*q, it.from);
     if(it.alt){
@@ -811,6 +841,6 @@ document.addEventListener('rimo:lang', function(e){
 </script>
 <!-- 進場動畫（共用） -->
 <script src="assets/app.js?v=3"></script>
-<script src="assets/i18n.js?v=4"></script>
+<script src="assets/i18n.js?v=5"></script>
 </body>
 </html>

@@ -113,6 +113,19 @@
     border-radius:12px;border:1px solid var(--line);color:var(--muted);
     font-size:16px;transition:.15s}
   .sub-link:hover{border-color:var(--accent);color:var(--accent-2)}
+  /* 素材網址 / 備註 */
+  .field-label{display:block;font-size:14px;color:var(--accent-2);font-weight:600;margin:14px 0 6px}
+  .field{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--text);font-size:15px;font-family:inherit;resize:vertical;line-height:1.6}
+  .field:focus{outline:none;border-color:var(--accent)}
+  .field::placeholder{color:var(--muted)}
+  /* 項目下方的素材網址欄位 */
+  .url-field{padding:2px 0 14px}
+  .url-field .field{font-size:14px;border-style:dashed}
+  .rm-extra{margin-top:12px;font-size:13.5px;line-height:1.7;text-align:left}
+  .rm-extra .lbl{color:var(--accent-2);font-weight:600;margin-top:10px}
+  .rm-extra .val{color:var(--muted);white-space:pre-wrap;word-break:break-word}
+  .rm-extra a{color:var(--accent-2);word-break:break-all}
   /* 折扣代碼 */
   .disc-box{margin-top:14px}
   .disc-row{display:flex;gap:8px}
@@ -263,6 +276,12 @@
         <div class="sub" data-i18n="est.sub.warranty">每 1 個月 $700，每個方案最多可加購至 6 個月（部分方案已含保固）</div>
         <div id="grp-warranty"></div>
       </section>
+
+      <section class="card reveal">
+        <h2><span class="dot"></span><span data-i18n="est.h.note">備註</span></h2>
+        <div class="sub" data-i18n="est.sub.note">有其他想說明的需求可以寫在這裡（選填）。素材網址請填在上方各項目下方。</div>
+        <textarea id="userNote" class="field" rows="3" placeholder="想說明的需求、參考圖、想要的風格氛圍等" data-i18n-ph="est.ph.note"></textarea>
+      </section>
     </main>
 
     <aside>
@@ -310,6 +329,7 @@
     <div class="rm-items" id="rmItems"></div>
     <div class="rm-total-row"><span data-i18n="est.total">預估總額</span><span class="rm-total" id="rmTotal">$0</span></div>
     <div class="rm-code" id="rmCode" style="display:none"></div>
+    <div class="rm-extra" id="rmExtra"></div>
     <div class="rm-note" data-i18n="est.rm.note">※ 此為預估金額，實際費用由店主確認為準。<br>請<strong>截圖或複製此結果</strong>，並透過 Discord 聯繫店主完成委託。</div>
     <div class="rm-actions">
       <a href="https://discord.gg/tzbvaHy9Kx" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="est.rm.discord">前往 Discord 聯繫店主 →</a>
@@ -381,7 +401,7 @@ const BOOTH = [
 const DISCOUNT_API = 'https://rimo-discount.u1788u1788.workers.dev';
 // ▲▲▲
 
-const state = { plan:'none', qty:{}, alt:{}, warranty:0, rush:null, discount:null };
+const state = { plan:'none', qty:{}, alt:{}, warranty:0, rush:null, discount:null, urls:{} };
 const $ = s => document.querySelector(s);
 
 /* ===== 動態文字日文化（中文原文 → 日文；找不到回原文） ===== */
@@ -429,6 +449,8 @@ const JA = {
   '試算時間：':'見積り日時：','折扣代碼：':'割引コード：','預估總額：':'見積り合計：',
   '【RimoStudio 委託試算】':'【RimoStudio 料金見積り】','※ 實際費用以店主確認為準':'※ 実際の料金は店主の確認によります',
   '📋 複製明細文字':'📋 明細をコピー','✓ 已複製！貼到 Discord 即可':'✓ コピーしました！Discord に貼り付け可能',
+  '素材網址':'素材 URL','備註':'備考',
+  '貼上此項目的素材網址，一行一個':'この項目の素材 URL（1行に1つ）',
 };
 let LANG = (function(){ try{ var s=localStorage.getItem('rimo_lang'); if(s==='ja'||s==='zh')return s; }catch(e){} return (navigator.language||'').toLowerCase().indexOf('ja')===0?'ja':'zh'; })();
 function t(s){ return (LANG==='ja' && JA[s]!=null) ? JA[s] : s; }
@@ -445,6 +467,24 @@ function applyDataLang(){
   });
 }
 applyDataLang();
+
+/* 哪些項目會用到外部素材 → 選取後其下方出現網址欄位 */
+['cloth','hair','prop','makeup','func','b1','b2','b3'].forEach(function(id){
+  var it = _ITEMS.find(function(x){ return x.id===id; });
+  if(it) it.url = true;
+});
+/* 該項目目前的總數量（含對應＋非對應） */
+function itemQty(it){
+  var q = state.qty[it.id]||0;
+  if(it.alt) q += state.qty[it.id+'_alt']||0;
+  return q;
+}
+/* 選了才顯示的「素材網址」多行欄位 */
+function urlField(it){
+  if(!it.url || itemQty(it) <= 0) return '';
+  var v = state.urls[it.id] || '';
+  return '<div class="url-field"><textarea class="field" rows="2" data-url="'+it.id+'" placeholder="'+t('貼上此項目的素材網址，一行一個')+'">'+escapeHtml(v)+'</textarea></div>';
+}
 
 function buildPlans(){
   $('#plans').innerHTML = PLANS.map(p=>`
@@ -487,9 +527,10 @@ function miniCounter(id, label, price, from){
     </div>`;
 }
 function counterRow(it){
+  var row;
   // 有對應/非對應之分的項目 → 同一列放兩個小計數器，可同時加購
   if(it.alt){
-    return `<div class="row">
+    row = `<div class="row">
         <div class="info"><div class="rname">${it.name}</div>
           <div class="rnote">${t('對應／非對應可分別加購')}</div></div>
         <div class="alt-counters">
@@ -497,8 +538,10 @@ function counterRow(it){
           ${miniCounter(it.id+'_alt', it.alt.name+' ', it.alt.price, it.alt.from)}
         </div>
       </div>`;
+  } else {
+    row = subCounterRow(it.id, it.name, it.price, it.from, it.note||'');
   }
-  return subCounterRow(it.id, it.name, it.price, it.from, it.note||'');
+  return row + urlField(it);
 }
 function baseCounterRow(it){
   const q = state.qty[it.id]||0;
@@ -537,7 +580,12 @@ function render(){
       <div class="info"><div class="rname">${t('加購保固')}</div><div class="rnote">${t('每 1 個月 $700，上限 6 個月')}</div></div>
       <div class="price">${t('$700 / 月')}</div>${stepper('warranty', state.warranty)}
     </div>`;
-  bindSteppers(); bindBases(); bindRush();
+  bindSteppers(); bindBases(); bindRush(); bindUrls();
+}
+function bindUrls(){
+  document.querySelectorAll('[data-url]').forEach(function(el){
+    el.oninput = function(){ state.urls[el.dataset.url] = el.value; };
+  });
 }
 function bindSteppers(){
   document.querySelectorAll('[data-step]').forEach(el=>{
@@ -686,6 +734,16 @@ $('#cta').onclick = ()=>{
   const dc = $('#rmCode');
   if(state.discount){ dc.style.display='block'; dc.innerHTML = '🎟️ '+t('折扣代碼：')+'<b>'+state.discount.code+'</b>'; }
   else { dc.style.display='none'; }
+  // 素材網址（逐項）/ 備註
+  const mats = collectUrls();
+  const note = ($('#userNote').value||'').trim();
+  let ex = '';
+  if(mats.length){
+    ex += '<div class="lbl">'+t('素材網址')+'</div>';
+    mats.forEach(function(m){ ex += '<div class="val"><b>'+escapeHtml(m.name)+'</b><br>'+linkify(escapeHtml(m.urls))+'</div>'; });
+  }
+  if(note) ex += '<div class="lbl">'+t('備註')+'</div><div class="val">'+escapeHtml(note)+'</div>';
+  $('#rmExtra').innerHTML = ex;
   $('#resultModal').classList.add('open');
 };
 const closeResult = ()=> $('#resultModal').classList.remove('open');
@@ -705,9 +763,28 @@ function buildResultText(){
   }
   out += '─────────────\n' + t('預估總額：') + '$' + s.finalTotal.toLocaleString() + (s.hasFrom?' '+t('起'):'') + '\n';
   if(s.discount) out += t('折扣代碼：') + s.discount.code + '\n';
-  out += t('※ 實際費用以店主確認為準');
+  const mats = collectUrls();
+  const note = ($('#userNote')&&$('#userNote').value||'').trim();
+  if(mats.length){
+    out += '\n' + t('素材網址') + '：\n';
+    mats.forEach(function(m){ out += '・' + m.name + '\n' + m.urls + '\n'; });
+  }
+  if(note) out += '\n' + t('備註') + '：' + note + '\n';
+  out += '\n' + t('※ 實際費用以店主確認為準');
   return out;
 }
+/* 收集有填網址的素材項目（名稱已依語言翻譯） */
+function collectUrls(){
+  var out = [];
+  [].concat(MAIN, BOOTH).forEach(function(it){
+    if(!it.url || itemQty(it) <= 0) return;
+    var v = (state.urls[it.id]||'').trim();
+    if(v) out.push({ name: it.name, urls: v });
+  });
+  return out;
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function linkify(s){ return s.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>'); }
 function fallbackCopy(txt, cb){
   const ta = document.createElement('textarea');
   ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0';
@@ -734,6 +811,6 @@ document.addEventListener('rimo:lang', function(e){
 </script>
 <!-- 進場動畫（共用） -->
 <script src="assets/app.js?v=3"></script>
-<script src="assets/i18n.js?v=2"></script>
+<script src="assets/i18n.js?v=4"></script>
 </body>
 </html>

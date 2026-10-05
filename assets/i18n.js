@@ -96,6 +96,10 @@ window.I18N = {
     'est.rm.title': '見積り結果',
     'est.rm.note': '※ これは概算金額です。実際の料金は店主の確認によります。<br><strong>この結果をスクリーンショットまたはコピー</strong>し、Discord で店主にご連絡ください。',
     'est.rm.discord': 'Discord で店主に連絡 →', 'est.rm.copy': '📋 明細をコピー', 'est.rm.back': '修正に戻る',
+    'est.h.extra': '素材・備考', 'est.sub.extra': '改変に使う素材の URL と、ご要望があればご記入ください（任意）',
+    'est.lbl.urls': '素材 URL（Booth / VRChat 商品など、1行に1つ）', 'est.ph.urls': 'https://booth.pm/...\nhttps://...',
+    'est.lbl.note': '備考', 'est.ph.note': 'ご要望・参考イメージ・希望の雰囲気など',
+    'est.h.note': '備考', 'est.sub.note': '他にご要望があればご記入ください（任意）。素材 URL は上の各項目の下に入力してください。',
 
     /* ===== 委託須知頁 ===== */
     'terms.h': '依頼規約',

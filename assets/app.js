@@ -5,6 +5,23 @@
    避免整站因為 opacity:0 而變成空白。 */
 window.__rimoAppLoaded = true;
 
+/* ===== 深色 / 淺色主題切換 =====
+   預設淺色；<head> 的行內腳本會在繪製前先套用記住的主題，避免閃爍。
+   這裡用事件委派，不論導覽列何時建立都能運作。 */
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-theme-toggle]');
+  if (!btn) return;
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  else document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem('rimo_theme', next); } catch (err) {}
+  document.querySelectorAll('[data-theme-toggle]').forEach((b) => {
+    b.setAttribute('aria-label', next === 'dark' ? '切換淺色主題' : '切換深色主題');
+    b.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+  });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== 漢堡抽屜選單 ===== */

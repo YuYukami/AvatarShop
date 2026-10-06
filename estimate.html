@@ -35,13 +35,15 @@
     if(!agreed){ document.documentElement.classList.add('gate-locked'); }
   })();
 </script>
-<link rel="stylesheet" href="assets/style.css?v=16">
+<script>(function(){try{if(localStorage.getItem('rimo_theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=21">
 <style>
   .wrap{padding-bottom:120px}
   .page-head{text-align:center;padding:40px 0 8px}
-  .page-head h1{font-size:clamp(28px,4vw,40px);letter-spacing:1px;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));
-    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .page-head h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.01em;font-weight:800;color:var(--text)}
   .page-head p{color:var(--muted);margin-top:6px}
   .steps{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
   .steps span{font-size:15px;color:var(--muted);background:var(--panel);
@@ -99,6 +101,9 @@
   #items .li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;
     border-bottom:1px dashed var(--line);color:var(--muted)}
   #items .li .n{color:var(--text)}
+  /* 方案內容子項（顯示保固／附帶衣服頭髮等，不計價） */
+  #items .li.incl,.rm-items .li.incl{border-bottom:none;padding:2px 0 10px 2px;color:var(--muted)}
+  #items .li.incl .n,.rm-items .li.incl .n{color:var(--muted);font-size:13px;line-height:1.5}
   #items .empty{color:var(--muted);text-align:center;padding:20px 0}
   .total{margin-top:16px;padding-top:16px;border-top:2px solid var(--line);
     display:flex;justify-content:space-between;align-items:baseline}
@@ -106,9 +111,9 @@
   .total .amt{font-size:32px;font-weight:800;color:var(--accent-2)}
   .from-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5}
   .cta-btn{display:block;width:100%;text-align:center;margin-top:16px;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1a1726;
-    font-weight:700;padding:13px;border-radius:12px;border:none;cursor:pointer;font-size:17px}
-  .cta-btn:hover{filter:brightness(1.08)}
+    background:var(--accent);color:#fff;
+    font-weight:700;padding:13px;border-radius:12px;border:none;cursor:pointer;font-size:17px;transition:.15s}
+  .cta-btn:hover{background:var(--accent-ink)}
   .sub-link{display:block;width:100%;text-align:center;margin-top:10px;padding:11px;
     border-radius:12px;border:1px solid var(--line);color:var(--muted);
     font-size:16px;transition:.15s}
@@ -136,7 +141,7 @@
     background:var(--panel-2);border:1px solid var(--line);color:var(--text);transition:.15s}
   .disc-row button:hover{border-color:var(--accent);color:var(--accent-2)}
   .disc-msg{font-size:13px;margin-top:8px;min-height:1em}
-  .disc-msg.ok{color:var(--ok)} .disc-msg.err{color:#fca5a5}
+  .disc-msg.ok{color:var(--ok)} .disc-msg.err{color:var(--warn)}
   .disc-line{display:flex;justify-content:space-between;align-items:center;margin-top:14px;
     color:var(--ok);font-size:14px;font-weight:600}
   /* 試算結果彈窗 */
@@ -149,8 +154,7 @@
   .rm-x{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;line-height:1}
   .rm-x:hover{color:var(--text)}
   .rm-head{text-align:center;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:16px}
-  .rm-logo{font-weight:800;font-size:15px;letter-spacing:.5px;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .rm-logo{font-weight:800;font-size:15px;letter-spacing:.5px;color:var(--accent)}
   .rm-head h3{font-size:22px;margin:6px 0 4px}
   .rm-date{font-size:12.5px;color:var(--muted)}
   .rm-items{font-size:14px;max-height:38vh;overflow:auto}
@@ -169,8 +173,8 @@
   /* 卡片內的次級小標（加購區的「加急製作」用） */
   .sub-head{font-size:17px;font-weight:600;margin:20px 0 2px;padding-top:18px;
     border-top:1px solid var(--line);display:flex;align-items:center;gap:8px}
-  .sub-head::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+  .sub-head::before{content:"";width:7px;height:7px;border-radius:2px;transform:rotate(45deg);flex:none;
+    background:var(--accent)}
   .rush-note{color:var(--muted);font-size:14px;margin-bottom:6px}
 
   /* 委託須知閘門遮罩（未同意時覆蓋整頁） */
@@ -181,9 +185,7 @@
   .tg-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;
     max-width:430px;width:100%;padding:32px 28px;text-align:center;
     box-shadow:0 30px 80px rgba(0,0,0,.6);animation:rmIn .35s cubic-bezier(.16,.8,.3,1)}
-  .tg-card .tg-logo{font-weight:800;font-size:15px;letter-spacing:.5px;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));
-    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .tg-card .tg-logo{font-weight:800;font-size:15px;letter-spacing:.5px;color:var(--accent)}
   .tg-card h2{font-size:21px;margin:10px 0 12px}
   .tg-card p{color:var(--muted);font-size:15.5px;line-height:1.8;margin-bottom:22px}
   .tg-card .btn{display:block;width:100%;margin-top:10px}
@@ -212,6 +214,10 @@
 <nav class="nav"><div class="nav-inner">
   <span class="brand">RimoStudio</span>
   <div class="lang-switch"><button data-lang-btn="zh">中</button><button data-lang-btn="ja">日</button></div>
+  <button class="theme-toggle" data-theme-toggle aria-label="切換深色主題" aria-pressed="false">
+    <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+    <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
   <button class="nav-toggle" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="index.html" data-i18n="nav.home">首頁</a>
@@ -353,7 +359,8 @@
 const PLANS = [
   {id:'none',    name:'不選方案（只加購）',  price:0,    note:'僅計算下方加購項目'},
   {id:'upload',  name:'代客上傳',           price:250,  note:'僅上傳模型，不含任何修改及保固'},
-  {id:'oc',      name:'特殊方案',           price:4500, from:true, note:'風格 / OC人物，可提供工程檔，含保固 1 個月'},
+  {id:'eng',     name:'工程方案',           price:4500, from:true, note:'風格 / OC人物，提供工程檔，含保固 1 個月'},
+  {id:'oc',      name:'OC方案',             price:3500, from:true, note:'風格 / OC人物，不提供工程檔，含保固 1 個月'},
   {id:'friendly',name:'友好方案',           price:1200, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×2 / 無保固'},
   {id:'value',   name:'超值方案',           price:2100, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×5 / 簡易改色×1 / 保固1個月'},
   {id:'discount',name:'優惠方案',           price:2700, note:'模型×1 / 衣服×1 / 頭髮×1 / 按鈕×8 / 簡易改色×1 / 臉型×1 / 保固2個月'},
@@ -417,10 +424,12 @@ const $ = s => document.querySelector(s);
 const JA = {
   // 方案
   '不選方案（只加購）':'プランなし（追加のみ）','代客上傳':'アップロード代行',
-  '特殊方案':'特別プラン','友好方案':'フレンドプラン',
+  '工程方案':'エンジニアリングプラン','OC方案':'OC プラン','友好方案':'フレンドプラン',
   '超值方案':'お得プラン','優惠方案':'割引プラン','安心方案':'安心プラン',
   '僅計算下方加購項目':'下記の追加項目のみ計算','僅上傳模型，不含任何修改及保固':'モデルのアップロードのみ。修正・保証は含みません',
-  '風格 / OC人物，可提供工程檔，含保固 1 個月':'スタイル / OC キャラ、作業ファイル提供可、保証1か月付き',
+  '風格 / OC人物，提供工程檔，含保固 1 個月':'スタイル / OC キャラ、作業ファイル提供、保証1か月付き',
+  '風格 / OC人物，不提供工程檔，含保固 1 個月':'スタイル / OC キャラ、作業ファイル提供なし、保証1か月付き',
+  '方案內容':'プラン内容',
   '模型×1 / 衣服×1 / 頭髮×1 / 按鈕×2 / 無保固':'モデル×1 / 衣装×1 / 髪型×1 / ボタン×2 / 保証なし',
   '模型×1 / 衣服×1 / 頭髮×1 / 按鈕×5 / 簡易改色×1 / 保固1個月':'モデル×1 / 衣装×1 / 髪型×1 / ボタン×5 / 簡易色替え×1 / 保証1か月',
   '模型×1 / 衣服×1 / 頭髮×1 / 按鈕×8 / 簡易改色×1 / 臉型×1 / 保固2個月':'モデル×1 / 衣装×1 / 髪型×1 / ボタン×8 / 簡易色替え×1 / 顔型×1 / 保証2か月',
@@ -643,7 +652,11 @@ function recalc(){
   const add=(name,amt,from)=>{ lines.push({name,amt,from}); total+=amt; if(from)hasFrom=true; };
 
   const plan = PLANS.find(p=>p.id===state.plan);
-  if(plan && plan.price>0) add(plan.name, plan.price, plan.from);
+  if(plan && plan.price>0){
+    add(plan.name, plan.price, plan.from);
+    // 方案內容（保固、附帶衣服/頭髮等）以子項顯示，讓顧客清楚方案已包含什麼
+    if(plan.note) lines.push({name:`${t('方案內容')}：${plan.note}`, incl:true});
+  }
 
   const allCounters = [...MAIN, ...BOOTH, ...UTIL.filter(x=>x.type!=='baseCounter')];
   allCounters.forEach(it=>{
@@ -679,7 +692,9 @@ function recalc(){
   }
 
   $('#items').innerHTML = lines.length
-    ? lines.map(l=>`<div class="li"><span class="n">${l.name}${l.from?'<span class="badge">'+t('起')+'</span>':''}</span><span>$${l.amt.toLocaleString()}</span></div>`).join('')
+    ? lines.map(l=> l.incl
+        ? `<div class="li incl"><span class="n">${l.name}</span></div>`
+        : `<div class="li"><span class="n">${l.name}${l.from?'<span class="badge">'+t('起')+'</span>':''}</span><span>$${l.amt.toLocaleString()}</span></div>`).join('')
     : '<div class="empty">'+t('尚未選擇任何項目')+'</div>';
 
   // 折扣
@@ -786,7 +801,10 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeResult(); })
 function buildResultText(){
   const s = state.summary; if(!s) return '';
   let out = t('【RimoStudio 委託試算】') + '\n';
-  s.lines.forEach(l=>{ out += '・' + l.name + '  $' + l.amt.toLocaleString() + (l.from?t('起'):'') + '\n'; });
+  s.lines.forEach(l=>{
+    if(l.incl){ out += '　' + l.name + '\n'; return; }
+    out += '・' + l.name + '  $' + l.amt.toLocaleString() + (l.from?t('起'):'') + '\n';
+  });
   if(s.discountAmt>0 && s.discount){
     const d = s.discount;
     out += t('折扣') + ' ' + d.code + '（' + (d.type==='percent' ? d.value+'%' : t('折抵$')+d.value) + '）  -$' + s.discountAmt.toLocaleString() + '\n';
@@ -840,7 +858,7 @@ document.addEventListener('rimo:lang', function(e){
 });
 </script>
 <!-- 進場動畫（共用） -->
-<script src="assets/app.js?v=3"></script>
-<script src="assets/i18n.js?v=5"></script>
+<script src="assets/app.js?v=4"></script>
+<script src="assets/i18n.js?v=8"></script>
 </body>
 </html>

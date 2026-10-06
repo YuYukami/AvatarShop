@@ -18,9 +18,10 @@ window.I18N = {
     'nav.estimate': '料金見積り',
 
     /* 首頁 Hero */
-    'hero.tag': '✦ VRChat アバターのカスタマイズ',
+    'hero.tag': 'VRChat アバターのカスタマイズ',
     'hero.h1': 'あなただけの<br>オリジナルアバターを',
-    'hero.p1': 'RimoStudio は VRChat アバターのカスタマイズサービスを提供しています ——',
+    'hero.badge': 'VRChat <span>Avatar Studio</span>',
+    'hero.p1': 'RimoStudio は VRChat アバターのカスタマイズサービスを提供しています。',
     'hero.p2': '衣装・髪型・機能導入・顔型など、幅広いカスタマイズであなたのアバターを唯一無二に。',
     'hero.btn1': '料金見積りを始める →',
     'hero.btn2': '作品を見る',
@@ -73,6 +74,11 @@ window.I18N = {
     'sec.schedule': '制作スケジュール',
     'schedule.lead': '現在の制作・空き状況。',
 
+    /* 工作室實績 */
+    'stats.done': '累計依頼',
+    'stats.wip': '制作中',
+    'stats.queue': '順番待ち',
+
     /* 頁尾 */
     'footer.estimate': '料金見積り',
 
@@ -113,7 +119,7 @@ window.I18N = {
     'terms.li7': '前金<span class="hl">（全額の50%）</span>または全額のお支払い後に着手します。1体あたり約1週間で完成します<span class="hl">（土・日を除く）</span>',
     'terms.li8': '開始前であればキャンセル可能ですが、開始後はキャンセル料（前金）を頂きます！<br><span class="warn">（制作開始 1日目 前金50%、2日目 80%、3日目 100%）</span>',
     'terms.li9': '<span class="hl">VRC アカウント／パスワード</span>をご提供いただき、こちらでアップロードを代行します。',
-    'terms.li10': 'ほとんどのプランでは〔完成／未完成〕の作業ファイルは提供しておらず、特別プランのみ提供します！',
+    'terms.li10': 'ほとんどのプランでは〔完成／未完成〕の作業ファイルは提供しておらず、エンジニアリングプランのみ提供します！',
     'terms.li11': '<span class="warn">当スタジオが制作したモデルの共有を禁止します。</span>',
     'terms.li12': '当スタジオは以上すべての規約について最終解釈権を有します。',
     'terms.agree': '上記すべての規約を読み、同意します',

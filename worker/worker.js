@@ -93,6 +93,19 @@ export default {
       return json({ ok: true, code, type: d.type, value: d.value, label: d.label || '' });
     }
 
+    /* 公開：首頁實績數字（首頁呼叫，無需密碼） */
+    if (path === '/api/status' && request.method === 'GET') {
+      const raw = await env.CODES.get('status');
+      const d = raw ? JSON.parse(raw) : {};
+      return json({
+        ok: true,
+        done: d.done != null ? d.done : null,
+        wip: d.wip != null ? d.wip : null,
+        queue: d.queue != null ? d.queue : null,
+        updated: d.updated || 0,
+      });
+    }
+
     /* 管理 API（需密碼） */
     if (path.startsWith('/api/admin/')) {
       if (!authed(request, env)) {
@@ -150,6 +163,27 @@ export default {
         return json({ ok: true });
       }
 
+      /* 更新首頁狀態數字（空白＝維持原值；更新時間自動蓋上） */
+      if (path === '/api/admin/status' && request.method === 'POST') {
+        const body = await request.json().catch(() => ({}));
+        const cur = JSON.parse((await env.CODES.get('status')) || '{}');
+        const num = (v, def) => {
+          if (v === '' || v == null) return def;
+          return Math.max(0, Math.min(99999, parseInt(v, 10) || 0));
+        };
+        const data = {
+          // 已累積委託允許符號（例如 "800+"），存為字串
+          done: (body.done != null && String(body.done).trim() !== '')
+            ? String(body.done).trim().slice(0, 10)
+            : (cur.done != null ? cur.done : ''),
+          wip: num(body.wip, cur.wip != null ? cur.wip : 0),
+          queue: num(body.queue, cur.queue != null ? cur.queue : 0),
+          updated: Date.now(),
+        };
+        await env.CODES.put('status', JSON.stringify(data));
+        return json({ ok: true, ...data });
+      }
+
       return json({ ok: false, error: 'not found' }, 404);
     }
 
@@ -202,6 +236,18 @@ th{color:var(--muted);font-weight:600}
 
 <div id="app">
   <div class="card">
+    <h3>首頁狀態數字 <span style="font-size:13px;color:var(--muted)">（儲存後首頁自動更新，含最後更新時間）</span></h3>
+    <div class="row">
+      <div><label>已累積委託</label><input type="text" id="sDone" placeholder="例如 800+"></div>
+      <div><label>目前製作中</label><input type="number" id="sWip" placeholder="例如 5"></div>
+      <div><label>排單中</label><input type="number" id="sQueue" placeholder="例如 3"></div>
+    </div>
+    <div style="margin-top:14px"><button id="saveStatus">儲存並更新首頁</button>
+      <span style="font-size:13px;color:var(--muted);margin-left:10px" id="statusUpd"></span></div>
+    <div class="msg" id="statusMsg"></div>
+  </div>
+
+  <div class="card">
     <h3>產生新代碼</h3>
     <div class="row">
       <div><label>折扣類型</label>
@@ -230,10 +276,29 @@ function api(path,body){
 document.getElementById('loginBtn').onclick=function(){
   PW=document.getElementById('pw').value;
   api('/api/admin/list').then(function(d){
-    if(d&&d.ok){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';render(d.items);}
+    if(d&&d.ok){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';render(d.items);loadStatus();}
     else if(d&&d.error==='rate_limited'){document.getElementById('loginMsg').textContent='嘗試次數過多，請稍候 1 分鐘再試';}
     else{document.getElementById('loginMsg').textContent='密碼錯誤';}
   }).catch(function(){document.getElementById('loginMsg').textContent='連線失敗';});
+};
+/* 首頁狀態：載入目前值 + 儲存 */
+function setVal(id,v){var e=document.getElementById(id);if(e&&v!=null)e.value=v;}
+function showUpd(ts){
+  var e=document.getElementById('statusUpd');if(!e)return;
+  e.textContent=ts?('最後更新：'+new Date(ts).toLocaleString('zh-TW')):'尚未設定';
+}
+function loadStatus(){
+  api('/api/status').then(function(s){
+    if(s&&s.ok){setVal('sDone',s.done);setVal('sWip',s.wip);setVal('sQueue',s.queue);showUpd(s.updated);}
+  });
+}
+document.getElementById('saveStatus').onclick=function(){
+  var body={done:document.getElementById('sDone').value,wip:document.getElementById('sWip').value,queue:document.getElementById('sQueue').value};
+  api('/api/admin/status',body).then(function(d){
+    var m=document.getElementById('statusMsg');
+    if(d&&d.ok){m.className='msg ok';m.textContent='\\u2713 已更新，首頁重新整理即可看到';showUpd(d.updated);}
+    else{m.className='msg err';m.textContent='\\u2717 儲存失敗';}
+  });
 };
 document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('loginBtn').click();});
 document.getElementById('createBtn').onclick=function(){
